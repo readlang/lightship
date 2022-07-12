@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
 
+  # log in / log out actions
   post "/signup", to: "users#create" # new signup
   get "/me", to: "users#show" # return visit check session cookie
 
   post "/login", to: "sessions#create" # explicit login
   delete "/logout", to: "sessions#destroy" # log out
 
+
   get "/users", to: "users#index"
+  patch "/users/:id", to: "users#update"
 
 
   
