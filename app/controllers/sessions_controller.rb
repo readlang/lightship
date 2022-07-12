@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
-    # skip_before_action :authorize, only: [:create]
+    skip_before_action :authorize, only: [:create]
 
-    # post "/login", to: "sessions#create" # explicit login
+    # post "/login", to: "sessions#create" # explicit login and create session cookie
     def create
         user = User.find_by(username: params[:username])
         if user&.authenticate(params[:password])

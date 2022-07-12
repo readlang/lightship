@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    skip_before_action :authorize, only: [ :create, :show ]
 
     # post "/signup"
     def create
@@ -36,5 +37,4 @@ class UsersController < ApplicationController
     def edit_params
         params.permit(:password, :password_confirmation, :email,:profile_image, :city, :state, :country )
     end
-
 end
