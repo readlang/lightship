@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  resources :actions
+  resources :tracks
+  resources :memberships
+  resources :groups
+  resources :messages
+
   # log in / log out actions
   post "/signup", to: "users#create" # new signup
   get "/me", to: "users#show" # return visit check session cookie
