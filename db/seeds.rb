@@ -33,23 +33,39 @@ Group.create!([
     { group_name: "Meditate for Mindfulness", description: "be more present in life", owner_id: 5 }
 ])
 
-# this is flawed because one user may land up in a group twice (two memberships may be identical)
+# puts each user in a membership with two different groups (1 - 5)
 Membership.destroy_all
 ActiveRecord::Base.connection.reset_pk_sequence!('memberships')
-for i in 1..10 do
-    Membership.create!([
-        {user_id: i, group_id: 1 + rand(5) },
-        {user_id: i, group_id: 1 + rand(5) }
-    ])
-end
-
-# this Message seed is flawed, because the seeded message author might not be a member of the group that the message is located in
 Message.destroy_all
 ActiveRecord::Base.connection.reset_pk_sequence!('messages')
-50.times do
-    Message.create!([
-        {user_id: 1 + rand(10), group_id: 1 + rand(5), text: Faker::Quotes::Shakespeare.hamlet_quote }
+Track.destroy_all
+ActiveRecord::Base.connection.reset_pk_sequence!('tracks')
+Action.destroy_all
+ActiveRecord::Base.connection.reset_pk_sequence!('actions')
+
+for id in 1..10 do
+    random_number = 1 + rand(3) # creates random number 1-3
+    Membership.create!([
+        {user_id: id, group_id: random_number },
+        {user_id: id, group_id: random_number + 2 }
     ])
+
+    Track.create!([
+        {user_id: id, title: "Exercise", activity: "Run", minmax: "at least", number: 1, unit: "mile", interval: "per day", notes: "i am pumped", group_id: (random_number + (2 * rand(2))) },
+        {user_id: id, title: "Rest", activity: "Sleep", minmax: "at least", number: 8, unit: "hours", interval: "per day", notes: "this will improve my life", group_id: (random_number + (2 * rand(2))) },
+    ])
+
+    Action.create!([
+        {track_id: (2 * id - 1), number: (rand(3) + 1), comment: "I so tired!" },
+        {track_id: (2 * id - 0), number: (rand(3) + 7), comment: "I'm so well rested" }
+    ])
+
+    5.times do
+        Message.create!([
+            {user_id: id, group_id: (random_number + (2 * rand(2))), text: Faker::Quotes::Shakespeare.hamlet_quote }
+        ])
+    end
+
 end
 
 
