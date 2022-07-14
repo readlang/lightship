@@ -7,15 +7,13 @@
 
 require 'faker'
 
-print "Destroying current database records  "
-User.destroy_all
-
-print "Resetting PK sequence to start at 1  "
-ActiveRecord::Base.connection.reset_pk_sequence!('users')
-
+print "Destroys current database records & resets PK sequence to start at 1 "
 print "Seeding...  "
+
 default_password = BCrypt::Password.create('1234')
 
+User.destroy_all
+ActiveRecord::Base.connection.reset_pk_sequence!('users')
 10.times do
     first_name = Faker::Name.first_name
     User.create!([
@@ -25,16 +23,34 @@ default_password = BCrypt::Password.create('1234')
     ])    
 end
 
-print "Seeding Done!  "
+Group.destroy_all
+ActiveRecord::Base.connection.reset_pk_sequence!('groups')
+Group.create!([
+    { group_name: "Get in Shape!", description: "Friends support friends in exercise", owner_id: 1 },
+    { group_name: "Sleep", description: "Share sleep tips and accountability", owner_id: 2 },
+    { group_name: "Stop smoking", description: "Help stop smoking", owner_id: 3 },
+    { group_name: "Alcohol reduction", description: "drink less for healthier living and better sleep", owner_id: 4 },
+    { group_name: "Meditate for Mindfulness", description: "be more present in life", owner_id: 5 }
+])
 
-# create_table "users", force: :cascade do |t|
-#     t.string "username"
-#     t.string "password_digest"
-#     t.string "email"
-#     t.string "profile_image"
-#     t.string "city"
-#     t.string "state"
-#     t.string "country"
-#     t.datetime "created_at", precision: 6, null: false
-#     t.datetime "updated_at", precision: 6, null: false
-# end
+# this is flawed because one user may land up in a group twice (two memberships may be identical)
+Membership.destroy_all
+ActiveRecord::Base.connection.reset_pk_sequence!('memberships')
+for i in 1..10 do
+    Membership.create!([
+        {user_id: i, group_id: 1 + rand(5) },
+        {user_id: i, group_id: 1 + rand(5) }
+    ])
+end
+
+# this Message seed is flawed, because the seeded message author might not be a member of the group that the message is located in
+Message.destroy_all
+ActiveRecord::Base.connection.reset_pk_sequence!('messages')
+50.times do
+    Message.create!([
+        {user_id: 1 + rand(10), group_id: 1 + rand(5), text: Faker::Quotes::Shakespeare.hamlet_quote }
+    ])
+end
+
+
+print "Seeding Done!  "
