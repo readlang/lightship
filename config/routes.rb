@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :actions
   resources :tracks
-  resources :memberships
   resources :groups
+  resources :memberships
   resources :messages
+  resources :actions
 
   # log in / log out actions
   post "/signup", to: "users#create" # new signup
