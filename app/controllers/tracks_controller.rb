@@ -1,4 +1,5 @@
 class TracksController < ApplicationController
+    skip_before_action :authorize # delete before deploying!
 
     # get /things
     def index
@@ -12,7 +13,7 @@ class TracksController < ApplicationController
 
     # post /things
     def create
-        render json: Track.create!(track_params), status: :created
+        render json: Track.create!(create_params), status: :created
     end
 
     # patch or put /things/:id
@@ -31,7 +32,7 @@ class TracksController < ApplicationController
 
     private
 
-    def track_params
+    def create_params
         params.permit(:user_id, :title, :activity, :minmax, :number, :unit, :interval, :notes, :group_id)
     end
 
