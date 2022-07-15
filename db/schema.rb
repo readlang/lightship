@@ -17,7 +17,9 @@ ActiveRecord::Schema.define(version: 2022_07_13_211904) do
 
   create_table "actions", force: :cascade do |t|
     t.integer "track_id"
+    t.datetime "date_time"
     t.float "number"
+    t.integer "difficulty"
     t.string "comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
