@@ -1,29 +1,39 @@
 class TracksController < ApplicationController
     skip_before_action :authorize # delete before deploying!
 
-    # get /things
+    # get /tracks
     def index
         render json: Track.all, status: :ok
     end
 
-    # get /things/:id
+    # get /tracks/:id
     def show
         render json: Track.find_by!(id: params[:id]), status: :ok
     end
 
-    # post /things
+    # get /users/:id/tracks
+    def show_for_user
+        render json: User.find_by!(id: params[:id]).tracks, status: :ok
+    end
+
+    # get /users/:id/tracks
+    def show_for_group
+        render json: Group.find_by!(id: params[:id]).tracks, status: :ok
+    end
+
+    # post /tracks
     def create
         render json: Track.create!(create_params), status: :created
     end
 
-    # patch or put /things/:id
+    # patch or put /tracks/:id
     def update
         track = Track.find_by!(id: params[:id])
         track.update!(edit_params)
         render json: track, status: :ok
     end
 
-    # delete /things/:id
+    # delete /tracks/:id
     def destroy
         track = Track.find_by!(id: params[:id])
         track.destroy

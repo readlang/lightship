@@ -11,6 +11,16 @@ class GroupsController < ApplicationController
         render json: Group.find_by!(id: params[:id]), status: :ok
     end
 
+    # get /users/:id/groups
+    def show_for_user
+        render json: User.find_by!(id: params[:id]).groups, status: :ok
+    end
+
+    # get /users/:id/owned_groups
+    def show_for_owner
+        render json: User.find_by!(id: params[:id]).owned_groups, status: :ok
+    end
+
     # post /things
     def create
         render json: Group.create!(create_params), status: :created

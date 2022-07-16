@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    skip_before_action :authorize, only: [ :create, :show, :index ]
+    skip_before_action :authorize
 
     # post "/signup"
     def create
@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     end
 
     # get "/me"
-    def show
+    def show_me
         new_user = User.find_by(id: session[:user_id])
         if new_user
             render json: new_user
@@ -23,8 +23,18 @@ class UsersController < ApplicationController
         render json: User.all, status: :ok
     end
 
+    # get "/users/:id"
+    def show
+        render json: User.find_by!(id: params[:id]), status: :ok
+    end
+
+    # get /groups/:id/users
+    def show_for_group
+        render json: Group.find_by!(id: params[:id]).users, status: :ok
+    end
+
     def update
-        user = User.find_by(id: params[:id])
+        user = User.find_by!(id: params[:id])
         user.update!(edit_params)
         render json: user, status: :ok
     end

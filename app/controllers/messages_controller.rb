@@ -11,6 +11,10 @@ class MessagesController < ApplicationController
         render json: Message.find_by!(id: params[:id]), status: :ok
     end
 
+    def show_for_group
+        render json: Group.find_by!(id: params[:id]).messages, status: :ok
+    end
+
     # post /things
     def create
         render json: Message.create!(create_params), status: :created
