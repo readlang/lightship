@@ -1,9 +1,9 @@
 class MessageSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :group_id, :text, :user
+  attributes :id, :user_id, :group_id, :text, :username
 
   # belongs_to :user
 
-  def user
+  def username
     object.user.username
   end
 

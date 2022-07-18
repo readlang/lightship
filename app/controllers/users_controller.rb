@@ -18,6 +18,11 @@ class UsersController < ApplicationController
         end
     end
 
+    # get /groups/:id/users
+    def show_for_group
+        render json: Group.find_by!(id: params[:id]).users, status: :ok
+    end
+
     # get "/users"
     def index
         render json: User.all, status: :ok
@@ -28,15 +33,18 @@ class UsersController < ApplicationController
         render json: User.find_by!(id: params[:id]), status: :ok
     end
 
-    # get /groups/:id/users
-    def show_for_group
-        render json: Group.find_by!(id: params[:id]).users, status: :ok
-    end
-
+    # patch "/users/:id"
     def update
         user = User.find_by!(id: params[:id])
         user.update!(edit_params)
         render json: user, status: :ok
+    end
+
+    # delete "/users/:id" - NOT SURE this should be allowed...
+    def destroy
+        user = User.find_by!(id: params[:id])
+        user.destroy
+        render json: {deleted: user}, status: :ok
     end
 
     private
