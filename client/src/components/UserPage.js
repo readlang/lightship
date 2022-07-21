@@ -1,4 +1,7 @@
 import {useState} from "react";
+import {useDispatch} from "react-redux"
+import {loadUser} from '../slices/userSlice'
+
 import styled from "styled-components";
 import logo from "../assets/LS_logo_400.png";
 import LogInForm from "./LogInForm"
@@ -32,41 +35,17 @@ const Img = styled.img`
   height: 360px;
 `
 
-function UserPage ({user, setUser}) {
+function UserPage () {
+  const dispatch = useDispatch()
   const [showLogIn, setShowLogIn] = useState(true);
-
-  function handleLogIn (username, password) {
-    fetch("/login", {
-      method: 'post',
-      headers: {'content-type': 'application/json'},
-      body: JSON.stringify({username: username, password: password})
-    })
-    .then(r=>r.json())
-    .then(data => {
-      setUser(data)
-    })
-  }
-  
-  function handleSignUp( username, password, passwordConfirm, email, profileImage, city, state, country) {
-    fetch("/signup", {
-      method: "post",
-      headers: {'content-type': 'application/json'},
-      body: JSON.stringify({username: username, password: password, 
-        password_confirmation: passwordConfirm, email: email, profile_image: profileImage, 
-        city: city, state: state, country: country})
-    })
-    .then(r=> r.json())
-    .then(data => console.log(data))
-
-  }
 
   return(
     <ViewPort>
       <Centered>
           <Sized400><Img src={logo} alt="logo" /> </Sized400>
           <Sized400>{showLogIn ? 
-            <LogInForm handleLogIn={handleLogIn} setShowLogIn={setShowLogIn} /> :
-            <SignUpForm handleSignUp={handleSignUp} setShowLogIn={setShowLogIn} />}
+            <LogInForm setShowLogIn={setShowLogIn} /> :
+            <SignUpForm setShowLogIn={setShowLogIn} />}
           </Sized400>
       </Centered>
     </ViewPort>

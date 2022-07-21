@@ -1,8 +1,11 @@
 import {useState} from "react"
+import {useDispatch} from "react-redux"
+import {loadUser} from '../slices/userSlice'
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-function SignUpForm({handleSignUp, setShowLogIn}) {
+function SignUpForm({setShowLogIn}) {
+    const dispatch = useDispatch()
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [passwordConfirm, setPasswordConfirm] = useState("")
@@ -14,7 +17,15 @@ function SignUpForm({handleSignUp, setShowLogIn}) {
 
     function handleSubmit(event) {
         event.preventDefault()
-        handleSignUp( username, password, passwordConfirm, email, profileImage, city, state, country)
+        fetch("/signup", {
+            method: "post",
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({username: username, password: password, 
+              password_confirmation: passwordConfirm, email: email, profile_image: profileImage, 
+              city: city, state: state, country: country})
+        })
+        .then(r => r.json())
+        .then(d => dispatch(loadUser(d)) )
     }
 
     return(

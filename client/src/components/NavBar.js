@@ -1,7 +1,7 @@
 import {useSelector, useDispatch} from "react-redux"
+import {loadUser} from '../slices/userSlice'
 import styled from "styled-components";
 import Button from "react-bootstrap/Button"
-import {loadUser} from '../slices/userSlice'
 
 const Bar = styled.div`
     height: 60px;
@@ -12,23 +12,25 @@ const Img = styled.img`
     height: 100%;
 `
 
-function NavBar({user, logOut}) {
-    
-    const count = useSelector((state)=>state.counter.value)
-    const reduxUser = useSelector((state)=>state.user.value)
+function NavBar() {
     const dispatch = useDispatch()
+    const count = useSelector((state)=>state.counter.value) // accesses state value and assigns count variable
+    const user = useSelector((state)=>state.user.value) // accesses state
 
-    console.log(reduxUser)
+    function logOut() {
+        fetch("/logout", {
+          method: 'delete',
+          headers: {'content-type': 'application/json'}
+        })
+        .then( dispatch(loadUser({})) )
+    }
 
-    dispatch(loadUser(user))
-
+    console.log("redux user:", user)
 
     return(
         <Bar>
             This is the NavBar.  Hello user = {user.username}. &emsp; Count = {count} &emsp;
-            reduxUser: {reduxUser.username}
             <Img src={user.profile_image} alt="profileimage"></Img>
-            <Button onClick={() =>dispatch(loadUser(user)) } >LoadUser</Button>
             <Button onClick={logOut} >Logout</Button>
         </Bar>
     )

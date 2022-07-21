@@ -1,37 +1,32 @@
 import {Switch, Route} from "react-router-dom" // version 5
-import {useState, useEffect} from "react"
+import {useEffect} from "react"
+import {useDispatch, useSelector} from "react-redux"
+import {loadUser} from '../slices/userSlice'
 
 import UserPage from "./UserPage"
 import NavBar from "./NavBar"
 import Home from "./Home"
 
 function App() {
-  const [user, setUser] = useState({})
+  const user = useSelector((state)=>state.user.value)
+  const dispatch = useDispatch()
   
   useEffect(() => {
     fetch("/me")
-    .then(r=> r.json())
-    .then(d=>setUser(d))
-  }, [])
-
-  function logOut() {
-    fetch("/logout", {
-      method: 'delete',
-      headers: {'content-type': 'application/json'}
-    })
-    .then(setUser({}))
-  }
+    .then(r => r.json())
+    .then(d => dispatch(loadUser(d)) )
+  }, [dispatch])
 
   if ( !user.id ) {
-    return ( <UserPage user={user} setUser={setUser}/> )
+    return <UserPage/>
   } else {
     return (
       <>
-        <NavBar user={user} logOut={logOut} />
+        <NavBar/>
         <Switch>
 
           <Route exact path="/" >
-            <Home />
+            <Home/>
           </Route>
 
           <Route exact path="/counter">

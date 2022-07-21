@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {decrement, increment, incrementByAmount} from '../slices/counterSlice'
 
 function Home(){

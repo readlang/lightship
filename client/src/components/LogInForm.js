@@ -1,18 +1,26 @@
 import {useState} from "react"
+import {useDispatch} from "react-redux"
+import {loadUser} from '../slices/userSlice'
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-function LogInForm({handleLogIn, setShowLogIn}) {
+function LogInForm({setShowLogIn}) {
+  const dispatch = useDispatch()
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
 
   function handleSubmit(e) {
     e.preventDefault()
-    handleLogIn( username, password )
+    fetch("/login", {
+      method: 'post',
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify({username: username, password: password})
+    })
+    .then(r =>r.json())
+    .then(d => dispatch(loadUser(d)) )
   }
 
   return(
-    
     <Form onSubmit={handleSubmit} >
       <Form.Label>Please log in</Form.Label>
       <Form.Group className="mb-3" controlId="formBasicInput" >
