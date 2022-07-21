@@ -9,8 +9,8 @@ function LogInForm({setShowLogIn}) {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
 
-  function handleSubmit(e) {
-    e.preventDefault()
+  function handleSubmit(event) {
+    event.preventDefault()
     fetch("/login", {
       method: 'post',
       headers: {'content-type': 'application/json'},

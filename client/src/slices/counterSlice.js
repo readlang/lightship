@@ -1,10 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 export const counterSlice = createSlice({
-  // name of "slice" of the store - a piece of the larger store
-  // comprised of the initial state and reducers which are actions defining how the state should change
-
-  name: 'counter', 
+    name: 'counter', 
 
   initialState: {
     value: 0,
@@ -25,7 +22,6 @@ export const counterSlice = createSlice({
       state.value += action.payload
     },
   },
-
 })
   
 // Action creators are generated for each case reducer function

@@ -14,8 +14,7 @@ const Img = styled.img`
 
 function NavBar() {
     const dispatch = useDispatch()
-    const count = useSelector((state)=>state.counter.value) // accesses state value and assigns count variable
-    const user = useSelector((state)=>state.user.value) // accesses state
+    const user = useSelector((state)=>state.user.value) 
 
     function logOut() {
         fetch("/logout", {
@@ -25,11 +24,11 @@ function NavBar() {
         .then( dispatch(loadUser({})) )
     }
 
-    console.log("redux user:", user)
+    console.log("redux user:", useSelector((state)=>state.user.value) )
 
     return(
         <Bar>
-            This is the NavBar.  Hello user = {user.username}. &emsp; Count = {count} &emsp;
+            This is the NavBar.  Hello user = {user.username}. &emsp; 
             <Img src={user.profile_image} alt="profileimage"></Img>
             <Button onClick={logOut} >Logout</Button>
         </Bar>

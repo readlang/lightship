@@ -1,6 +1,4 @@
 import {useState} from "react";
-import {useDispatch} from "react-redux"
-import {loadUser} from '../slices/userSlice'
 
 import styled from "styled-components";
 import logo from "../assets/LS_logo_400.png";
@@ -36,7 +34,6 @@ const Img = styled.img`
 `
 
 function UserPage () {
-  const dispatch = useDispatch()
   const [showLogIn, setShowLogIn] = useState(true);
 
   return(
