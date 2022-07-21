@@ -1,19 +1,18 @@
 import {Switch, Route} from "react-router-dom" // version 5
 import {useState, useEffect} from "react"
-import Button from "react-bootstrap/esm/Button"
+
 import UserPage from "./UserPage"
 import NavBar from "./NavBar"
+import Home from "./Home"
 
 function App() {
   const [user, setUser] = useState({})
-
+  
   useEffect(() => {
     fetch("/me")
     .then(r=> r.json())
     .then(d=>setUser(d))
   }, [])
-
-  console.log(user)
 
   function logOut() {
     fetch("/logout", {
@@ -24,25 +23,19 @@ function App() {
   }
 
   if ( !user.id ) {
+    return ( <UserPage user={user} setUser={setUser}/> )
+  } else {
     return (
       <>
-        <UserPage user={user} setUser={setUser}/>
-      </>
-    );
-  } else {
-    return(
-      <>
-        <NavBar user={user} />
-        <h1>Hello World you have logged in </h1>
-        <Button onClick={logOut} >Logout</Button>
+        <NavBar user={user} logOut={logOut} />
         <Switch>
-          
+
           <Route exact path="/" >
-            <div>Home</div>
+            <Home />
           </Route>
 
-          <Route exact path="/tracks">
-            <div>tracks</div>
+          <Route exact path="/counter">
+            <>Hello</>
           </Route>
 
         </Switch>
