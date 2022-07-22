@@ -1,6 +1,6 @@
 import {useState} from "react"
 import {useDispatch} from "react-redux"
-import {loadUser} from '../slices/userSlice'
+import {userFetchLogIn} from '../slices/userSlice'
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
@@ -11,13 +11,7 @@ function LogInForm({setShowLogIn}) {
 
   function handleSubmit(event) {
     event.preventDefault()
-    fetch("/login", {
-      method: 'post',
-      headers: {'content-type': 'application/json'},
-      body: JSON.stringify({username: username, password: password})
-    })
-    .then(r =>r.json())
-    .then(d => dispatch(loadUser(d)) )
+    dispatch(userFetchLogIn(username, password))
   }
 
   return(

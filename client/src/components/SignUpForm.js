@@ -1,6 +1,6 @@
 import {useState} from "react"
 import {useDispatch} from "react-redux"
-import {loadUser} from '../slices/userSlice'
+import {userFetchSignUp} from '../slices/userSlice'
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
@@ -17,15 +17,7 @@ function SignUpForm({setShowLogIn}) {
 
     function handleSubmit(event) {
         event.preventDefault()
-        fetch("/signup", {
-            method: "post",
-            headers: {'content-type': 'application/json'},
-            body: JSON.stringify({username: username, password: password, 
-              password_confirmation: passwordConfirm, email: email, profile_image: profileImage, 
-              city: city, state: state, country: country})
-        })
-        .then(r => r.json())
-        .then(d => dispatch(loadUser(d)) )
+        dispatch(userFetchSignUp(username, password, passwordConfirm, email, profileImage, city, state, country))
     }
 
     return(
