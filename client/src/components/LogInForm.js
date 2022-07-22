@@ -1,6 +1,6 @@
 import {useState} from "react"
 import {useDispatch} from "react-redux"
-import {userFetchLogIn} from '../slices/userSlice'
+import {userLogIn} from '../slices/userSlice'
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
@@ -11,7 +11,7 @@ function LogInForm({setShowLogIn}) {
 
   function handleSubmit(event) {
     event.preventDefault()
-    dispatch(userFetchLogIn(username, password))
+    dispatch(userLogIn(username, password))
   }
 
   return(

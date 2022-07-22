@@ -16,7 +16,9 @@ export const userSlice = createSlice({
 
 export const { loadUser } = userSlice.actions
 
-export const userFetchLogIn = (username, password) => (dispatch) => {
+export default userSlice.reducer
+
+export const userLogIn = (username, password) => (dispatch) => {
     fetch("/login", {
         method: 'post',
         headers: {'content-type': 'application/json'},
@@ -28,7 +30,13 @@ export const userFetchLogIn = (username, password) => (dispatch) => {
     )
 }
 
-export const userFetchSignUp = (
+export const userSessionLogIn = () => (dispatch) => {
+    fetch("/me")
+    .then(resp => resp.json())
+    .then(data => dispatch(loadUser(data)) )
+}
+
+export const userSignUp = (
     username, password, passwordConfirm, email, profileImage, city, state, country
     ) => (dispatch) => {
     fetch("/signup", {
@@ -42,4 +50,10 @@ export const userFetchSignUp = (
     .then(data => dispatch(loadUser(data)) )
 }
 
-export default userSlice.reducer
+export const userLogOut = () => (dispatch) => {
+    fetch("/logout", {
+        method: 'delete',
+        headers: {'content-type': 'application/json'}
+    })
+    .then( dispatch(loadUser({})) )
+}

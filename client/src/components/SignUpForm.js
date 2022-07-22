@@ -1,6 +1,6 @@
 import {useState} from "react"
 import {useDispatch} from "react-redux"
-import {userFetchSignUp} from '../slices/userSlice'
+import {userSignUp} from '../slices/userSlice'
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
@@ -17,7 +17,7 @@ function SignUpForm({setShowLogIn}) {
 
     function handleSubmit(event) {
         event.preventDefault()
-        dispatch(userFetchSignUp(username, password, passwordConfirm, email, profileImage, city, state, country))
+        dispatch(userSignUp(username, password, passwordConfirm, email, profileImage, city, state, country))
     }
 
     return(
