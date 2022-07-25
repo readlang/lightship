@@ -5,7 +5,11 @@ import {userSessionLogIn} from '../slices/userSlice'
 
 import UserPage from "./UserPage"
 import NavBar from "./NavBar"
+import UserEdit from "./UserEdit"
 import Home from "./Home"
+import TrackPage from "./TrackPage"
+//import ActionPage from "./ActionPage"
+import GroupPage from "./GroupPage"
 
 function App() {
   const user = useSelector((state)=>state.user.value)
@@ -27,8 +31,24 @@ function App() {
             <Home/>
           </Route>
 
-          <Route exact path="/counter">
-            <>Hello</>
+          <Route path="/goals">
+            <div>goalpage</div>
+          </Route>
+
+          <Route path="/friends">
+            <div>friendspage</div>
+          </Route>
+
+          <Route path="/tracks">
+            <TrackPage/>
+          </Route>
+
+          <Route path="/groups">
+            <GroupPage/>
+          </Route>
+
+          <Route path="/user-edit">
+            <UserEdit/>
           </Route>
 
         </Switch>
