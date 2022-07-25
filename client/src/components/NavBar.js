@@ -1,28 +1,52 @@
 import {useSelector, useDispatch} from "react-redux"
 import {userLogOut} from '../slices/userSlice'
 import styled from "styled-components";
-import Button from "react-bootstrap/Button"
+import logo from "../assets/LS_logo_300.png";
 
-const Bar = styled.div`
-    height: 60px;
-    background-color: lightgray;
-`
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 const Img = styled.img`
-    height: 100%;
+  height: 50px;
 `
 
 function NavBar() {
-    const dispatch = useDispatch()
-    const user = useSelector((state)=>state.user.value) 
+  const dispatch = useDispatch()
+  const user = useSelector((state)=>state.user.value) 
 
-    return(
-        <Bar>
-            This is the NavBar.  Hello user = {user.username}. &emsp; 
-            <Img src={user.profile_image} alt="profileimage"></Img>
-            <Button onClick={ () => dispatch(userLogOut()) } >Logout</Button>
-        </Bar>
-    )
+  return(
+    <Navbar bg="dark" variant="dark" expand="sm">
+      <Container>
+        <Navbar.Brand href="#home">
+          <Img src={logo} alt="LightShip logo" />
+          &emsp; LightShip</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="#goals">Goals</Nav.Link>
+            <Nav.Link href="#friends">Friends</Nav.Link>
+            <Nav.Link href="#tracks">Tracks</Nav.Link>
+            <Nav.Link href="#groups">Groups</Nav.Link>
+          </Nav>
+          
+          <Nav>
+            <NavDropdown title={`Logged in as ${user.username}`} id="basic-nav-dropdown">
+              <NavDropdown.Item href="#action/3.1">Edit my info</NavDropdown.Item>
+              
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#home" onClick={()=>dispatch(userLogOut())} >
+                Log out
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+
+  )
 }
 
 export default NavBar;
