@@ -10,11 +10,12 @@ export const tracksSlice = createSlice({
 
     reducers: {
         loadUserTracks: (state, action) => {state.userTracks = action.payload},
-        loadGroupTracks: (state, action) => {state.groupTracks = action.payload}
+        loadGroupTracks: (state, action) => {state.groupTracks = action.payload},
+        addUserTrack: (state, action) => { state.userTracks.push(action.payload) } ///
     },
 })
 
-export const { loadUserTracks, loadGroupTracks } = tracksSlice.actions
+export const { loadUserTracks, loadGroupTracks, addUserTrack } = tracksSlice.actions
 
 export default tracksSlice.reducer
 
@@ -30,35 +31,24 @@ export const getTracksForGroup = (groupID) => (dispatch) => {
     .then(data => dispatch(loadGroupTracks(data)))
 }
 
-/*
-
-export const userLogIn = (username, password) => (dispatch) => {
-    fetch("/login", {
+export const createTrack = (
+    user_id, title, activity, minmax, number, unit, interval, notes
+    ) => (dispatch) => {
+    fetch("/tracks", {
         method: 'post',
         headers: {'content-type': 'application/json'},
-        body: JSON.stringify({username: username, password: password})
-    })
-    .then(resp =>resp.json())
-    .then(data => dispatch(loadUser(data)), 
-        // error => dispatch({ type: 'LOAD_DATA_FAILURE', error }) // this is for if rejected...
-    )
-}
-
-
-export const userSignUp = (
-    username, password, passwordConfirm, email, profileImage, city, state, country
-    ) => (dispatch) => {
-    fetch("/signup", {
-        method: "post",
-        headers: {'content-type': 'application/json'},
-        body: JSON.stringify({username: username, password: password, 
-          password_confirmation: passwordConfirm, email: email, profile_image: profileImage, 
-          city: city, state: state, country: country})
+        body: JSON.stringify({user_id: user_id, title: title, activity: activity, minmax: minmax,
+        number: number, unit: unit, interval: interval, notes: notes }) 
     })
     .then(resp => resp.json())
-    .then(data => dispatch(loadUser(data)) )
+    .then(data => dispatch(addUserTrack(data)) ) ///
 }
 
+
+
+
+
+/* DELETE function
 export const userLogOut = () => (dispatch) => {
     fetch("/logout", {
         method: 'delete',
@@ -66,5 +56,4 @@ export const userLogOut = () => (dispatch) => {
     })
     .then( dispatch(loadUser({})) )
 }
-
 */

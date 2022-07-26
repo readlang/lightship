@@ -1,6 +1,6 @@
 import {useEffect} from "react"
 import {useSelector, useDispatch} from "react-redux"
-import { getTracksForUser, getTracksForGroup } from '../slices/tracksSlice'
+import { getTracksForUser, getTracksForGroup, createTrack } from '../slices/tracksSlice'
 // import styled from "styled-components";
 
 function TrackPage() {
@@ -17,9 +17,16 @@ function TrackPage() {
 
 	return(
 		<>
-			TrackPage Component
+			
+      
 		</>
 	)
 }
 
 export default TrackPage;
+
+
+
+// <button onClick={() => dispatch(createTrack(
+//       user.id, "Testing3", "Walk", "at least", 3, "miles", "per day", "This is the first test."
+//     )) }>dispatch</button>
