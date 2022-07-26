@@ -1,8 +1,9 @@
-import {useEffect} from "react"
+import {useState, useEffect} from "react"
 import {useSelector, useDispatch} from "react-redux"
 import { getTracksForUser, getTracksForGroup, createTrack } from '../slices/tracksSlice'
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
+import TrackForm from "./TrackForm"
 
 const CenteredTwoColumns = styled.div`
   background-color: hsl(0, 0%, 97%);
@@ -30,6 +31,7 @@ const CardButton = styled(Button)`
 `
 
 function TrackPage() {
+  const [showForm, setShowForm] = useState(false) 
   const user = useSelector((state)=>state.user.value)
 	const userTracks = useSelector((state)=>state.tracks.userTracks)
 	const dispatch = useDispatch()
@@ -44,19 +46,19 @@ function TrackPage() {
 	return(
     <CenteredTwoColumns>
       <Column>
-        <AddTrackButton variant="outline-primary"><h4>&emsp;Add New Track&emsp;</h4></AddTrackButton>
+        <AddTrackButton variant="outline-primary" onClick={() =>setShowForm(true)} ><h4>&emsp;Add New Track&emsp;</h4></AddTrackButton>
 
         {userTracks.map(track=>( 
-          <CardButton variant="outline-secondary" key={track.id} onClick={()=>console.log(`clicked no. ${track.id}`)}>
+          <CardButton variant="outline-secondary" key={track.id} onClick={()=>setShowForm(track)}>
           <h4>{track.title}</h4>
           <h6>{`${track.activity} ${track.minmax} ${track.number} ${track.unit} ${track.interval}`}</h6>
           <p>{track.notes}</p>
           </CardButton> 
         ))}
       </Column>
-
+          
       <Column>
-        
+        {showForm ? <TrackForm track={showForm} /> : null } 
       </Column>
     </CenteredTwoColumns>
 	)
