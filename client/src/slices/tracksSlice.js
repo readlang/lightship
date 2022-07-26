@@ -1,0 +1,70 @@
+import {createSlice} from '@reduxjs/toolkit'
+
+export const tracksSlice = createSlice({
+    name: "tracks",
+
+    initialState: {
+        userTracks: [],
+        groupTracks: [],
+    },
+
+    reducers: {
+        loadUserTracks: (state, action) => {state.userTracks = action.payload},
+        loadGroupTracks: (state, action) => {state.groupTracks = action.payload}
+    },
+})
+
+export const { loadUserTracks, loadGroupTracks } = tracksSlice.actions
+
+export default tracksSlice.reducer
+
+export const getTracksForUser = (user) => (dispatch) => {
+    fetch(`/users/${user.id}/tracks`)
+    .then(resp => resp.json())
+    .then(data => dispatch(loadUserTracks(data)) )
+}
+
+export const getTracksForGroup = (groupID) => (dispatch) => {
+    fetch(`/groups/${groupID}/tracks`)
+    .then(resp => resp.json())
+    .then(data => dispatch(loadGroupTracks(data)))
+}
+
+/*
+
+export const userLogIn = (username, password) => (dispatch) => {
+    fetch("/login", {
+        method: 'post',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({username: username, password: password})
+    })
+    .then(resp =>resp.json())
+    .then(data => dispatch(loadUser(data)), 
+        // error => dispatch({ type: 'LOAD_DATA_FAILURE', error }) // this is for if rejected...
+    )
+}
+
+
+export const userSignUp = (
+    username, password, passwordConfirm, email, profileImage, city, state, country
+    ) => (dispatch) => {
+    fetch("/signup", {
+        method: "post",
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({username: username, password: password, 
+          password_confirmation: passwordConfirm, email: email, profile_image: profileImage, 
+          city: city, state: state, country: country})
+    })
+    .then(resp => resp.json())
+    .then(data => dispatch(loadUser(data)) )
+}
+
+export const userLogOut = () => (dispatch) => {
+    fetch("/logout", {
+        method: 'delete',
+        headers: {'content-type': 'application/json'}
+    })
+    .then( dispatch(loadUser({})) )
+}
+
+*/
