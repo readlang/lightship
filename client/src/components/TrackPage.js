@@ -33,7 +33,7 @@ const CardButton = styled(Button)`
 `
 const EditCard = styled.div`
   width: 500px;
-  height: 612px;
+  height: auto;
   margin: 95px 10px;
   padding: 20px 40px;
   color: hsl(0, 0%, 25%);

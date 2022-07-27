@@ -34,7 +34,7 @@ function TrackForm({track, setFormType}) {
 	}
 
 	function handleDelete() {
-		dispatch(deleteTrack(track.id))
+		if (track.id) { dispatch(deleteTrack(track.id)) }
 		setFormType(false)
 	}
 
@@ -63,7 +63,7 @@ function TrackForm({track, setFormType}) {
 					value={number} onChange={e=>setNumber(e.target.value)} />
 				</Form.Group>
 				<Form.Group className="mb-3" >
-					<Form.Control type="input" placeholder='Unit ("mi")'
+					<Form.Control type="input" placeholder='Unit ("miles" / "times")'
 					value={unit} onChange={e=>setUnit(e.target.value)} />
 				</Form.Group>
 				<Form.Group className="mb-3" >
