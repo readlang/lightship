@@ -11,11 +11,13 @@ export const tracksSlice = createSlice({
     reducers: {
         loadUserTracks: (state, action) => {state.userTracks = action.payload},
         loadGroupTracks: (state, action) => {state.groupTracks = action.payload},
-        addUserTrack: (state, action) => { state.userTracks.push(action.payload) } ///
+        addUserTrack: (state, action) => { state.userTracks.push(action.payload) }, 
+        editUserTrack: (state, action) => { state.userTracks[state.userTracks.findIndex(x => x.id === action.payload.id)] = action.payload },
+        deleteUserTrack: (state, action) => { state.userTracks = state.userTracks.filter(track=>(track.id !== action.payload ))}
     },
 })
 
-export const { loadUserTracks, loadGroupTracks, addUserTrack } = tracksSlice.actions
+export const { loadUserTracks, loadGroupTracks, addUserTrack, editUserTrack, deleteUserTrack } = tracksSlice.actions
 
 export default tracksSlice.reducer
 
@@ -44,16 +46,26 @@ export const createTrack = (
     .then(data => dispatch(addUserTrack(data)) ) 
 }
 
-export const editTrack =() => (dispatch) => {} /////////////////////////////////////// finish this
-
-
-
-/* DELETE function
-export const userLogOut = () => (dispatch) => {
-    fetch("/logout", {
+export const editTrack = (
+    trackID, title, activity, minmax, number, unit, interval, notes 
+    ) => (dispatch) => {
+    console.log("editTrack Action")
+    fetch(`/tracks/${trackID}`, {
+        method: 'put',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({title: title, activity: activity, minmax: minmax,
+            number: number, unit: unit, interval: interval, notes: notes }) // group id?
+    })
+    .then(resp => resp.json())
+    .then(data => dispatch(editUserTrack(data)) )
+} 
+ 
+export const deleteTrack = (trackID) => (dispatch) => {
+    console.log("deleteAction")
+    fetch(`/tracks/${trackID}`, {
         method: 'delete',
         headers: {'content-type': 'application/json'}
     })
-    .then( dispatch(loadUser({})) )
+    .then( dispatch(deleteUserTrack(trackID)) ) 
 }
-*/
+

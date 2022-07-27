@@ -45,7 +45,7 @@ const EditCard = styled.div`
 `
 
 function TrackPage() {
-  const [showForm, setShowForm] = useState(false) 
+  const [formType, setFormType] = useState(false) 
   const user = useSelector((state)=>state.user.value)
 	const userTracks = useSelector((state)=>state.tracks.userTracks)
 	const dispatch = useDispatch()
@@ -55,24 +55,23 @@ function TrackPage() {
     dispatch(getTracksForGroup(4)) // this hard-codes the groupID 4 in for testing
   }, [dispatch, user])
 
-  console.log(userTracks)
-
 	return(
     <CenteredTwoColumns>
       <Column>
-        <AddTrackButton variant="outline-primary" onClick={() =>setShowForm(true)} ><h4>&emsp;Add New Track&emsp;</h4></AddTrackButton>
+        <AddTrackButton variant="outline-primary" onClick={() =>setFormType(true)} ><h4>&emsp;Add New Track&emsp;</h4></AddTrackButton>
 
         {userTracks.map(track=>( 
-          <CardButton variant="outline-secondary" key={track.id} onClick={()=>setShowForm(track)}>
-          <h4>{track.title}</h4>
+          <CardButton variant="outline-secondary" key={track.id} onClick={()=>setFormType(track)}> {/*this needs to be changed.. */}
+          <h4 style={{display: "inline"}}>{track.title}</h4>
           <h6>{`${track.activity} ${track.minmax} ${track.number} ${track.unit} ${track.interval}`}</h6>
+          <div style={{float: "right"}} className="btn btn-outline-danger" onClick={()=>setFormType(track)}>Edit</div>
           <p>{track.notes}</p>
           </CardButton> 
         ))}
       </Column>
           
       <Column>
-        {showForm ? <EditCard> <TrackForm track={showForm}/> </EditCard> : null }   
+        {formType ? <EditCard> <TrackForm track={formType} setFormType={setFormType}/> </EditCard> : null }   
       </Column>
     </CenteredTwoColumns>
 	)

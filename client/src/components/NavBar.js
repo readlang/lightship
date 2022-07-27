@@ -18,7 +18,7 @@ function NavBar() {
   const user = useSelector((state)=>state.user.value) 
 
   return(
-    <Navbar bg="dark" variant="dark" expand="sm">
+    <Navbar sticky="top" bg="dark" variant="dark" expand="sm">
       <Container>
         <Navbar.Brand as={Link} to="/">
           <Img src={logo} alt="LightShip logo" />
