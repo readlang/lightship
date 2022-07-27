@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react"
 import {useSelector, useDispatch} from "react-redux"
-import { getTracksForUser, getTracksForGroup, createTrack } from '../slices/tracksSlice'
+import { getTracksForUser, getTracksForGroup } from '../slices/tracksSlice'
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import TrackForm from "./TrackForm"
@@ -16,9 +16,11 @@ const Column = styled.div`
   width: 520px;
 `
 const AddTrackButton = styled(Button)`
+  width: 500px;
   margin: 30px 10px 10px;
   background-color: rgba(255, 255, 255, 0.3);
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
 `
 const CardButton = styled(Button)`
   width: 500px;
@@ -28,6 +30,18 @@ const CardButton = styled(Button)`
   text-align: left;
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+`
+const EditCard = styled.div`
+  width: 500px;
+  height: 612px;
+  margin: 95px 10px;
+  padding: 20px 40px;
+  color: hsl(0, 0%, 25%);
+  // text-align: left;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+  border-radius: .25rem;
+  border: 1px solid #6c757d;
 `
 
 function TrackPage() {
@@ -58,14 +72,10 @@ function TrackPage() {
       </Column>
           
       <Column>
-        {showForm ? <TrackForm track={showForm} /> : null } 
+        {showForm ? <EditCard> <TrackForm track={showForm}/> </EditCard> : null }   
       </Column>
     </CenteredTwoColumns>
 	)
 }
 
 export default TrackPage;
-
-// <button onClick={() => dispatch(createTrack(
-//       user.id, "Testing3", "Walk", "at least", 3, "miles", "per day", "This is the first test."
-//     )) }>dispatch</button>

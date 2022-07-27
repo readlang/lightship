@@ -1,27 +1,50 @@
-import {useSelector, useDispatch} from "react-redux"
-import { createTrack } from '../slices/tracksSlice'
-import styled from "styled-components";
-
-const CardButton = styled.div`
-  width: 500px;
-  margin: 5px 10px;
-  padding: 20px 40px;
-  color: hsl(0, 0%, 25%);
-  text-align: left;
-  background-color: rgba(255, 255, 255, 1);
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
-`
+import {useState} from "react"
+import {useDispatch} from "react-redux"
+import { createTrack, editTrack } from '../slices/tracksSlice'
+import Form from "react-bootstrap/Form"
+import Button from "react-bootstrap/Button";
+//import styled from "styled-components";
 
 function TrackForm({track}) {
-	// const user = useSelector((state)=>state.user.value)
 	const dispatch = useDispatch()
+	const [title, setTitle] = useState(track.title ? track.title : "") //////////////////////// conditional "" or track.title 
 
 	console.log(track)
 
+	function handleSubmit(event) {
+		event.preventDefault()
+		console.log(track)
+		if (track.id) {
+			dispatch(editTrack()) //////////////////////
+		} else {
+			dispatch(createTrack()) //////////////////////
+		}
+	}
+
 	return(
-		<>
-			TrackForm Component
-		</>
+		
+		<Form onSubmit={handleSubmit} >
+			<Form.Label>Edit Details</Form.Label>
+		
+			<Form.Group className="mb-3" >
+				<Form.Control type="input" placeholder="Title"
+				value={title} onChange={e=>setTitle(e.target.value)} />
+			</Form.Group>
+
+			<Form.Group className="mb-3" >
+				<Form.Control type="input" placeholder="Title"
+				value={title} onChange={e=>setTitle(e.target.value)} />
+			</Form.Group>
+
+			<Form.Group className="mb-3" >
+				<Form.Control type="input" placeholder="Title"
+				value={title} onChange={e=>setTitle(e.target.value)} />
+			</Form.Group>
+
+			<Button variant="outline-primary" type="submit">Save</Button>
+		</Form>
+
+			
 	)
 }
 
