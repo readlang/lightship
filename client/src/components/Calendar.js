@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 
 const Grid = styled.div`
-	width: 700px;
-	height: 500px;
+	width: 500px;
+	height: 300px;
 	background-color: hsl(0, 0%, 80%);
 	display: grid;
     grid-template-columns: repeat(7, minmax(auto, auto));
@@ -17,6 +17,20 @@ const Div = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+`
+
+const RedCircle = styled.div`
+	border: 1px solid red;
+	border-radius: 100px;
+	width: 40px;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`
+
+const BlueCircle = styled(RedCircle)`
+	border: 1px solid blue;
 `
 
 function Calendar() {
@@ -42,7 +56,11 @@ function Calendar() {
 	return(
 		<>
 			<Grid>
-				{calArray.map(x => (<Div key={x.toISOString()}> {x.getDate()} </Div>) )}
+				{calArray.map(x => (<Div key={x.toISOString()}> 
+					<BlueCircle>
+					{x.getDate()} 
+					</BlueCircle>
+					</Div>) )}
 			</Grid>
 		</>
 	)
