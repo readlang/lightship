@@ -77,7 +77,7 @@ function TrackForm({track, setFormType}) {
 					value={notes} onChange={e=>setNotes(e.target.value)} />
 				</Form.Group>
 				<Button variant="primary" type="submit">Save Track</Button> &emsp;
-				<Button variant="outline-danger" type="input" onClick={handleDelete}>Delete</Button>
+				<Button variant="outline-danger" type="input" onClick={handleDelete}>{track.id ? "Delete" : "Cancel"}</Button>
 			</Form>	
 		</>
 	)

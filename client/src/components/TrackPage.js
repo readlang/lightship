@@ -4,6 +4,7 @@ import { getTracksForUser, getTracksForGroup } from '../slices/tracksSlice'
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import TrackForm from "./TrackForm"
+import ActionPage from "./ActionPage";
 
 const CenteredTwoColumns = styled.div`
   background-color: hsl(0, 0%, 97%);
@@ -71,7 +72,9 @@ function TrackPage() {
       </Column>
           
       <Column>
+        
         {formType ? <EditCard> <TrackForm track={formType} setFormType={setFormType}/> </EditCard> : null }   
+        <ActionPage/>
       </Column>
     </CenteredTwoColumns>
 	)

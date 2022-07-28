@@ -2,8 +2,17 @@
 // import {  } from '../slices/userSlice'
 import styled from "styled-components";
 
+const Container = styled.div`
+	border: 1px solid #6c757d;
+	border-radius: 5px;
+	margin: 10px;
+	padding: 10px;
+	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+	background-color: white;
+`
+
 const Grid = styled.div`
-	width: 500px;
+	
 	height: 300px;
 	background-color: hsl(0, 0%, 80%);
 	display: grid;
@@ -11,7 +20,7 @@ const Grid = styled.div`
 	grid-template-rows: repeat(5, minmax(auto, auto));
     grid-gap: 1px;
 `
-const Div = styled.div`
+const DayDiv = styled.div`
 	background-color: white;
 	display: flex;
 	justify-content: center;
@@ -44,16 +53,16 @@ function Calendar() {
 		calArray.push({date: floatingCalDay, data: isEven})
 	}
 
-	console.log(calArray)
+	// console.log(calArray)
 
 	return(
-		<>
+		<Container>
 			<Grid>
-				{calArray.map(x => (<Div key={x.date.toISOString()}> 
+				{calArray.map(x => (<DayDiv key={x.date.toISOString()}> 
 					{x.data ? <BlueCircle> {x.date.getDate()} </BlueCircle> : <RedCircle> {x.date.getDate()} </RedCircle> }
-				</Div>) )}
+				</DayDiv>) )}
 			</Grid>
-		</>
+		</Container>
 	)
 }
 
