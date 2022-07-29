@@ -1,14 +1,16 @@
 import {useState, useEffect} from "react"
 import {useSelector, useDispatch} from "react-redux"
+import {Link} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import { getTracksForUser, getTracksForGroup } from '../slices/tracksSlice'
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import TrackForm from "./TrackForm"
-import ActionPage from "./ActionPage";
 
 const CenteredTwoColumns = styled.div`
   background-color: hsl(0, 0%, 97%);
   min-height: ${window.innerHeight - 76}px;
+  padding: 40px 0 0 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -35,7 +37,7 @@ const CardButton = styled(Button)`
 const EditCard = styled.div`
   width: 500px;
   height: auto;
-  margin: 95px 10px;
+  margin: 10px 10px;
   padding: 20px 40px;
   color: hsl(0, 0%, 25%);
   // text-align: left;
@@ -50,6 +52,7 @@ function TrackPage() {
   const user = useSelector((state)=>state.user.value)
 	const userTracks = useSelector((state)=>state.tracks.userTracks)
 	const dispatch = useDispatch()
+  let navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getTracksForUser(user)) // not sure you have to load this every time (once per session might be enough)
@@ -59,22 +62,27 @@ function TrackPage() {
 	return(
     <CenteredTwoColumns>
       <Column>
+        
+        <h1 className="display-1" ><strong>Tracks</strong></h1>
+        
         <AddTrackButton variant="outline-primary" onClick={() =>setFormType(true)} ><h4>&emsp;Add New Track&emsp;</h4></AddTrackButton>
 
         {userTracks.map(track=>( 
-          <CardButton variant="outline-secondary" key={track.id} onClick={()=>setFormType(track)}> {/*this needs to be changed.. */}
+          // <Link to="/actions">
+          <CardButton variant="outline-secondary" key={track.id} onClick={() => navigate("/actions") }  > {/*     */}
           <h4 style={{display: "inline"}}>{track.title}</h4>
           <h6>{`${track.activity} ${track.minmax} ${track.number} ${track.unit} ${track.interval}`}</h6>
           <div style={{float: "right"}} className="btn btn-outline-danger" onClick={()=>setFormType(track)}>Edit</div>
           <p>{track.notes}</p>
           </CardButton> 
+          // </Link>
         ))}
       </Column>
           
       <Column>
         
         {formType ? <EditCard> <TrackForm track={formType} setFormType={setFormType}/> </EditCard> : null }   
-        <ActionPage/>
+        
       </Column>
     </CenteredTwoColumns>
 	)

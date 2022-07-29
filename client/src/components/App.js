@@ -8,7 +8,7 @@ import NavBar from "./NavBar"
 import UserEdit from "./UserEdit"
 import Home from "./Home"
 import TrackPage from "./TrackPage"
-//import ActionPage from "./ActionPage"
+import ActionPage from "./ActionPage"
 import GroupPage from "./GroupPage"
 
 function App() {
@@ -41,6 +41,10 @@ function App() {
 
           <Route path="/tracks">
             <TrackPage/>
+          </Route>
+
+          <Route path="/actions">
+            <ActionPage/>
           </Route>
 
           <Route path="/groups">

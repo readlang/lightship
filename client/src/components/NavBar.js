@@ -22,7 +22,7 @@ function NavBar() {
       <Container>
         <Navbar.Brand as={Link} to="/">
           <Img src={logo} alt="LightShip logo" />
-          &emsp; LightShip</Navbar.Brand>
+        &emsp; LightShip</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
