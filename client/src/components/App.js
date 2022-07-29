@@ -1,4 +1,4 @@
-import {Switch, Route} from "react-router-dom" // version 5
+import {Routes, Route} from "react-router-dom" // version 5 - changed to v 6
 import {useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {userSessionLogIn} from '../slices/userSlice'
@@ -25,37 +25,35 @@ function App() {
     return (
       <>
         <NavBar/>
-        <Switch>
+        <Routes>
 
-          <Route exact path="/" >
-            <Home/>
-          </Route>
+          <Route path="/" element={<Home />} />
+            
+          
 
-          <Route path="/goals">
-            <div>goalpage</div>
-          </Route>
+          <Route path="/goals" element={<div>goalpage</div>} />
+            
+          
 
-          <Route path="/friends">
+          {/* <Route path="/friends">
             <div>friendspage</div>
-          </Route>
+          </Route> */}
 
-          <Route path="/tracks">
-            <TrackPage/>
-          </Route>
-
-          <Route path="/actions">
-            <ActionPage/>
-          </Route>
-
+          <Route path="/tracks" element={<TrackPage />} />
+            
+ 
+          <Route path="/actions"  element={<ActionPage />} />
+      
+{/*
           <Route path="/groups">
             <GroupPage/>
           </Route>
 
           <Route path="/user-edit">
             <UserEdit/>
-          </Route>
+          </Route> */}
 
-        </Switch>
+        </Routes>
       </>
     )
   }

@@ -59,6 +59,11 @@ function TrackPage() {
     dispatch(getTracksForGroup(4)) // this hard-codes the groupID 4 in for testing
   }, [dispatch, user])
 
+  function handleTrackClick() {
+    console.log("Big Button")
+    navigate("/actions")
+  }
+
 	return(
     <CenteredTwoColumns>
       <Column>
@@ -68,14 +73,15 @@ function TrackPage() {
         <AddTrackButton variant="outline-primary" onClick={() =>setFormType(true)} ><h4>&emsp;Add New Track&emsp;</h4></AddTrackButton>
 
         {userTracks.map(track=>( 
-          // <Link to="/actions">
-          <CardButton variant="outline-secondary" key={track.id} onClick={() => navigate("/actions") }  > {/*     */}
+         <div>
+          <CardButton variant="outline-secondary" key={track.id} onClick={() => handleTrackClick() }  > {/*     */}
           <h4 style={{display: "inline"}}>{track.title}</h4>
           <h6>{`${track.activity} ${track.minmax} ${track.number} ${track.unit} ${track.interval}`}</h6>
-          <div style={{float: "right"}} className="btn btn-outline-danger" onClick={()=>setFormType(track)}>Edit</div>
+          
           <p>{track.notes}</p>
           </CardButton> 
-          // </Link>
+          <div style={{float: "right"}} className="btn btn-outline-danger" onClick={()=>console.log("Edit button") /* setFormType(track) */}>Edit</div>
+          </div>
         ))}
       </Column>
           
