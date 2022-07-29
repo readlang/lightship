@@ -44,7 +44,6 @@ const EditCard = styled.div`
   margin: 10px 10px;
   padding: 20px 40px;
   color: hsl(0, 0%, 25%);
-  // text-align: left;
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
   border-radius: .25rem;
