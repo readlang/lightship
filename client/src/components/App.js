@@ -1,4 +1,4 @@
-import {Routes, Route} from "react-router-dom" // version 5 - changed to v 6
+import {Routes, Route} from "react-router-dom" 
 import {useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {userSessionLogIn} from '../slices/userSlice'
@@ -19,44 +19,21 @@ function App() {
     dispatch(userSessionLogIn())
   }, [dispatch])
 
-  if ( !user.id ) {
-    return <UserPage/>
-  } else {
-    return (
-      <>
-        <NavBar/>
-        <Routes>
-
-          <Route path="/" element={<Home />} />
-            
-          
-
-          <Route path="/goals" element={<div>goalpage</div>} />
-            
-          
-
-          {/* <Route path="/friends">
-            <div>friendspage</div>
-          </Route> */}
-
-          <Route path="/tracks" element={<TrackPage />} />
-            
- 
-          <Route path="/actions"  element={<ActionPage />} />
-      
-{/*
-          <Route path="/groups">
-            <GroupPage/>
-          </Route>
-
-          <Route path="/user-edit">
-            <UserEdit/>
-          </Route> */}
-
-        </Routes>
-      </>
-    )
-  }
+  if ( !user.id ) { return <UserPage/>} 
+  else { return (
+    <>
+      <NavBar/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="goals" element={<div>goalpage</div>} />
+        <Route path="friends" element={<div>friendspage</div>} />
+        <Route path="tracks" element={<TrackPage />} />
+        <Route path="tracks/:trackId/actions"  element={<ActionPage />} />
+        <Route path="groups" element={<GroupPage/>} />
+        <Route path="user-edit" element={<UserEdit/>} />
+      </Routes>
+    </>
+  )}
 }
 
 export default App;

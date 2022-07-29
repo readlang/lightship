@@ -1,6 +1,5 @@
 import {useState, useEffect} from "react"
 import {useSelector, useDispatch} from "react-redux"
-import {Link} from "react-router-dom"
 import { useNavigate } from "react-router-dom";
 import { getTracksForUser, getTracksForGroup } from '../slices/tracksSlice'
 import styled from "styled-components";
@@ -34,6 +33,11 @@ const CardButton = styled(Button)`
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
 `
+const EditButton = styled(Button)`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+`
 const EditCard = styled.div`
   width: 500px;
   height: auto;
@@ -59,36 +63,27 @@ function TrackPage() {
     dispatch(getTracksForGroup(4)) // this hard-codes the groupID 4 in for testing
   }, [dispatch, user])
 
-  function handleTrackClick() {
-    console.log("Big Button")
-    navigate("/actions")
-  }
-
 	return(
     <CenteredTwoColumns>
       <Column>
-        
         <h1 className="display-1" ><strong>Tracks</strong></h1>
-        
-        <AddTrackButton variant="outline-primary" onClick={() =>setFormType(true)} ><h4>&emsp;Add New Track&emsp;</h4></AddTrackButton>
+        <AddTrackButton variant="outline-primary" onClick={() =>setFormType(true)} ><h4>&emsp; Add New Track &emsp;</h4></AddTrackButton>
 
         {userTracks.map(track=>( 
-         <div>
-          <CardButton variant="outline-secondary" key={track.id} onClick={() => handleTrackClick() }  > {/*     */}
-          <h4 style={{display: "inline"}}>{track.title}</h4>
-          <h6>{`${track.activity} ${track.minmax} ${track.number} ${track.unit} ${track.interval}`}</h6>
-          
-          <p>{track.notes}</p>
-          </CardButton> 
-          <div style={{float: "right"}} className="btn btn-outline-danger" onClick={()=>console.log("Edit button") /* setFormType(track) */}>Edit</div>
+          <div style={{position: 'relative'}} key={track.id} >
+            <CardButton variant="outline-secondary"  onClick={() => navigate(`/tracks/${track.id}/actions`) }  > 
+              <h4 style={{display: "inline"}}>{track.title}</h4>
+              <h6>{`${track.activity} ${track.minmax} ${track.number} ${track.unit} ${track.interval}`}</h6>
+              <p>{track.notes}</p>
+            </CardButton> 
+
+            <EditButton variant="outline-danger" onClick={()=>setFormType(track) }>Edit</EditButton>
           </div>
         ))}
       </Column>
           
       <Column>
-        
         {formType ? <EditCard> <TrackForm track={formType} setFormType={setFormType}/> </EditCard> : null }   
-        
       </Column>
     </CenteredTwoColumns>
 	)
