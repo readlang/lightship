@@ -3,6 +3,7 @@ import {useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {userSessionLogIn} from '../slices/userSlice'
 
+
 import UserPage from "./UserPage"
 import NavBar from "./NavBar"
 import UserEdit from "./UserEdit"
@@ -17,6 +18,7 @@ function App() {
   
   useEffect(() => {
     dispatch(userSessionLogIn())
+    // dispatch(getTracksForUser(user))
   }, [dispatch])
 
   if ( !user.id ) { return <UserPage/>} 
