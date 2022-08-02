@@ -3,30 +3,30 @@ import {useDispatch} from "react-redux"
 import { createAction, editAction, deleteAction } from '../slices/actionsSlice'
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import InputGroup from "react-bootstrap/InputGroup";
 
-function ActionForm({trackId, action, setSelectedAction}) {
+function ActionForm({track, action, setSelectedAction}) {
 	const dispatch = useDispatch()
 	const [date, setDate] = useState("") 
 	const [number, setNumber] = useState(0)
 	const [difficulty, setDifficulty] = useState("")
 	const [comment, setComment] = useState("")
 
-	console.log(trackId, action)
+	console.log(track, action)
+	console.log(date, number, difficulty, comment)
 	
-
-		useEffect(()=>{
-			setDate( action.date_time ? action.date_time : "" )
-			setNumber( action.number ? action.number : "" ) /// is this saving as number or string?
-			setDifficulty( action.difficulty ? action.difficulty : "" )
-			setComment( action.comment ? action.comment : "" )
-		},[action])
-
+	useEffect(()=>{
+		setDate( action.date_time ? action.date_time : new Date().toLocaleString('en-CA').split(',')[0] )
+		setNumber( action.number ? action.number : "" ) 
+		setDifficulty( action.difficulty ? action.difficulty : "" )
+		setComment( action.comment ? action.comment : "" )
+	},[action])
 
 	function handleSubmit(event) {
 		event.preventDefault()
 		action.id ? 
-		dispatch(editAction(trackId, date, number, difficulty, comment ))
-		: dispatch(createAction( trackId, date, number, difficulty, comment )) 
+		dispatch(editAction(track.id, date, number, difficulty, comment ))
+		: dispatch(createAction( track.id, date, number, difficulty, comment ))  /// date is not saving currently...
 	}
 
 	function handleDelete() {
@@ -40,18 +40,19 @@ function ActionForm({trackId, action, setSelectedAction}) {
 				<h4>{action ? "Edit Action Details" : "Add New Action" }</h4>
 				
 				<Form.Group className="mb-3" >
-					<Form.Control type="date" placeholder='Action Name ("Exercise")'
-					value={date} onChange={e=>setDate(e.target.value)} />
+					<Form.Label>Action Date</Form.Label>
+					<Form.Control type="date" value={date} onChange={e=>setDate(e.target.value)} />
 				</Form.Group>
 
-				<Form.Group className="mb-3" >
-					<Form.Control type="input" placeholder='Activity ("Run")'
+				<InputGroup className="mb-3" >
+					<Form.Control type="number" placeholder='Quantity'
 					value={number} onChange={e=>setNumber(e.target.value)} />
-				</Form.Group>
+					<InputGroup.Text>{track.unit}</InputGroup.Text>
+				</InputGroup>
 				
 				<Form.Group className="mb-3" >
 					<Form.Label>Difficulty</Form.Label>
-					<Form.Range />
+					<Form.Range min="1" max="5" value={difficulty} onChange={e=>setDifficulty(e.target.value)} />
 				</Form.Group>
 
 				<Form.Group className="mb-3" >

@@ -60,7 +60,7 @@ function ActionPage() {
   const track = useSelector((state)=>state.tracks.userTracks).find(x => x.id === trackId)
   console.log(track)
   const actions = useSelector((state)=>state.actions.trackActions)
-  const [selectedAction, setSelectedAction] = useState("noaction")
+  const [selectedAction, setSelectedAction] = useState(false)
 
   useEffect(()=>{
     dispatch(getActionsForTrack(trackId))
@@ -84,11 +84,11 @@ function ActionPage() {
 			</Column>
 			<Column>
         <TrackCard>
-          <ActionForm trackId={trackId} action={selectedAction} setSelectedAction={setSelectedAction} /> 
+          <ActionForm track={track} action={selectedAction} setSelectedAction={setSelectedAction} /> 
         </TrackCard>
 				<TrackCard>
           
-          {/*actions.map(action => <div onClick={() => setSelectedAction(action) }>{action.number}</div> ) */}
+          {actions.map(action => <div onClick={() => setSelectedAction(action) }> {action.date_time}</div> )}
           
         </TrackCard>
 				
