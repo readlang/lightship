@@ -1,12 +1,12 @@
 class ActionsController < ApplicationController
     skip_before_action :authorize # delete before deploying!
 
-    # get /things
+    # get /actions
     def index
         render json: Action.all, status: :ok
     end
 
-    # get /things/:id
+    # get /actions/:id
     def show
         render json: Action.find_by!(id: params[:id]), status: :ok
     end
@@ -16,19 +16,19 @@ class ActionsController < ApplicationController
         render json: Track.find_by!(id: params[:id]).actions, status: :ok
     end
 
-    # post /things
+    # post /actions
     def create
         render json: Action.create!(create_params), status: :created
     end
 
-    # patch or put /things/:id
+    # patch or put /actions/:id
     def update
         action = Action.find_by!(id: params[:id])
         action.update!(edit_params)
         render json: action, status: :ok
     end
 
-    # delete /things/:id
+    # delete /actions/:id
     def destroy
         action = Action.find_by!(id: params[:id])
         action.destroy
