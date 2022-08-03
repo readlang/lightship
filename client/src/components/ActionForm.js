@@ -7,18 +7,18 @@ import InputGroup from "react-bootstrap/InputGroup";
 
 function ActionForm({track, action, setSelectedAction}) {
 	const dispatch = useDispatch()
-	const [date, setDate] = useState("") 
-	const [number, setNumber] = useState(0)
-	const [difficulty, setDifficulty] = useState("")
+	const [date, setDate] = useState(new Date().toLocaleString('en-CA').split(',')[0]) 
+	const [number, setNumber] = useState(track.number)
+	const [difficulty, setDifficulty] = useState(3)
 	const [comment, setComment] = useState("")
 
-	console.log(track, action)
-	console.log(date, number, difficulty, comment)
+	// console.log(track, action)
+	// console.log(date, number, difficulty, comment)
 	
 	useEffect(()=>{
-		setDate( action.date_time ? action.date_time : new Date().toLocaleString('en-CA').split(',')[0] )
-		setNumber( action.number ? action.number : "" ) 
-		setDifficulty( action.difficulty ? action.difficulty : "" )
+		if (action.date_time) { setDate(action.date_time) }
+		if (action.number) {setNumber( action.number ) }
+		setDifficulty( action.difficulty ? action.difficulty : "3" )
 		setComment( action.comment ? action.comment : "" )
 	},[action])
 

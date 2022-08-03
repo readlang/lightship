@@ -1,8 +1,9 @@
-// import {useSelector, useDispatch} from "react-redux"
-// import {  } from '../slices/userSlice'
-import styled from "styled-components";
+import {useSelector} from "react-redux"
 
-const Container = styled.div`
+import styled from "styled-components";
+import CalDay from "./CalDay"
+
+const Card = styled.div`
 	border: 1px solid #6c757d;
 	border-radius: 5px;
 	margin: 10px;
@@ -10,9 +11,7 @@ const Container = styled.div`
 	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
 	background-color: white;
 `
-
 const Grid = styled.div`
-	
 	height: 300px;
 	background-color: hsl(0, 0%, 80%);
 	display: grid;
@@ -20,28 +19,9 @@ const Grid = styled.div`
 	grid-template-rows: repeat(5, minmax(auto, auto));
     grid-gap: 1px;
 `
-const DayDiv = styled.div`
-	background-color: white;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-`
-const RedCircle = styled.div`
-	border: 1px solid red;
-	border-radius: 100px;
-	width: 40px;
-	height: 40px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-`
-const BlueCircle = styled(RedCircle)`
-	border: 1px solid blue;
-`
-
-function Calendar() {
-	// const user = useSelector((state)=>state.user.value)
-	// const dispatch = useDispatch()
+function Calendar({track}) {
+	const actions = useSelector((state)=>state.actions.trackActions)
+	
 	let today = new Date()
 	let todayDayOfWeek = today.getDay()
 
@@ -49,21 +29,40 @@ function Calendar() {
 	for (let i = 0; i < 35; i++) {
 		let floatingCalDay = new Date()
 		floatingCalDay.setDate(today.getDate() - (todayDayOfWeek+28-i))
-		let isEven = floatingCalDay.getDate() % 2 === 0 ? true : false // check if floatingCalDay is same as day in activities...
-		calArray.push({date: floatingCalDay, data: isEven})
+		let isToday = floatingCalDay.getDate() === today.getDate() // true false if day is today
+		
+		let actionTotal = 0 // total of the action number for the day
+		let achieved = false 
+
+		// there is a bug in here with time...
+		// late in the day, the graphic calendar is showing things one day earlier than they are 
+		// (an event on the 6th shows up as the 5th)
+		actions.forEach(action=>{
+			if (action.date_time.substring(0,10) === floatingCalDay.toISOString().substring(0,10) ) {
+				actionTotal += action.number
+			}
+		})
+		// this is not working yet...
+		if (actionTotal !== 0) {if (track.minmax === "at least") {
+			achieved = (actionTotal >= track.number ? "achieved" : "unachieved")
+		} else if (track.minmax === "at most") {
+			achieved = (actionTotal <= track.number ? "achieved" : "unachieved")
+		} else {
+			achieved = (actionTotal === track.number ? "achieved" : "unachieved")
+		}}
+		 
+		calArray.push({date: floatingCalDay, data: achieved, isToday: isToday, actionTotal: actionTotal})
 	}
 
-	// console.log(calArray)
+
+	console.log(calArray.map(x=> x))
 
 	return(
-		<Container>
+		<Card>
 			<Grid>
-				{calArray.map(x => (<DayDiv key={x.date.toISOString()}> 
-					{x.data ? <BlueCircle> {x.date.getDate()} </BlueCircle> : <RedCircle> {x.date.getDate()} </RedCircle> }
-				</DayDiv>) )}
+				{calArray.map(day => ( <CalDay key={day.date.toISOString()} day={day} /> ))}
 			</Grid>
-		</Container>
+		</Card>
 	)
 }
-
 export default Calendar;

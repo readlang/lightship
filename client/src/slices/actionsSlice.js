@@ -23,7 +23,9 @@ export default actionsSlice.reducer
 export const getActionsForTrack = (trackId) => (dispatch) => {
     fetch(`/tracks/${trackId}/actions`)
     .then(resp => resp.json())
-    .then(data => dispatch(loadTrackActions(data)) )
+    .then(data => {
+        console.log(data)
+        dispatch(loadTrackActions(data))} )
 }
 
 export const createAction = (
@@ -36,7 +38,9 @@ export const createAction = (
         number: number, difficulty: difficulty, comment: comment}) 
     })
     .then(resp => resp.json())
-    .then(data => dispatch(addTrackAction(data)) ) 
+    .then(data => {
+        console.log(data)
+        dispatch(addTrackAction(data))} ) 
 }
 
 export const editAction = (
@@ -49,7 +53,9 @@ export const editAction = (
         body: JSON.stringify({date_time: date_time, number: number, difficulty: difficulty, comment: comment}) 
     })
     .then(resp => resp.json())
-    .then(data => dispatch(editTrackAction(data)) )
+    .then(data => {
+        console.log(data)
+        dispatch(editTrackAction(data))} )
 } 
  
 export const deleteAction = (track_id) => (dispatch) => {

@@ -39,7 +39,7 @@ const BackButton = styled(Button)`
 //   top: 20px;
 //   right: 20px;
 // `
-const TrackCard = styled.div`
+const Card = styled.div`
   width: 500px;
   height: auto;
   margin: 10px 10px;
@@ -51,14 +51,18 @@ const TrackCard = styled.div`
   border: 1px solid #6c757d;
 `
 
-
+const ListItem = styled.div`
+  padding: 17px 0 5px;
+  height: 90px;
+  border-top: 1px solid #8d98a3;
+`
 
 function ActionPage() {
   const dispatch = useDispatch() // to dispatch redux action
   const navigate = useNavigate() // to navigate with router
 	let trackId = parseInt(useParams().trackId) // to grab a url param
   const track = useSelector((state)=>state.tracks.userTracks).find(x => x.id === trackId)
-  console.log(track)
+  //console.log(track)
   const actions = useSelector((state)=>state.actions.trackActions)
   const [selectedAction, setSelectedAction] = useState(false)
 
@@ -75,22 +79,29 @@ function ActionPage() {
 				<h1 className="display-1" ><strong>Actions</strong></h1>
         <BackButton variant="outline-secondary" onClick={() => navigate(`/tracks`) } ><h4> Back to Tracks </h4></BackButton> &emsp;
         <BackButton variant="outline-primary" onClick={() => navigate(`/tracks`) } ><h4>  &emsp; &emsp; Add Action &emsp; &emsp; </h4></BackButton>
-        <TrackCard>
+        <Card>
           <h4>{track.title}</h4>
           <h6>{`${track.activity} ${track.minmax} ${track.number} ${track.unit} ${track.interval}`}</h6>
           <p>{track.notes}</p>
-        </TrackCard>
-				<Calendar/>
+        </Card>
+				<Calendar track={track}/>
 			</Column>
 			<Column>
-        <TrackCard>
+        <Card>
           <ActionForm track={track} action={selectedAction} setSelectedAction={setSelectedAction} /> 
-        </TrackCard>
-				<TrackCard>
+        </Card>
+				<Card>
+          <h4>Logged Events</h4>
+          {actions.length === 0 ? <p><i>Log a few actions and they will show up here...</i></p> : null }
+          {actions.map(action => <ListItem onClick={() => setSelectedAction(action) } key={action.id}> 
           
-          {actions.map(action => <div onClick={() => setSelectedAction(action) }> {action.date_time}</div> )}
+          <h6>{ action.date_time.split('T')[0].slice(5,10).replace("-", "/") } &emsp; &emsp; {action.number} {track.unit} {action.difficulty ? action.difficult : null}  </h6>
+          <p>{action.comment}</p>
           
-        </TrackCard>
+          
+          </ListItem> )}
+          
+        </Card>
 				
 			</Column>
 		</CenteredTwoColumns>
