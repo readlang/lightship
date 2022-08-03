@@ -13,7 +13,7 @@ class ActionsController < ApplicationController
 
     # get /tracks/:id/actions
     def show_for_track
-        render json: Track.find_by!(id: params[:id]).actions, status: :ok
+        render json: Track.find_by!(id: params[:id]).actions_sorted, status: :ok
     end
 
     # post /actions

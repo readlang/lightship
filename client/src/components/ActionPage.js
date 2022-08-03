@@ -56,15 +56,13 @@ function ActionPage() {
   useEffect(()=>{
     dispatch(getActionsForTrack(trackId))
   },[dispatch, trackId])
-	// this is fragile bc if it is reloaded the redux state is lost, which will make this crash
+	// this is fragile bc if it is reloaded the redux state is lost, which will make this crash - UPDATE: added conditional below...
 
   if (! track) { 
     dispatch(getTracksForUser(user))
-    
     return(null) 
     }
   else
-
 	return(
 		<CenteredTwoColumns>
 			<Column>
