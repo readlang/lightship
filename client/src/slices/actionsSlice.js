@@ -44,10 +44,10 @@ export const createAction = (
 }
 
 export const editAction = (
-    track_id, date_time, number, difficulty, comment 
+    action_id, date_time, number, difficulty, comment 
     ) => (dispatch) => {
     
-    fetch(`/actions/${track_id}`, {
+    fetch(`/actions/${action_id}`, {
         method: 'put',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify({date_time: date_time, number: number, difficulty: difficulty, comment: comment}) 
@@ -58,12 +58,16 @@ export const editAction = (
         dispatch(editTrackAction(data))} )
 } 
  
-export const deleteAction = (track_id) => (dispatch) => {
+export const deleteAction = (action_id) => (dispatch) => {
     
-    fetch(`/actions/${track_id}`, {
+    fetch(`/actions/${action_id}`, {
         method: 'delete',
         headers: {'content-type': 'application/json'}
     })
-    .then( dispatch(deleteTrackAction(track_id)) ) 
+    .then(resp => resp.json())
+    .then((data)=> {
+        console.log("delete actionslice:", data)
+        dispatch(deleteTrackAction(action_id))
+    } ) 
 }
 

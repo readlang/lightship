@@ -29,8 +29,9 @@ function Calendar({track}) {
 	for (let i = 0; i < 35; i++) {
 		let floatingCalDay = new Date()
 		floatingCalDay.setDate(today.getDate() - (todayDayOfWeek+28-i))
-		let isToday = floatingCalDay.getDate() === today.getDate() // true false if day is today
+		let isToday = (floatingCalDay.getDate() === today.getDate() && floatingCalDay.getMonth() === today.getMonth()) // true false if day is today
 		
+
 		let actionTotal = 0 // total of the action number for the day
 		let achieved = false 
 
@@ -42,7 +43,7 @@ function Calendar({track}) {
 				actionTotal += action.number
 			}
 		})
-		// this is not working yet...
+		
 		if (actionTotal !== 0) {if (track.minmax === "at least") {
 			achieved = (actionTotal >= track.number ? "achieved" : "unachieved")
 		} else if (track.minmax === "at most") {
@@ -55,7 +56,7 @@ function Calendar({track}) {
 	}
 
 
-	console.log(calArray.map(x=> x))
+	//console.log(calArray.map(x=> x))
 
 	return(
 		<Card>

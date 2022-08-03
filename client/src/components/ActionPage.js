@@ -2,6 +2,7 @@ import {useEffect, useState} from "react"
 import {useSelector, useDispatch} from "react-redux"
 import {useParams, useNavigate } from "react-router-dom";
 import { getActionsForTrack } from '../slices/actionsSlice'
+import { getTracksForUser } from '../slices/tracksSlice'
 import styled from "styled-components";
 import Calendar from "./Calendar"
 import Button from "react-bootstrap/Button";
@@ -25,20 +26,6 @@ const BackButton = styled(Button)`
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
 `
-// const CardButton = styled(Button)`
-//   width: 500px;
-//   margin: 5px 10px;
-//   padding: 20px 40px;
-//   color: hsl(0, 0%, 25%);
-//   text-align: left;
-//   background-color: rgba(255, 255, 255, 1);
-//   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
-// `
-// const EditButton = styled(Button)`
-//   position: absolute;
-//   top: 20px;
-//   right: 20px;
-// `
 const Card = styled.div`
   width: 500px;
   height: auto;
@@ -50,28 +37,33 @@ const Card = styled.div`
   border-radius: .25rem;
   border: 1px solid #6c757d;
 `
-
 const ListItem = styled.div`
   padding: 17px 0 5px;
-  height: 90px;
+  min-height: 90px;
   border-top: 1px solid #8d98a3;
+  cursor: pointer;
 `
-
 function ActionPage() {
   const dispatch = useDispatch() // to dispatch redux action
   const navigate = useNavigate() // to navigate with router
+  const user = useSelector((state)=>state.user.value)
 	let trackId = parseInt(useParams().trackId) // to grab a url param
-  const track = useSelector((state)=>state.tracks.userTracks).find(x => x.id === trackId)
-  //console.log(track)
+  let track = useSelector((state)=>state.tracks.userTracks).find(x => x.id === trackId)
+  console.log(track)
   const actions = useSelector((state)=>state.actions.trackActions)
   const [selectedAction, setSelectedAction] = useState(false)
 
   useEffect(()=>{
     dispatch(getActionsForTrack(trackId))
   },[dispatch, trackId])
-	
-// this is fragile bc if it is reloaded the redux state is lost
+	// this is fragile bc if it is reloaded the redux state is lost, which will make this crash
 
+  if (! track) { 
+    dispatch(getTracksForUser(user))
+    
+    return(null) 
+    }
+  else
 
 	return(
 		<CenteredTwoColumns>
@@ -94,18 +86,12 @@ function ActionPage() {
           <h4>Logged Events</h4>
           {actions.length === 0 ? <p><i>Log a few actions and they will show up here...</i></p> : null }
           {actions.map(action => <ListItem onClick={() => setSelectedAction(action) } key={action.id}> 
-          
-          <h6>{ action.date_time.split('T')[0].slice(5,10).replace("-", "/") } &emsp; &emsp; {action.number} {track.unit} {action.difficulty ? action.difficult : null}  </h6>
-          <p>{action.comment}</p>
-          
-          
+            <h6>{ action.date_time.split('T')[0].slice(5,10).replace("-", "/") } &emsp; &emsp; {action.number} {track.unit} &emsp; &emsp; difficulty: {action.difficulty ? action.difficulty : null}  </h6>
+            <p>comments: {action.comment} &emsp; &emsp; action id: {action.id}</p>
           </ListItem> )}
-          
         </Card>
-				
 			</Column>
 		</CenteredTwoColumns>
 	)
 }
-
 export default ActionPage;

@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react"
 import {useSelector, useDispatch} from "react-redux"
 import { useNavigate } from "react-router-dom";
-import { getTracksForUser, getTracksForGroup } from '../slices/tracksSlice'
+import { getTracksForUser } from '../slices/tracksSlice'
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import TrackForm from "./TrackForm"
@@ -59,7 +59,6 @@ function TrackPage() {
 
   useEffect(() => {
     dispatch(getTracksForUser(user)) // not sure you have to load this every time (once per session might be enough)
-    dispatch(getTracksForGroup(4)) // this hard-codes the groupID 4 in for testing
   }, [dispatch, user])
 
 	return(

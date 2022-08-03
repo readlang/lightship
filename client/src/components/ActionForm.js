@@ -16,7 +16,7 @@ function ActionForm({track, action, setSelectedAction}) {
 	// console.log(date, number, difficulty, comment)
 	
 	useEffect(()=>{
-		if (action.date_time) { setDate(action.date_time) }
+		if (action.date_time) { setDate(action.date_time.substring(0,10)) }
 		if (action.number) {setNumber( action.number ) }
 		setDifficulty( action.difficulty ? action.difficulty : "3" )
 		setComment( action.comment ? action.comment : "" )
@@ -25,12 +25,14 @@ function ActionForm({track, action, setSelectedAction}) {
 	function handleSubmit(event) {
 		event.preventDefault()
 		action.id ? 
-		dispatch(editAction(track.id, date, number, difficulty, comment ))
+		dispatch(editAction(action.id, date, number, difficulty, comment ))
 		: dispatch(createAction( track.id, date, number, difficulty, comment ))  /// date is not saving currently...
 	}
 
-	function handleDelete() {
+	function handleDelete(event) {
+		event.preventDefault()
 		if (action.id) { dispatch(deleteAction(action.id)) }
+		console.log("delete clicked")
 		setSelectedAction(false)
 	}
 
@@ -60,7 +62,9 @@ function ActionForm({track, action, setSelectedAction}) {
 					value={comment} onChange={e=>setComment(e.target.value)} />
 				</Form.Group>
 
-				<Button variant="primary" type="submit">Save Track</Button> &emsp;
+				<p>action id: {action.id}</p>
+
+				<Button variant="primary" type="submit"> {action.id ? "Save Edits" : "Save Action"} </Button> &emsp;
 				<Button variant="outline-danger" type="input" onClick={handleDelete}>{action ? "Delete" : "Cancel"}</Button>
 			</Form>	
 		</>

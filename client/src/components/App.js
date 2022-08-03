@@ -2,7 +2,7 @@ import {Routes, Route} from "react-router-dom"
 import {useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {userSessionLogIn} from '../slices/userSlice'
-
+// import { getTracksForUser } from '../slices/tracksSlice'
 
 import UserPage from "./UserPage"
 import NavBar from "./NavBar"
@@ -18,8 +18,12 @@ function App() {
   
   useEffect(() => {
     dispatch(userSessionLogIn())
-    // dispatch(getTracksForUser(user))
+    
   }, [dispatch])
+
+  // useEffect(() => {
+  //   dispatch(getTracksForUser(user))
+  // }, [dispatch, user])
 
   if ( !user.id ) { return <UserPage/>} 
   else { return (
