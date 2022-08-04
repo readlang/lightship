@@ -1,39 +1,41 @@
 class GroupsController < ApplicationController
     skip_before_action :authorize # delete before deploying!
 
-    # get /things
+    # get /groups
     def index
         render json: Group.all, status: :ok
     end
 
-    # get /things/:id
+    # get /groups/:id
     def show
         render json: Group.find_by!(id: params[:id]), status: :ok
     end
 
-    # get /users/:id/groups
+    # get /users/:id/groups - returns groups the user is a MEMBER of (not owner)
     def show_for_user
         render json: User.find_by!(id: params[:id]).groups, status: :ok
     end
 
-    # get /users/:id/owned_groups
+    # get /users/:id/owned_groups - returns groups the user is a ONWER of
     def show_for_owner
         render json: User.find_by!(id: params[:id]).owned_groups, status: :ok
     end
 
-    # post /things
+    # post /groups
     def create
-        render json: Group.create!(create_params), status: :created
+        new_group = Group.create!(create_params) # establishes the new group and owner
+        Membership.create!( user_id: params[:owner_id], group_id: new_group.id ) # adds owner as member
+        render json: new_group, status: :created
     end
 
-    # patch or put /things/:id
+    # patch or put /groups/:id
     def update
         group = Group.find_by!(id: params[:id])
         group.update!(edit_params)
         render json: group, status: :ok
     end
 
-    # delete /things/:id
+    # delete /groups/:id
     def destroy
         group = Group.find_by!(id: params[:id])
         group.destroy
@@ -43,7 +45,7 @@ class GroupsController < ApplicationController
     private
 
     def create_params
-        params.permit(:group_name, :description, :owner_id)
+        params.except(:group).permit(:group_name, :description, :owner_id) # Note: added the ".except(:group)" 
     end
 
     def edit_params

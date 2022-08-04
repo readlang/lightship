@@ -10,7 +10,8 @@ export const actionsSlice = createSlice({
     reducers: {
         loadTrackActions: (state, action) => {state.trackActions = action.payload},
         addTrackAction: (state, action) => { state.trackActions.push(action.payload) }, 
-        editTrackAction: (state, action) => { state.trackActions[state.trackActions.findIndex(x => x.id === action.payload.id)] = action.payload },
+        editTrackAction: (state, action) => { state.trackActions[
+            state.trackActions.findIndex(x => x.id === action.payload.id)] = action.payload },
         deleteTrackAction: (state, action) => { state.trackActions = state.trackActions.filter(x=>(x.id !== action.payload ))}
     },
 })
