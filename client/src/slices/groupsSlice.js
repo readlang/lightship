@@ -21,7 +21,7 @@ export const { loadGroups, addGroup, editGroupRx, deleteGroupRx } = groupsSlice.
 export default groupsSlice.reducer
 
 export const getMemberGroupsForUser = (userId) => (dispatch) => {
-    fetch(`/users/${userId}/groups`) // NOTE: /owned_groups OR /groups (membergroups)?
+    fetch(`/users/${userId}/groups`) // NOTE: /owned_groups OR /groups (membership-groups)?
     .then(resp => resp.json())
     .then(data => { 
         console.log(data)
