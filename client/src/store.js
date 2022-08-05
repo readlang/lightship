@@ -5,6 +5,7 @@ import userReducer from './slices/userSlice'
 import tracksReducer from './slices/tracksSlice'
 import actionsReducer from './slices/actionsSlice'
 import groupsReducer from './slices/groupsSlice'
+import messagesReducer from "./slices/messagesSlice";
 
 export default configureStore({
     reducer: {
@@ -12,6 +13,7 @@ export default configureStore({
         user: userReducer,
         tracks: tracksReducer, 
         actions: actionsReducer,
-        groups: groupsReducer
+        groups: groupsReducer,
+        messages: messagesReducer,
     },
 })

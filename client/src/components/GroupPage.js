@@ -1,6 +1,7 @@
-//import { useEffect } from "react";
+import { useEffect } from "react";
 import {useSelector, useDispatch} from "react-redux"
 import { getMemberGroupsForUser, createGroup, editGroup, deleteGroup } from '../slices/groupsSlice'
+import { getMessagesForGroup } from "../slices/messagesSlice";
 import styled from "styled-components";
 //import Calendar from "./Calendar"
 
@@ -14,11 +15,18 @@ const Div = styled.div`
 function GroupPage() {
 	const dispatch = useDispatch()
 	
-
+	
 
 	const groups = useSelector((state)=>state.groups)
 	console.log(groups.memberGroups)
 	
+	useEffect(()=>{
+		dispatch(getMessagesForGroup(3))
+	},[dispatch])
+
+	
+
+	console.log( useSelector((state)=>state.messages.groupMessages) )
 
 	return(
 		<Div>
