@@ -10,13 +10,13 @@ export const messagesSlice = createSlice({
     reducers: {
         loadMessages: (state, action) => {state.groupMessages = action.payload},
         addMessage: (state, action) => {state.groupMessages.push(action.payload)},
-        editMessage: (state, action) => {state.groupMessages[
+        editMessageRx: (state, action) => {state.groupMessages[
             state.groupMessages.findIndex(x => x.id === action.payload.id)] = action.payload },
-        deleteMessage: (state, action) => {state.groupMessages = state.groupMessages.filter(x => x.id !== action.payload)}
+        deleteMessageRx: (state, action) => {state.groupMessages = state.groupMessages.filter(x => x.id !== action.payload)}
     },
 })
 
-export const {loadMessages} = messagesSlice.actions
+export const { loadMessages, addMessage, editMessageRx, deleteMessageRx } = messagesSlice.actions
 
 export default messagesSlice.reducer
 
@@ -26,5 +26,43 @@ export const getMessagesForGroup = (groupId) => (dispatch) => {
     .then(data => {
         console.log(data)
         dispatch(loadMessages(data))
+    })
+}
+
+export const createMessage = ( groupId, userId, text ) => (dispatch) => {
+    fetch("/messages", {
+        method: 'post',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({ group_id: groupId, user_id: userId, text: text })
+    })
+    .then(resp => resp.json())
+    .then(data => {
+        console.log(data)
+        dispatch(addMessage(data))
+    })
+}
+
+export const editMessage = ( messageId, text ) => (dispatch) => {
+    fetch(`/messages/${messageId}/`, {
+        method: 'put',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({text: text})
+    })
+    .then(resp => resp.json())
+    .then(data => {
+        console.log(data)
+        dispatch(editMessageRx(data))
+    })
+}
+
+export const deleteMessage = ( messageId ) => (dispatch) => {
+    fetch(`/messages/${messageId}`, {
+        method: 'delete',
+        headers: {'content-type': 'application/json'}
+    })
+    .then(resp => resp.json())
+    .then(data => {
+        console.log(data)
+        dispatch(deleteMessageRx(messageId))
     })
 }
