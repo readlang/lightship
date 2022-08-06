@@ -9,13 +9,13 @@ export const membersSlice = createSlice({
 
     reducers: {
         loadMemberships: (state, action) => {state.groupMembers = action.payload},
-        addMemberships: (state, action) => {state.groupMembers.push(action.payload)},
+        addMembershipRx: (state, action) => {state.groupMembers.push(action.payload)},
        
-        deleteMemberships: (state, action) => {state.groupMembers = state.groupMembers.filter(x => x.id !== action.payload)}
+        deleteMembershipRx: (state, action) => {state.groupMembers = state.groupMembers.filter(x => x.id !== action.payload)}
     },
 })
 
-export const { loadMemberships, addMemberships, deleteMemberships } = membersSlice.actions
+export const { loadMemberships, addMembershipRx, deleteMembershipRx } = membersSlice.actions
 
 export default membersSlice.reducer
 
@@ -37,7 +37,7 @@ export const addMember = ( groupId, userId ) => (dispatch) => { //this returns a
     .then(resp => resp.json())
     .then(data => {
         console.log(data)
-        dispatch(addMemberships(data))
+        dispatch(addMembershipRx(data))
     })
 }
 
@@ -51,6 +51,6 @@ export const deleteMember = ( membershipId ) => (dispatch) => { // this returns 
     .then(resp => resp.json())
     .then(data => {
         console.log(data)
-        dispatch(deleteMemberships(membershipId)) // how does this work?
+        dispatch(deleteMembershipRx(membershipId)) // how does this work?
     })
 }

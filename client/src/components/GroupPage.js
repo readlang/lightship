@@ -25,7 +25,7 @@ function GroupPage() {
 		dispatch(getMembershipsForGroup(3))
 		dispatch(addMember(3, 1))
 		
-		dispatch(deleteMember(27))
+		dispatch(deleteMember(30))
 	},[dispatch])
 
 	
