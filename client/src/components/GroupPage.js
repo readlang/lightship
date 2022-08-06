@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import {useSelector, useDispatch} from "react-redux"
 import { getMemberGroupsForUser, createGroup, editGroup, deleteGroup } from '../slices/groupsSlice'
 import { getMessagesForGroup, createMessage, editMessage, deleteMessage } from"../slices/messagesSlice";
+import { getMembershipsForGroup, addMember, deleteMember } from "../slices/membersSlice";
 import styled from "styled-components";
 //import Calendar from "./Calendar"
 
@@ -21,10 +22,10 @@ function GroupPage() {
 	console.log(groups.memberGroups)
 	
 	useEffect(()=>{
-		dispatch(getMessagesForGroup(3))
-		dispatch(createMessage(3, 1, "This is a sample message"))
-		dispatch(editMessage(51, "this is an EDITED sample message!!!"))
-		dispatch(deleteMessage(52))
+		dispatch(getMembershipsForGroup(3))
+		dispatch(addMember(3, 1))
+		
+		dispatch(deleteMember(27))
 	},[dispatch])
 
 	

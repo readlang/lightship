@@ -14,14 +14,14 @@ Rails.application.routes.draw do
   get "/tracks/:id/actions", to: "actions#show_for_track"    # show the actions for a track
 
   get "/groups/:id/messages", to: "messages#show_for_group"  # show the messages for a group
-  get "/groups/:id/users", to: "users#show_for_group"        # show the users for a group
+  get "/groups/:id/users", to: "users#show_for_group"  # show the users for a group - probably don't want this
+  get "/groups/:id/memberships", to: "memberships#show_for_group" # show the memberships for a group
   get "/groups/:id/tracks", to: "tracks#show_for_group"      # show the tracks for a group
 
 
   # log in / log out actions
   post "/signup", to: "users#create" # new signup
   get "/me", to: "users#show_me" # return visit check session cookie
-
   post "/login", to: "sessions#create" # explicit login
   delete "/logout", to: "sessions#destroy" # log out
 

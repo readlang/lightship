@@ -1,29 +1,34 @@
 class MembershipsController < ApplicationController
     skip_before_action :authorize # delete before deploying!
 
-    # get /things
+    # get /memberships
     def index
         render json: Membership.all, status: :ok
     end
 
-    # get /things/:id
+    # get /memberships/:id
     def show
         render json: Membership.find_by!(id: params[:id]), status: :ok
     end
 
-    # post /things
+    # get /groups/:id/memberships
+    def show_for_group
+        render json: Group.find_by!(id: params[:id]).memberships, status: :ok
+    end
+
+    # post /memberships
     def create
         render json: Membership.create!(create_params), status: :created
     end
 
-    # patch or put /things/:id
+    # patch or put /memberships/:id
     def update
         membership = Membership.find_by!(id: params[:id])
         membership.update!(edit_params)
         render json: membership, status: :ok
     end
 
-    # delete /things/:id
+    # delete /memberships/:id
     def destroy
         membership = Membership.find_by!(id: params[:id])
         membership.destroy

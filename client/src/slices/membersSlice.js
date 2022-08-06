@@ -8,23 +8,23 @@ export const membersSlice = createSlice({
     },
 
     reducers: {
-        loadMembers: (state, action) => {state.groupMembers = action.payload},
-        addMemberRx: (state, action) => {state.groupMembers.push(action.payload)},
+        loadMemberships: (state, action) => {state.groupMembers = action.payload},
+        addMemberships: (state, action) => {state.groupMembers.push(action.payload)},
        
-        deleteMemberRx: (state, action) => {state.groupMembers = state.groupMembers.filter(x => x.id !== action.payload)}
+        deleteMemberships: (state, action) => {state.groupMembers = state.groupMembers.filter(x => x.id !== action.payload)}
     },
 })
 
-export const { loadMembers, addMemberRx, deleteMemberRx } = membersSlice.actions
+export const { loadMemberships, addMemberships, deleteMemberships } = membersSlice.actions
 
 export default membersSlice.reducer
 
-export const getUsersForGroup = (groupId) => (dispatch) => { //this returns users...
-    fetch(`/groups/${groupId}/users`)
+export const getMembershipsForGroup = (groupId) => (dispatch) => { //this returns memberships
+    fetch(`/groups/${groupId}/memberships`)
     .then(resp => resp.json())
     .then(data => {
         console.log(data)
-        dispatch(loadMembers(data))
+        dispatch(loadMemberships(data))
     })
 }
 
@@ -37,20 +37,20 @@ export const addMember = ( groupId, userId ) => (dispatch) => { //this returns a
     .then(resp => resp.json())
     .then(data => {
         console.log(data)
-        dispatch(addMemberRx(data))
+        dispatch(addMemberships(data))
     })
 }
 
 // no edit for this slice
 
-export const deleteMember = ( memberId ) => (dispatch) => { // this returns a membership not a user...
-    fetch(`/memberships/${memberId}`, {
+export const deleteMember = ( membershipId ) => (dispatch) => { // this returns a membership not a user...
+    fetch(`/memberships/${membershipId}`, {
         method: 'delete',
         headers: {'content-type': 'application/json'}
     })
     .then(resp => resp.json())
     .then(data => {
         console.log(data)
-        dispatch(deleteMemberRx(memberId)) // how does this work?
+        dispatch(deleteMemberships(membershipId)) // how does this work?
     })
 }
