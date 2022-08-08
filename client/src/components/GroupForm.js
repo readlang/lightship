@@ -1,4 +1,4 @@
-import {useState } from "react"
+import {useState, useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import { createGroup, editGroup, deleteGroup } from '../slices/groupsSlice'
 import Form from "react-bootstrap/Form";
@@ -7,9 +7,14 @@ import Button from "react-bootstrap/Button";
 function GroupForm({group, setFormType}) {
 	const user = useSelector((state)=>state.user.value)
 	const dispatch = useDispatch()
+	
+	const [name, setName] = useState( "" )
+	const [description, setDescription] = useState("")
 
-	const [name, setName] = useState( group.name ? group.name : "" )
-	const [description, setDescription] = useState( group.description ? group.description : "")
+	useEffect(()=>{
+		setName( group.group_name ? group.group_name : "" )
+		setDescription( group.description ? group.description : "" )
+	}, [group])
 
 	function handleSubmit(event) {
 		event.preventDefault()
