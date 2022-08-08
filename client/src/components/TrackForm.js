@@ -76,8 +76,9 @@ function TrackForm({track, setFormType}) {
 					<Form.Control as="textarea" placeholder='Notes...'
 					value={notes} onChange={e=>setNotes(e.target.value)} />
 				</Form.Group>
-				<Button variant="primary" type="submit">Save Track</Button> &emsp;
-				<Button variant="outline-danger" type="input" onClick={handleDelete}>{track.id ? "Delete" : "Cancel"}</Button>
+				<Button variant="primary" type="submit">{track.id ? "Save Track Edits" : "Save New Track"}</Button> &emsp;
+				<Button variant="outline-secondary" type="input" onClick={()=> setFormType(false)}> Cancel </Button> &emsp; &emsp; &emsp; &emsp; &emsp; &ensp;
+				{track.id ? <Button variant="outline-danger" type="input" onClick={handleDelete}> Delete </Button> : null}
 			</Form>	
 		</>
 	)

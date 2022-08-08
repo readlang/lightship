@@ -17,7 +17,7 @@ const CenteredTwoColumns = styled.div`
 const Column = styled.div`
   width: 520px;
 `
-const AddTrackButton = styled(Button)`
+const AddButton = styled(Button)`
   width: 500px;
   margin: 30px 10px 10px;
   background-color: rgba(255, 255, 255, 0.3);
@@ -65,7 +65,7 @@ function TrackPage() {
     <CenteredTwoColumns>
       <Column>
         <h1 className="display-1" ><strong>Tracks</strong></h1>
-        <AddTrackButton variant="outline-primary" onClick={() =>setFormType(true)} ><h4>&emsp; Add New Track &emsp;</h4></AddTrackButton>
+        <AddButton variant="outline-primary" onClick={() =>setFormType(true)} ><h4>&emsp; Add New Track &emsp;</h4></AddButton>
 
         {userTracks.map(track=>( 
           <div style={{position: 'relative'}} key={track.id} >

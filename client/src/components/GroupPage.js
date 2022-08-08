@@ -1,46 +1,42 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import {useSelector, useDispatch} from "react-redux"
-import { getMemberGroupsForUser, createGroup, editGroup, deleteGroup } from '../slices/groupsSlice'
-import { getMessagesForGroup, createMessage, editMessage, deleteMessage } from"../slices/messagesSlice";
-import { getMembershipsForGroup, addMember, deleteMember } from "../slices/membersSlice";
-import styled from "styled-components";
-//import Calendar from "./Calendar"
-
-const Div = styled.div`
-	height: 1000px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-`
+import { useNavigate } from "react-router-dom";
+import { getMemberGroupsForUser } from '../slices/groupsSlice'
+import { CenteredTwoColumns, Column, AddButton, CardButton, EditButton, EditCard } from "../style/styled"
+import GroupForm from "./GroupForm"
 
 function GroupPage() {
-	const dispatch = useDispatch()
-	
-	
-
-	const groups = useSelector((state)=>state.groups)
-	console.log(groups.memberGroups)
+	const [formType, setFormType] = useState(false)
+	const user = useSelector((state)=>state.user.value)
+	const groups = useSelector((state)=>state.groups.memberGroups)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 	
 	useEffect(()=>{
-		dispatch(getMembershipsForGroup(3))
-		dispatch(addMember(3, 1))
-		
-		dispatch(deleteMember(30))
-	},[dispatch])
-
-	
-
-	console.log( useSelector((state)=>state.messages.groupMessages) )
+		dispatch(getMemberGroupsForUser(user.id))
+	}, [dispatch, user.id])
 
 	return(
-		<Div>
-			<button onClick={() => dispatch(getMemberGroupsForUser( 2 )) }>get Groups For User</button>
-			<button onClick={() => dispatch(createGroup( "Bug squasher", "another group", 2 )) }>add group</button>
-			<button onClick={() => dispatch(editGroup( 18, "Edit name", "This has been edited")) }>edit group</button>
-			<button onClick={() => dispatch(deleteGroup( 19 )) }>delete group</button>
-			<button onClick={() => console.log(groups.memberGroups) }>Log state</button>
-			{/* {groups.map(x=>(<div>{x.group_name}</div> ))} */}
-		</Div>
+		<CenteredTwoColumns>
+			<Column>
+				<h1 className="display-1" ><strong>Groups</strong></h1>
+				<AddButton variant="outline-primary" onClick={()=>setFormType(true)} ><h4> Add New Group</h4></AddButton>
+        {groups.map(group=>(
+          <div style={{position: 'relative'}} key={group.id}>
+            <CardButton variant="outline-secondary" onClick={() => navigate(`/groups/${group.id}`)}>
+              <h4 style={{display: "inline"}}> {group.group_name} </h4>
+              <h6>{`${group.description}`}</h6>
+            </CardButton>
+            
+            <EditButton variant="outline-danger" onClick={()=>setFormType(group)}>Edit</EditButton>
+          </div>
+        )) }
+      </Column>
+			
+			<Column>
+          {formType ? <EditCard> <GroupForm group={formType} setFormType={setFormType} /> </EditCard> : null}
+			</Column>
+		</CenteredTwoColumns>
 	)
 }
 
