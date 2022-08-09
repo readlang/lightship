@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 function TrackForm({track, setFormType}) {
 	const user = useSelector((state)=>state.user.value)
 	const dispatch = useDispatch()
+	
 	const [title, setTitle] = useState("") 
 	const [activity, setActivity] = useState("")
 	const [minmax, setMinmax] = useState("")

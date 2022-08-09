@@ -68,7 +68,7 @@ function ActionPage() {
 			<Column>
 				<h1 className="display-1" ><strong>Actions</strong></h1>
         <BackButton variant="outline-secondary" onClick={() => navigate(`/tracks`) } ><h4> Back to Tracks </h4></BackButton> &emsp;
-        <BackButton variant="outline-primary" onClick={() => navigate(`/tracks`) } ><h4>  &emsp; &emsp; Add Action &emsp; &emsp; </h4></BackButton>
+        
         <Card>
           <h4>{track.title}</h4>
           <h6>{`${track.activity} ${track.minmax} ${track.number} ${track.unit} ${track.interval}`}</h6>

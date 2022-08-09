@@ -2,7 +2,6 @@ import {Routes, Route} from "react-router-dom"
 import {useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {userSessionLogIn} from '../slices/userSlice'
-// import { getTracksForUser } from '../slices/tracksSlice'
 
 import UserPage from "./UserPage"
 import NavBar from "./NavBar"
@@ -11,6 +10,7 @@ import Home from "./Home"
 import TrackPage from "./TrackPage"
 import ActionPage from "./ActionPage"
 import GroupPage from "./GroupPage"
+import GroupRoom from "./GroupRoom"
 
 function App() {
   const user = useSelector((state)=>state.user.value)
@@ -36,6 +36,7 @@ function App() {
         <Route path="tracks" element={<TrackPage />} />
         <Route path="tracks/:trackId/actions"  element={<ActionPage />} />
         <Route path="groups" element={<GroupPage/>} />
+        <Route path="groups/:groupId"  element={<GroupRoom />} />
         <Route path="user-edit" element={<UserEdit/>} />
       </Routes>
     </>
