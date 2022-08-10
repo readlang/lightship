@@ -14,7 +14,7 @@ export const Column = styled.div`
 `
 export const AddButton = styled(Button)`
   width: 500px;
-  margin: 30px 10px 10px;
+  margin: 10px;
   background-color: rgba(255, 255, 255, 0.3);
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
   border-radius: 30px;

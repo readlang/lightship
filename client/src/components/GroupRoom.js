@@ -8,7 +8,7 @@ import { Column, AddButton, CardButton, EditButton, EditCard } from "../style/st
 import Button from "react-bootstrap/Button";
 import FriendCard from "./FriendCard";
 import styled from "styled-components";
-import ChatWindow from "./ChatWindow";
+import GroupChatWindow from "./GroupChatWindow";
 import TracksWindow from "./TracksWindow";
 
 const Background = styled.div`
@@ -20,7 +20,7 @@ const Background = styled.div`
 `
 const Page = styled.div`
     background-color: hsl(0, 0%, 98%);
-    width: 1300px;
+    width: 1400px;
     min-height: ${window.innerHeight -76-100}px;
     border-radius: 8px;
     padding: 30px;
@@ -34,13 +34,16 @@ const TracksColumn = styled.div`
 	margin: 20px 20px 0 0;
 `
 const ChatColumn = styled.div`
-	width: 400px;
+	width: 500px;
 	height: 900px;
 	display: inline-block;
 	margin: 20px 0px 0px 20px;
 `
 const BackButton = styled(Button)`
   float: right;
+  //margin-left: auto;
+  //margin-right: 0;
+  //display: block;
   background-color: rgba(255, 255, 255, 1);
 `
 
@@ -62,7 +65,6 @@ function GroupRoom() {
 	console.log(members)
 
 	useEffect(()=>{
-		dispatch(getMessagesForGroup(groupId))
 		dispatch(getMembershipsForGroup(groupId))
 	},[dispatch,groupId])
 	
@@ -74,17 +76,19 @@ function GroupRoom() {
 		<Background>
 			<Page>
 				<div>
+					<h1 className="display-1" style={{display: "inline"}}><strong>{group.group_name}</strong></h1>
 					<BackButton variant="outline-secondary" size="sm" onClick={() => navigate(`/groups`) } > Back to all groups </BackButton>
-					<h1 className="display-1" ><strong>{group.group_name}</strong></h1>
+					
 				</div>
 
 				<div>
-					<BigButton variant="outline-primary" onClick={() => navigate(`/groups`) }><h4>Add Friend</h4></BigButton>
+					<BigButton variant="outline-primary" onClick={() => navigate(`/groups`) }><h5>Add Friend</h5></BigButton>
 					{members.map(member =>(<FriendCard key={member.id} member={member} /> )) }
 				</div>
+				<div style={{display: 'flex'}}>
 				<TracksColumn> <TracksWindow/> </TracksColumn>
-				<ChatColumn> <ChatWindow/> </ChatColumn>
-
+				<ChatColumn> <GroupChatWindow groupId={groupId} /> </ChatColumn>
+				</div>
 			</Page>
 			
 			

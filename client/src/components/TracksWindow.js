@@ -1,3 +1,4 @@
+import {useSelector, useDispatch} from "react-redux"
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 
@@ -14,7 +15,10 @@ const Window = styled.div`
 `
 
 
+
 function TracksWindow() {
+
+
 
     return(
         <Window>
