@@ -11,6 +11,7 @@ import TrackPage from "./TrackPage"
 import ActionPage from "./ActionPage"
 import GroupPage from "./GroupPage"
 import GroupRoom from "./GroupRoom"
+import GoalPage from "./GoalPage"
 
 function App() {
   const user = useSelector((state)=>state.user.value)
@@ -31,7 +32,7 @@ function App() {
       <NavBar/>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="goals" element={<div>goalpage</div>} />
+        <Route path="goals" element={<GoalPage />} />
         <Route path="friends" element={<div>friendspage</div>} />
         <Route path="tracks" element={<TrackPage />} />
         <Route path="tracks/:trackId/actions"  element={<ActionPage />} />

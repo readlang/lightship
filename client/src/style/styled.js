@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 export const CenteredTwoColumns = styled.div`
   background-color: hsl(0, 0%, 97%);
   min-height: ${window.innerHeight - 76}px;
-  padding: 40px 0 0 0;
+  padding: 10px 0 0 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

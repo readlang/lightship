@@ -4,9 +4,46 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getMessagesForGroup } from '../slices/messagesSlice'
 import { getMemberGroupsForUser } from '../slices/groupsSlice'
 import { getMembershipsForGroup } from "../slices/membersSlice";
-import { CenteredTwoColumns, Column, AddButton, CardButton, EditButton, EditCard } from "../style/styled"
+import { Column, AddButton, CardButton, EditButton, EditCard } from "../style/styled"
+import Button from "react-bootstrap/Button";
 import FriendCard from "./FriendCard";
 import styled from "styled-components";
+import ChatWindow from "./ChatWindow";
+import TracksWindow from "./TracksWindow";
+
+const Background = styled.div`
+	background-color: hsl(0, 0%, 88%);
+    min-height: ${window.innerHeight -76}px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+const Page = styled.div`
+    background-color: hsl(0, 0%, 98%);
+    width: 1300px;
+    min-height: ${window.innerHeight -76-100}px;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+
+`
+const TracksColumn = styled.div`
+	width: 800px;
+	height: 900px;
+	display: inline-block;
+	margin: 20px 20px 0 0;
+`
+const ChatColumn = styled.div`
+	width: 400px;
+	height: 900px;
+	display: inline-block;
+	margin: 20px 0px 0px 20px;
+`
+const BackButton = styled(Button)`
+  float: right;
+  background-color: rgba(255, 255, 255, 1);
+`
+
 
 const BigButton = styled(AddButton)`
 	width: auto;
@@ -34,21 +71,26 @@ function GroupRoom() {
 		return(null)
 	} else
 	return(
-		<>
-			<h1 className="display-1" ><strong>{group.group_name}</strong></h1>
-			<BigButton variant="outline-secondary" onClick={() => navigate(`/groups`) } ><strong> Back </strong></BigButton>
-			<BigButton variant="outline-primary" onClick={() => navigate(`/groups`) }><h4>&emsp;Add Friendasd &emsp;</h4></BigButton>
-			{members.map(member =>(<FriendCard key={member.id} member={member} /> )) }
-			<CenteredTwoColumns>
-				<Column>
-					
-					
-				</Column>
-				<Column>
+		<Background>
+			<Page>
+				<div>
+					<BackButton variant="outline-secondary" size="sm" onClick={() => navigate(`/groups`) } > Back to all groups </BackButton>
+					<h1 className="display-1" ><strong>{group.group_name}</strong></h1>
+				</div>
 
-				</Column>
-			</CenteredTwoColumns>
-		</>
+				<div>
+					<BigButton variant="outline-primary" onClick={() => navigate(`/groups`) }><h4>Add Friend</h4></BigButton>
+					{members.map(member =>(<FriendCard key={member.id} member={member} /> )) }
+				</div>
+				<TracksColumn> <TracksWindow/> </TracksColumn>
+				<ChatColumn> <ChatWindow/> </ChatColumn>
+
+			</Page>
+			
+			
+				
+			
+		</Background>
 	)
 }
 

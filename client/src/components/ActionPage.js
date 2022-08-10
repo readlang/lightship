@@ -20,8 +20,9 @@ const Column = styled.div`
   width: 520px;
 `
 const BackButton = styled(Button)`
-  /* width: 200px; */
-  margin: 30px 10px 10px;
+  margin: 10px 10px 0 0; 
+  float: right;
+  
   background-color: rgba(255, 255, 255, 0.3);
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
@@ -66,8 +67,10 @@ function ActionPage() {
 	return(
 		<CenteredTwoColumns>
 			<Column>
-				<h1 className="display-1" ><strong>Actions</strong></h1>
-        <BackButton variant="outline-secondary" onClick={() => navigate(`/tracks`) } ><h4> Back to Tracks </h4></BackButton> &emsp;
+      <BackButton variant="outline-secondary" size="sm" onClick={() => navigate(`/tracks`) } >Back to all tracks</BackButton> &emsp;
+        <h1 className="display-1" ><strong>Actions</strong></h1>
+        <br/>
+        
         
         <Card>
           <h4>{track.title}</h4>
@@ -76,6 +79,7 @@ function ActionPage() {
         </Card>
 				<Calendar track={track}/>
 			</Column>
+
 			<Column>
         <Card>
           <ActionForm track={track} action={selectedAction} setSelectedAction={setSelectedAction} /> 

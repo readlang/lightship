@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
 const Card = styled.div`
+    display: inline-block;
     margin: 10px;
-    width: 150px;
+    width: 175px;
     height: 100px;
     padding: 10px;
     color: hsl(0, 0%, 25%);
-    background-color: rgba(255, 255, 255, 1);
+    background-color: hsl(0, 0%, 100%);
     border: 1px solid #6c757d;
     border-radius: .25rem;
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
