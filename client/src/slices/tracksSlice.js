@@ -27,8 +27,8 @@ export const getTracksForUser = (user) => (dispatch) => {
     .then(data => dispatch(loadUserTracks(data)) )
 }
 
-export const getTracksForGroup = (groupID) => (dispatch) => {
-    fetch(`/groups/${groupID}/tracks`)
+export const getTracksForGroup = (groupId) => (dispatch) => {
+    fetch(`/groups/${groupId}/tracks`)
     .then(resp => resp.json())
     .then(data => dispatch(loadGroupTracks(data)))
 }

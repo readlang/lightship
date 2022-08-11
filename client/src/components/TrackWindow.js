@@ -1,32 +1,79 @@
 import {useSelector, useDispatch} from "react-redux"
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
-
+import { useEffect } from "react";
+import { getTracksForGroup } from "../slices/tracksSlice";
+import { getActionsForGroup } from "../slices/actionsSlice"
+import ActionMatrixRow from "./ActionMatrixRow"
 
 const Window = styled.div`
 	background-color: hsl(0, 0%, 100%);
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     border: 1px solid #6c757d;
     border-radius: 8px;
     padding: 30px;
 `
+const TrackList = styled.div`
+    display: flex;
+    justify-content: space-between;
+`
+const TrackItem = styled.div`
+    background-color: hsl(0, 0%, 100%);
+    /* height: 50px; */
+    width: 140px;
+    border: 1px solid #6c757d;
+    border-radius: 8px;
+    padding: 3px;
+`
+const SmallText =styled.small`
+    font-size: .6em;
+`
+const ActionList = styled.div`
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+`
 
 
 
-function TrackWindow() {
+function TrackWindow({groupId}) {
+    const dispatch = useDispatch()
+    const user = useSelector((state)=>state.user.value)
+    const members = useSelector((state)=>state.members.groupMembers)
+    const tracks = useSelector((state)=>state.tracks.groupTracks)
+    const actions = useSelector((state)=>state.actions.groupActions)
 
+    useEffect(()=>{
+        dispatch(getTracksForGroup(groupId))
+        dispatch(getActionsForGroup(groupId))
+    }, [dispatch, groupId])
 
+    function userNameLookup(user_id) {
+        const index = members.findIndex(member => member.user_id === user_id)
+        if (index === -1) {
+          return "unknown user"
+        }
+        return members[index].user.username
+    }
+
+    console.log(tracks)
 
     return(
         <Window>
-            <Button size="sm">Add a track</Button>
           
-                <h1 className="display-1" ><strong>Tracks</strong></h1>
-            
-          
+            <h4 style={{display: "inline"}} ><strong>Group Tracks & Actions</strong></h4>
+            <Button style={{float: "right"}} size="sm" variant="outline-secondary">Add my track</Button> 
+            <br/><br/>
+            <TrackList>
+                {tracks.map(track =>(<TrackItem key={track.id}><h6> {userNameLookup(track.user_id)}</h6> 
+                <span>{track.title} </span><br/>
+                <SmallText>    {`${track.activity} ${track.minmax} ${track.number} ${track.unit} ${track.interval}`} </SmallText>
+                </TrackItem>))}
+            </TrackList>
+            <hr/>
+            <ActionList>
+                { actions.map(action =>( <ActionMatrixRow key={action.id} action={action} />)) }
+            </ActionList>
             
         </Window>
     )

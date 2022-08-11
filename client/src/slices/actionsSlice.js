@@ -4,11 +4,13 @@ export const actionsSlice = createSlice({
     name: "actions",
 
     initialState: {
-        trackActions: []
+        trackActions: [], // trackActions are Actions related to the User's selected Track
+        groupActions: [], // groupActions are Actions related to a selected Group
     },
 
     reducers: {
         loadTrackActions: (state, action) => {state.trackActions = action.payload},
+        loadGroupActions: (state, action) => {state.groupActions = action.payload},
         addTrackAction: (state, action) => { state.trackActions.push(action.payload) }, 
         editTrackAction: (state, action) => { state.trackActions[
             state.trackActions.findIndex(x => x.id === action.payload.id)] = action.payload },
@@ -16,7 +18,7 @@ export const actionsSlice = createSlice({
     },
 })
 
-export const { loadTrackActions, addTrackAction, editTrackAction, deleteTrackAction } = actionsSlice.actions
+export const { loadTrackActions, loadGroupActions, addTrackAction, editTrackAction, deleteTrackAction } = actionsSlice.actions
 
 export default actionsSlice.reducer
 
@@ -25,7 +27,17 @@ export const getActionsForTrack = (trackId) => (dispatch) => {
     .then(resp => resp.json())
     .then(data => {
         console.log(data)
-        dispatch(loadTrackActions(data))} )
+        dispatch(loadTrackActions(data))
+    })
+}
+
+export const getActionsForGroup = (groupId) => (dispatch) => {
+    fetch(`/groups/${groupId}/actions`)
+    .then(resp => resp.json())
+    .then(data => {
+        console.log(data)
+        dispatch(loadGroupActions(data))
+    })
 }
 
 export const createAction = (

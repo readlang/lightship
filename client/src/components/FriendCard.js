@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 const Card = styled.div`
     display: inline-block;
-    margin: 10px;
-    width: 175px;
+    margin: 5px;
+    width: 150px;
     height: 50px;
     padding: 10px;
     color: hsl(0, 0%, 25%);

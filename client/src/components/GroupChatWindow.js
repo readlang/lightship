@@ -66,7 +66,7 @@ function GroupChatWindow({groupId}) {
 
   const [newMessage, setNewMessage] = useState("")
 
-  function userName(user_id) {
+  function userNameLookup(user_id) {
     const index = members.findIndex(member => member.user_id === user_id)
     if (index === -1) {
       return "unknown user"
@@ -86,7 +86,7 @@ function GroupChatWindow({groupId}) {
         <ShowMessages>
           {messages.map(message=>( message.user_id === user.id ?  
             <RightTextBubble key={message.id}>{message.text}</RightTextBubble> : 
-            <LeftTextBubble key={message.id}><small style={{color: "gray"}} > {userName(message.user_id)} </small><br/> {message.text}</LeftTextBubble>
+            <LeftTextBubble key={message.id}><small style={{color: "gray"}} > {userNameLookup(message.user_id)} </small><br/> {message.text}</LeftTextBubble>
           ))}
         </ShowMessages>
       </Wrapper>

@@ -25,7 +25,6 @@ const Page = styled.div`
     border-radius: 8px;
     padding: 30px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-
 `
 const TracksColumn = styled.div`
 	width: 800px;
@@ -48,6 +47,10 @@ const BackButton = styled(Button)`
 `
 const BigButton = styled(AddButton)`
 	width: auto;
+`
+const FriendArea = styled.div`
+	display: flex;
+	align-items: center;
 `
 
 function GroupRoom() {
@@ -77,14 +80,16 @@ function GroupRoom() {
 					<h1 className="display-1" style={{display: "inline"}}><strong>{group.group_name}</strong></h1>
 					<BackButton variant="outline-secondary" size="sm" onClick={() => navigate(`/groups`) } > Back to all groups </BackButton>
 					<h6>{group.description}</h6>
+					<hr/>
 				</div>
-
-				<div>
-					<BigButton variant="outline-primary" onClick={() => navigate(`/groups`) }><h5>Add Friend</h5></BigButton>
+				<span>Members</span>
+				<FriendArea>
+					
+					<Button variant="outline-primary" size="sm" onClick={() => navigate(`/groups`) }><h3><strong>+</strong></h3></Button>
 					{members.map(member =>(<FriendCard key={member.id} member={member} /> )) }
-				</div>
+				</FriendArea>
 				<div style={{display: 'flex'}}>
-				<TracksColumn> <TrackWindow/> </TracksColumn>
+				<TracksColumn> <TrackWindow groupId={groupId} /> </TracksColumn>
 				<ChatColumn> <GroupChatWindow groupId={groupId} /> </ChatColumn>
 				</div>
 			</Page>
