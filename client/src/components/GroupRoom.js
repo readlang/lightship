@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import {useSelector, useDispatch} from "react-redux"
 import { useParams, useNavigate } from "react-router-dom";
-import { getMessagesForGroup } from '../slices/messagesSlice'
+
 import { getMemberGroupsForUser } from '../slices/groupsSlice'
 import { getMembershipsForGroup } from "../slices/membersSlice";
 import { Column, AddButton, CardButton, EditButton, EditCard } from "../style/styled"
@@ -46,8 +46,6 @@ const BackButton = styled(Button)`
   //display: block;
   background-color: rgba(255, 255, 255, 1);
 `
-
-
 const BigButton = styled(AddButton)`
 	width: auto;
 `
@@ -78,7 +76,7 @@ function GroupRoom() {
 				<div>
 					<h1 className="display-1" style={{display: "inline"}}><strong>{group.group_name}</strong></h1>
 					<BackButton variant="outline-secondary" size="sm" onClick={() => navigate(`/groups`) } > Back to all groups </BackButton>
-					
+					<h6>{group.description}</h6>
 				</div>
 
 				<div>

@@ -1,6 +1,6 @@
 
 import {useSelector, useDispatch} from "react-redux"
-import { getMessagesForGroup, createMessage, editMessage, deleteMessage } from '../slices/messagesSlice'
+import { getMessagesForGroup, createMessage, deleteMessage } from '../slices/messagesSlice'
 import styled from "styled-components";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -22,6 +22,7 @@ const Wrapper = styled.div`
 const ShowMessages = styled.div`
   display: flex;
   flex-direction: column; 
+  align-items: flex-start;
 `
 const NewMessageArea = styled(Form)`
   margin: 15px 0 0 0;
@@ -30,14 +31,22 @@ const NewMessageArea = styled(Form)`
 const LeftTextBubble = styled.div`
   /* background: hsl(175, 5%, 80%); */
   background: linear-gradient(0deg, hsl(175, 5%, 80%) 0%, hsl(175, 5%, 90%) 100%);
-  border-radius: 10px;
+  border-radius: 10px 10px 10px 3px;
   margin: 3px 50px 0 0;
+  /* margin: 3px auto 0 0; */
   padding: 3px 8px;
 `
 const RightTextBubble = styled(LeftTextBubble)`
   //background-color: hsl(175, 65%, 52%);
   background: linear-gradient(0deg, hsl(175, 80%, 50%) 0%, hsl(175, 100%, 70%) 100%);
-  margin: 3px 0 0 50px;
+  
+  border-radius: 10px 10px 4px 10px;
+  text-align: right;
+  //margin: 3px 0 0 50px;
+  margin: 3px 0 0 auto;
+  //margin-left: max(50px, auto)
+  //margin: 3px 0 0 max( auto);
+  
 `
 const Input = styled(Form.Control)`
   width: 400px;
@@ -50,15 +59,22 @@ const SendButton = styled(Button)`
 
 function GroupChatWindow({groupId}) {
   const user = useSelector((state)=>state.user.value)
+  const members = useSelector((state)=>state.members.groupMembers)
+  const messages = useSelector((state)=>state.messages.groupMessages)
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(getMessagesForGroup(groupId))
-  }, [dispatch, groupId ])
-
-  const messages = useSelector((state)=>state.messages.groupMessages)
+  useEffect(()=>{
+    dispatch(getMessagesForGroup(groupId));
+    let interval = setInterval(()=>{ dispatch(getMessagesForGroup(groupId)); console.log("fetch messages") }, 10000)
+    return()=> { clearInterval(interval) }
+  }, [dispatch, groupId])
 
   const [newMessage, setNewMessage] = useState("")
+
+  function userName(user_id) {
+    const index = members.findIndex(member => member.user_id === user_id)
+    return members[index].user.username
+  }
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -71,8 +87,8 @@ function GroupChatWindow({groupId}) {
       <Wrapper>
         <ShowMessages>
           {messages.map(message=>( message.user_id === user.id ?  
-            <RightTextBubble key={message.id}><small> {message.user_id} </small><br/> {message.text}</RightTextBubble> : 
-            <LeftTextBubble key={message.id}><small> {message.user_id} </small><br/> {message.text}</LeftTextBubble>
+            <RightTextBubble key={message.id}>{message.text}</RightTextBubble> : 
+            <LeftTextBubble key={message.id}><small style={{color: "gray"}} > {userName(message.user_id)} </small><br/> {message.text}</LeftTextBubble>
           ))}
         </ShowMessages>
       </Wrapper>

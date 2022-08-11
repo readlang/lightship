@@ -24,7 +24,7 @@ export const getMessagesForGroup = (groupId) => (dispatch) => {
     fetch(`/groups/${groupId}/messages`)
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
+        //console.log(data)
         dispatch(loadMessages(data))
     })
 }
