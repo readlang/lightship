@@ -16,6 +16,11 @@ class ActionsController < ApplicationController
         render json: Track.find_by!(id: params[:id]).actions_sorted, status: :ok
     end
 
+    # get /groups/:id/actions
+    def show_for_group
+        render json: Group.find_by!(id: params[:id]).actions_sorted, status: :ok
+    end
+
     # post /actions
     def create
         render json: Action.create!(create_params), status: :created
