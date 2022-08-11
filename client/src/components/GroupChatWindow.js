@@ -1,6 +1,6 @@
 
 import {useSelector, useDispatch} from "react-redux"
-import { getMessagesForGroup, createMessage, deleteMessage } from '../slices/messagesSlice'
+import { getMessagesForGroup, createMessage } from '../slices/messagesSlice' //deleteMessage
 import styled from "styled-components";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -24,29 +24,24 @@ const ShowMessages = styled.div`
   flex-direction: column; 
   align-items: flex-start;
 `
-const NewMessageArea = styled(Form)`
-  margin: 15px 0 0 0;
-  display: flex;
-`
+
 const LeftTextBubble = styled.div`
-  /* background: hsl(175, 5%, 80%); */
   background: linear-gradient(0deg, hsl(175, 5%, 80%) 0%, hsl(175, 5%, 90%) 100%);
   border-radius: 10px 10px 10px 3px;
   margin: 3px 50px 0 0;
-  /* margin: 3px auto 0 0; */
   padding: 3px 8px;
 `
 const RightTextBubble = styled(LeftTextBubble)`
-  //background-color: hsl(175, 65%, 52%);
   background: linear-gradient(0deg, hsl(175, 80%, 50%) 0%, hsl(175, 100%, 70%) 100%);
-  
   border-radius: 10px 10px 4px 10px;
   text-align: right;
-  //margin: 3px 0 0 50px;
-  margin: 3px 0 0 auto;
-  //margin-left: max(50px, auto)
-  //margin: 3px 0 0 max( auto);
-  
+  margin-left: auto;
+  position: relative;
+  left: 50px;
+`
+const NewMessageArea = styled(Form)`
+  margin: 15px 0 0 0;
+  display: flex;
 `
 const Input = styled(Form.Control)`
   width: 400px;
@@ -73,6 +68,9 @@ function GroupChatWindow({groupId}) {
 
   function userName(user_id) {
     const index = members.findIndex(member => member.user_id === user_id)
+    if (index === -1) {
+      return "unknown user"
+    }
     return members[index].user.username
   }
 

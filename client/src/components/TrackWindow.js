@@ -16,12 +16,13 @@ const Window = styled.div`
 
 
 
-function TracksWindow() {
+function TrackWindow() {
 
 
 
     return(
         <Window>
+            <Button size="sm">Add a track</Button>
           
                 <h1 className="display-1" ><strong>Tracks</strong></h1>
             
@@ -31,4 +32,4 @@ function TracksWindow() {
     )
 }
 
-export default TracksWindow;
+export default TrackWindow;

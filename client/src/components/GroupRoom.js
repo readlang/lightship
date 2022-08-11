@@ -9,7 +9,7 @@ import Button from "react-bootstrap/Button";
 import FriendCard from "./FriendCard";
 import styled from "styled-components";
 import GroupChatWindow from "./GroupChatWindow";
-import TracksWindow from "./TracksWindow";
+import TrackWindow from "./TrackWindow";
 
 const Background = styled.div`
 	background-color: hsl(0, 0%, 88%);
@@ -84,7 +84,7 @@ function GroupRoom() {
 					{members.map(member =>(<FriendCard key={member.id} member={member} /> )) }
 				</div>
 				<div style={{display: 'flex'}}>
-				<TracksColumn> <TracksWindow/> </TracksColumn>
+				<TracksColumn> <TrackWindow/> </TracksColumn>
 				<ChatColumn> <GroupChatWindow groupId={groupId} /> </ChatColumn>
 				</div>
 			</Page>
