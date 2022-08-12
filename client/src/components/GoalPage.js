@@ -1,23 +1,8 @@
 import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
+import {Background, Page} from "../style/styled"
 
-
-const Background = styled.div`
-	background-color: hsl(0, 0%, 90%);
-    min-height: ${window.innerHeight -76}px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`
-const Page = styled.div`
-    background-color: hsl(0, 0%, 95%);
-    width: 1000px;
-    min-height: ${window.innerHeight -76-100}px;
-    border-radius: 8px;
-    padding: 30px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-`
 const BackButton = styled(Button)`
     float: right;
     /* border-radius: 30px; */

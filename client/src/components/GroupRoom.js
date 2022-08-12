@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import {useSelector, useDispatch} from "react-redux"
 import { useParams, useNavigate } from "react-router-dom";
 
 import { getMemberGroupsForUser } from '../slices/groupsSlice'
 import { getMembershipsForGroup } from "../slices/membersSlice";
-import { Column, AddButton, CardButton, EditButton, EditCard } from "../style/styled"
 import Button from "react-bootstrap/Button";
 import FriendCard from "./FriendCard";
 import styled from "styled-components";
@@ -44,9 +43,6 @@ const BackButton = styled(Button)`
   //margin-right: 0;
   //display: block;
   background-color: rgba(255, 255, 255, 1);
-`
-const BigButton = styled(AddButton)`
-	width: auto;
 `
 const FriendArea = styled.div`
 	display: flex;

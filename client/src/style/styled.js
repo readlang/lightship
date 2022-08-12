@@ -44,3 +44,21 @@ export const EditCard = styled.div`
   border-radius: .25rem;
   border: 1px solid #6c757d;
 `
+
+
+// Used in GoalPage and FriendPage
+export const Background = styled.div`
+	background-color: hsl(0, 0%, 90%);
+  min-height: ${window.innerHeight -76}px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+export const Page = styled.div`
+  background-color: hsl(0, 0%, 95%);
+  width: 1000px;
+  min-height: ${window.innerHeight -76-100}px;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+`
