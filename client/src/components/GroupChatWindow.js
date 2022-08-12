@@ -58,9 +58,9 @@ function GroupChatWindow({groupId}) {
   const messages = useSelector((state)=>state.messages.groupMessages)
   const dispatch = useDispatch()
 
-  useEffect(()=>{
+  useEffect(()=>{ //change refresh speed?
     dispatch(getMessagesForGroup(groupId));
-    let interval = setInterval(()=>{ dispatch(getMessagesForGroup(groupId)); console.log("fetch messages") }, 10000)
+    let interval = setInterval(()=>{ dispatch(getMessagesForGroup(groupId)); console.log("fetch messages") }, 20000)
     return()=> { clearInterval(interval) }
   }, [dispatch, groupId])
 
