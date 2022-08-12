@@ -82,7 +82,7 @@ function GroupRoom() {
 					<h6>{group.description}</h6>
 					<hr/>
 				</div>
-				<span>Members</span>
+				<span>Group Members</span>
 				<FriendArea>
 					
 					<Button variant="outline-primary" size="sm" onClick={() => navigate(`/groups`) }><h3><strong>+</strong></h3></Button>

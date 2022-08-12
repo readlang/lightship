@@ -22,7 +22,7 @@ const TrackItem = styled.div`
     /* height: 50px; */
     /* width: 140px;  // send a prop to this component that has tracks.length */
     // 748 / tracks.length - 8 
-    width: ${props => 746 / props.columns - 8}px;
+    width: ${props => props.colWidth}px;
     border: 1px solid #6c757d;
     border-radius: 8px;
     padding: 3px;
@@ -34,6 +34,8 @@ const ActionList = styled.div`
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    height: 650px;  
+    width: 750px;
 `
 
 
@@ -44,7 +46,8 @@ function TrackWindow({groupId}) {
     const members = useSelector((state)=>state.members.groupMembers)
     const tracks = useSelector((state)=>state.tracks.groupTracks)
     const actions = useSelector((state)=>state.actions.groupActions)
-    const columns = tracks.length
+    const colGap = 8
+    const colWidth = (738 + colGap) / tracks.length - colGap
 
     useEffect(()=>{
         dispatch(getTracksForGroup(groupId))
@@ -53,14 +56,21 @@ function TrackWindow({groupId}) {
 
     function userNameLookup(user_id) {
         const index = members.findIndex(member => member.user_id === user_id)
-        if (index === -1) {
-          return "unknown user"
+        if (index === -1) { return "unknown user" }
+        else return members[index].user.username
+    }
+
+    function unitLookup(track_id) {
+        
+        if (tracks.find(track => track.id === track_id).unit) {
+        return tracks.find(track => track.id === track_id).unit
+        } else {
+            return "unit"
         }
-        return members[index].user.username
     }
 
     console.log(tracks)
-    console.log(columns)
+    console.log(colWidth)
 
     return(
         <Window>
@@ -69,14 +79,15 @@ function TrackWindow({groupId}) {
             <Button style={{float: "right"}} size="sm" variant="outline-secondary">Add my track</Button> 
             <br/><br/>
             <TrackList>
-                {tracks.map(track =>(<TrackItem key={track.id} columns={columns}><h6> {userNameLookup(track.user_id)}</h6> 
+                {tracks.map(track =>(<TrackItem key={track.id} colWidth={colWidth}><h6> {userNameLookup(track.user_id)}</h6> 
                 <span>{track.title} </span><br/>
                 <SmallText>    {`${track.activity} ${track.minmax} ${track.number} ${track.unit} ${track.interval}`} </SmallText>
                 </TrackItem>))}
             </TrackList>
             <hr/>
             <ActionList>
-                { actions.map(action =>( <ActionMatrixRow key={action.id} action={action} />)) }
+                { actions.map(action =>( <ActionMatrixRow key={action.id} action={action} 
+                    colGap={colGap} colWidth={colWidth} unit={unitLookup(action.track_id)} />)) }
             </ActionList>
             
         </Window>
