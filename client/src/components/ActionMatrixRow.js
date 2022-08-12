@@ -8,7 +8,7 @@ border: 1px solid #6c757d;
 border-radius: 8px;
 padding: 3px;
 position: relative;
-/* left: ${props => (props.position === 4 ? "600px" : "0" )}; */
+// left: ${props => (props.position === 4 ? "600px" : "0" )}; example of ternary operator...
 left: ${props => (props.position * 148)}px; 
 `
 

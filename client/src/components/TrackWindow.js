@@ -20,7 +20,9 @@ const TrackList = styled.div`
 const TrackItem = styled.div`
     background-color: hsl(0, 0%, 100%);
     /* height: 50px; */
-    width: 140px;
+    /* width: 140px;  // send a prop to this component that has tracks.length */
+    // 748 / tracks.length - 8 
+    width: ${props => 746 / props.columns - 8}px;
     border: 1px solid #6c757d;
     border-radius: 8px;
     padding: 3px;
@@ -42,6 +44,7 @@ function TrackWindow({groupId}) {
     const members = useSelector((state)=>state.members.groupMembers)
     const tracks = useSelector((state)=>state.tracks.groupTracks)
     const actions = useSelector((state)=>state.actions.groupActions)
+    const columns = tracks.length
 
     useEffect(()=>{
         dispatch(getTracksForGroup(groupId))
@@ -57,6 +60,7 @@ function TrackWindow({groupId}) {
     }
 
     console.log(tracks)
+    console.log(columns)
 
     return(
         <Window>
@@ -65,7 +69,7 @@ function TrackWindow({groupId}) {
             <Button style={{float: "right"}} size="sm" variant="outline-secondary">Add my track</Button> 
             <br/><br/>
             <TrackList>
-                {tracks.map(track =>(<TrackItem key={track.id}><h6> {userNameLookup(track.user_id)}</h6> 
+                {tracks.map(track =>(<TrackItem key={track.id} columns={columns}><h6> {userNameLookup(track.user_id)}</h6> 
                 <span>{track.title} </span><br/>
                 <SmallText>    {`${track.activity} ${track.minmax} ${track.number} ${track.unit} ${track.interval}`} </SmallText>
                 </TrackItem>))}
