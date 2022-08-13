@@ -23,6 +23,11 @@ class UsersController < ApplicationController
         render json: Group.find_by!(id: params[:id]).users, status: :ok
     end
 
+    # get /users/search/:searchterm
+    def search_by_username
+        render json: User.find_by(username: params[:searchterm]), status: :ok
+    end
+
     # get "/users"
     def index
         render json: User.all, status: :ok

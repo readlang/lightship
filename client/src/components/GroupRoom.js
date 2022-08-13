@@ -9,6 +9,7 @@ import FriendCard from "./FriendCard";
 import styled from "styled-components";
 import GroupChatWindow from "./GroupChatWindow";
 import TrackWindow from "./TrackWindow";
+import GroupMemberModal from "./GroupMemberModal";
 
 const Background = styled.div`
 	background-color: hsl(0, 0%, 88%);
@@ -80,8 +81,7 @@ function GroupRoom() {
 				</div>
 				<span>Group Members</span>
 				<FriendArea>
-					
-					<Button variant="outline-primary" size="sm" onClick={() => navigate(`/groups`) }><h3><strong>+</strong></h3></Button>
+					<GroupMemberModal groupId={groupId} />
 					{members.map(member =>(<FriendCard key={member.id} member={member} /> )) }
 				</FriendArea>
 				<div style={{display: 'flex'}}>

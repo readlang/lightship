@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get "/users/:id/tracks", to: "tracks#show_for_user"   # show the tracks for a user
   get "/users/:id/groups", to: "groups#show_for_user"   # show the groups for a user
   get "/users/:id/owned_groups", to: "groups#show_for_owner" # show the owned_groups for a user
+  get "/users/search/:searchterm", to: "users#search_by_username" # search the users by username
 
   get "/tracks/:id/actions", to: "actions#show_for_track"    # show the actions for a track 
   
