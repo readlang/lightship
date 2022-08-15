@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_13_211904) do
+ActiveRecord::Schema.define(version: 2022_08_15_191718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,15 @@ ActiveRecord::Schema.define(version: 2022_07_13_211904) do
     t.float "number"
     t.integer "difficulty"
     t.string "comment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "goals", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "title"
+    t.string "description"
+    t.string "why"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -44,6 +53,13 @@ ActiveRecord::Schema.define(version: 2022_07_13_211904) do
     t.integer "user_id"
     t.integer "group_id"
     t.string "text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "friend_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
