@@ -28,7 +28,7 @@ function NavBar() {
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/goals">Goals</Nav.Link>
             <Nav.Link as={Link} to="/friends">Friends</Nav.Link>
-            <Nav.Link as={Link} to="/tracks">Tracks</Nav.Link>
+            <Nav.Link as={Link} to="/tracks">Tracks+Actions</Nav.Link>
             <Nav.Link as={Link} to="/groups">Groups</Nav.Link>
           </Nav>
           

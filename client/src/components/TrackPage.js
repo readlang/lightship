@@ -64,7 +64,7 @@ function TrackPage() {
 	return(
     <CenteredTwoColumns>
       <Column>
-        <h1 className="display-1" ><strong>Tracks</strong></h1>
+        <h1 className="display-1" ><strong>Tracks+Actions</strong></h1>
         <AddButton variant="outline-primary" onClick={() =>setFormType(true)} ><h4>&emsp; Add New Track &emsp;</h4></AddButton>
 
         {userTracks.map(track=>( 

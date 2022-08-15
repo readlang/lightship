@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Stack from "react-bootstrap/Stack"
 import {Background, Page} from "../style/styled"
 
 
@@ -17,7 +18,7 @@ const NewFriendArea = styled(Form)`
   border: 1px solid #6c757d;
   border-radius: 8px;
   padding: 5px;
-  width: 689px;
+  width: 800px;
   background-color: hsl(0, 0%, 100%);
 `
 const Input = styled(Form.Control)`
@@ -49,8 +50,19 @@ function FriendPage() {
                 <NewFriendArea onSubmit={handleSubmit}>
                     <Form.Label>&emsp; Enter Friend username (must be exact match) &emsp; </Form.Label>
                     <Input type="input" placeholder='username' value={username} onChange={e => setUsername(e.target.value)}/>
-                    <SendButton variant="outline-primary" type="submit"> Add Friend </SendButton>
+                    <SendButton variant="outline-primary" type="submit"> Add Friend </SendButton> &nbsp;
+                        <div className="vr" /> &nbsp;
+                    <Button variant="outline-danger">Reset</Button>
                 </NewFriendArea>
+
+                <br/>
+
+                <Stack direction="horizontal" gap={3}>
+                    <Form.Control className="me-auto" placeholder="Add your friend's username here (must be an exact match)" />
+                    <Button variant="secondary">Submit</Button>
+                    <div className="vr" />
+                    <Button variant="outline-danger">Reset</Button>
+                </Stack>
                 
             </Page>
             
