@@ -7,6 +7,8 @@ import actionsReducer from './slices/actionsSlice'
 import groupsReducer from './slices/groupsSlice'
 import messagesReducer from "./slices/messagesSlice"
 import membersReducer from "./slices/membersSlice"
+import goalsReducer from "./slices/goalsSlice"
+import relationshipsReducer from "./slices/relationshipsSlice"
 
 
 export default configureStore({
@@ -17,6 +19,8 @@ export default configureStore({
         actions: actionsReducer,
         groups: groupsReducer,
         messages: messagesReducer,
-        members: membersReducer
+        members: membersReducer,
+        goals: goalsReducer,
+        relationships: relationshipsReducer,
     },
 })
