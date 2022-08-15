@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   get "/users/:id/groups", to: "groups#show_for_user"   # show the groups for a user
   get "/users/:id/owned_groups", to: "groups#show_for_owner" # show the owned_groups for a user
   get "/users/search/:searchterm", to: "users#search_by_username" # search the users by username
+  get "/users/:id/goals", to: "goals#show_for_user" #show the goals of a user
+  get "/users/:id/relationships", to: "relationships#show_for_user" #show the relationships of a user
+  get "/users/:id/friends", to: "relationships#show_friends_for_user" #show the friends of a user
 
   get "/tracks/:id/actions", to: "actions#show_for_track"    # show the actions for a track 
   

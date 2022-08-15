@@ -6,9 +6,9 @@ class User < ApplicationRecord
     has_many :memberships
     has_many :messages
     has_many :goals
-    has_many :relationships
-    has_many :relationshipees, class_name: "Relationship", foreign_key: :friend_id #works. 
-    has_many :friends, class_name: "User", through: :relationships #works. returns users
+    has_many :relationships #returns relationships, not users
+    has_many :relationshipees, class_name: "Relationship", foreign_key: :friend_id #works. returns relationships from the "friend" side
+    has_many :friends, class_name: "User", through: :relationships #works. returns users. 
     
     
     
