@@ -11,10 +11,12 @@ class RelationshipsController < ApplicationController
         render json: Relationship.find_by!(id: params[:id]), status: :ok
     end
 
+    # get "/users/:id/relationships"
     def show_for_user
         render json: User.find_by!(id: params[:id]).relationships, status: :ok # returns rela's (not users)
     end
 
+    # get "/users/:id/friends"
     def show_friends_for_user
         render json: User.find_by!(id: params[:id]).friends, status: :ok  # returns users (people)
     end
