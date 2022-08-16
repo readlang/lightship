@@ -28,6 +28,17 @@ export const CardButton = styled(Button)`
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
 `
+export const Card = styled.div`
+  width: 500px;
+  height: auto;
+  margin: 10px 10px;
+  padding: 20px 40px;
+  color: hsl(0, 0%, 25%);
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+  border-radius: .25rem;
+  border: 1px solid #6c757d;
+`
 export const EditButton = styled(Button)`
   position: absolute;
   top: 20px;

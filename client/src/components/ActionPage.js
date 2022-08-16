@@ -7,6 +7,7 @@ import styled from "styled-components";
 import Calendar from "./Calendar"
 import Button from "react-bootstrap/Button";
 import ActionForm from "./ActionForm"
+import {Card} from "../style/styled.js"
 
 const CenteredTwoColumns = styled.div`
   background-color: hsl(0, 0%, 97%);
@@ -27,17 +28,7 @@ const BackButton = styled(Button)`
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
 `
-const Card = styled.div`
-  width: 500px;
-  height: auto;
-  margin: 10px 10px;
-  padding: 20px 40px;
-  color: hsl(0, 0%, 25%);
-  background-color: rgba(255, 255, 255, 1);
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
-  border-radius: .25rem;
-  border: 1px solid #6c757d;
-`
+
 const ListItem = styled.div`
   padding: 17px 0 5px;
   min-height: 90px;
