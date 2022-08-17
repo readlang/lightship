@@ -31,6 +31,7 @@ const Sized400 = styled.div`
 const Img = styled.img`
   object-fit: fill;
   height: 360px;
+  border-radius: 0px;
 `
 
 function UserPage () {

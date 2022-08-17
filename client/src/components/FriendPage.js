@@ -5,10 +5,11 @@ import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Stack from "react-bootstrap/Stack"
-import {Background, Page} from "../style/styled"
+import Image from 'react-bootstrap/Image'
+import {Background, Page, Card} from "../style/styled"
 import {getRelationshipsForUser, createRelationship, deleteRelationship } from "../slices/relationshipsSlice"
 
-
+import accountLogo from "../assets/account_icon.png"
 
 const BackButton = styled(Button)`
     float: right;
@@ -20,7 +21,12 @@ const NewFriendArea = styled(Stack)`
     background-color: hsl(0, 0%, 98%);
     padding: 8px;
 `
-
+const Img = styled.img`
+  object-fit: cover;
+  width: 100px;
+  height: 100px;
+  border-radius: 15px;
+`
 
 function FriendPage() {
     const user = useSelector((state)=>state.user.value)
@@ -63,7 +69,14 @@ function FriendPage() {
                 </NewFriendArea>
 
                 {relationships.map(rela =>(
-                    <h4 key={rela.id}>{rela.friend_username}</h4>
+                    <Card key={rela.id}>
+                        {rela.friend_profile_image ? <Img src={rela.friend_profile_image} /> : <Img src={accountLogo} /> }
+                        &emsp;
+                        <div style={{display: "inline-block"}}>
+                            <span>username:</span>
+                            <h5 >{rela.friend_username}</h5>
+                        </div>
+                    </Card>
                 ))}
                 
             </Page>
