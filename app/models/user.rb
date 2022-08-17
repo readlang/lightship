@@ -14,6 +14,11 @@ class User < ApplicationRecord
     
     has_many :actions, through: :tracks
     has_many :groups, through: :memberships 
+
+    def self.search(search_term)
+        # self.all.find_all{ |user| user.username.downcase.include? (search_term.downcase) }  # returns all in an array
+          self.all.find{ |user| user.username.downcase.include? (search_term.downcase) }  # returns the first match (not an array)
+    end
 end
 
 # notes:

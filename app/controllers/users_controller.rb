@@ -25,7 +25,9 @@ class UsersController < ApplicationController
 
     # get /users/search/:searchterm
     def search_by_username
-        render json: User.find_by(username: params[:searchterm]), status: :ok
+        # user = User.find_by(username: params[:searchterm]) # this must be an exact match including Case
+        user = User.search( params[:searchterm] )
+        render json: user, status: :ok
     end
 
     # get "/users"
