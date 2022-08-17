@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { getTracksForGroup } from "../slices/tracksSlice";
 import { getActionsForGroup } from "../slices/actionsSlice"
 import ActionMatrixRow from "./ActionMatrixRow"
+import GroupAddTrackModal from "./GroupAddTrackModal"
 
 const Window = styled.div`
 	background-color: hsl(0, 0%, 100%);
@@ -76,7 +77,9 @@ function TrackWindow({groupId}) {
         <Window>
           
             <h4 style={{display: "inline"}} ><strong>Group Tracks & Actions</strong></h4>
-            <Button style={{float: "right"}} size="sm" variant="outline-secondary">Add my track</Button> 
+            <GroupAddTrackModal groupId={groupId} />
+            
+            
             <br/><br/>
             <TrackList>
                 {tracks.map(track =>(<TrackItem key={track.id} colWidth={colWidth}><h6> {userNameLookup(track.user_id)}</h6> 

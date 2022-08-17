@@ -9,15 +9,16 @@ export const tracksSlice = createSlice({
     },
 
     reducers: {
-        loadUserTracks: (state, action) => {state.userTracks = action.payload},
-        loadGroupTracks: (state, action) => {state.groupTracks = action.payload},
+        loadUserTracks: (state, action) => {state.userTracks = action.payload },
+        loadGroupTracks: (state, action)=> {state.groupTracks = action.payload },
         addUserTrack: (state, action) => { state.userTracks.push(action.payload) }, 
+        addGroupTrack: (state, action)=> { state.groupTracks.push(action.payload) },
         editUserTrack: (state, action) => { state.userTracks[state.userTracks.findIndex(x => x.id === action.payload.id)] = action.payload },
         deleteUserTrack: (state, action) => { state.userTracks = state.userTracks.filter(track=>(track.id !== action.payload ))}
     },
 })
 
-export const { loadUserTracks, loadGroupTracks, addUserTrack, editUserTrack, deleteUserTrack } = tracksSlice.actions
+export const { loadUserTracks, loadGroupTracks, addUserTrack, addGroupTrack, editUserTrack, deleteUserTrack } = tracksSlice.actions
 
 export default tracksSlice.reducer
 
@@ -46,11 +47,21 @@ export const createTrack = (
     .then(data => dispatch(addUserTrack(data)) ) 
 }
 
+export const addTrackToGroup = ( trackId, groupId ) => (dispatch) => {
+    fetch(`/tracks/${trackId}`, {
+        method: 'put',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({ group_id: groupId })
+    })
+    .then(resp => resp.json())
+    .then(data => console.log(data))
+}
+
 export const editTrack = (
-    trackID, title, activity, minmax, number, unit, interval, notes 
+    trackId, title, activity, minmax, number, unit, interval, notes 
     ) => (dispatch) => {
     console.log("editTrack Action")
-    fetch(`/tracks/${trackID}`, {
+    fetch(`/tracks/${trackId}`, {
         method: 'put',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify({title: title, activity: activity, minmax: minmax,
@@ -60,12 +71,12 @@ export const editTrack = (
     .then(data => dispatch(editUserTrack(data)) )
 } 
  
-export const deleteTrack = (trackID) => (dispatch) => {
+export const deleteTrack = (trackId) => (dispatch) => {
     console.log("deleteAction")
-    fetch(`/tracks/${trackID}`, {
+    fetch(`/tracks/${trackId}`, {
         method: 'delete',
         headers: {'content-type': 'application/json'}
     })
-    .then( dispatch(deleteUserTrack(trackID)) ) 
+    .then( dispatch(deleteUserTrack(trackId)) ) 
 }
 
