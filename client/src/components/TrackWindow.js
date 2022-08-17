@@ -61,11 +61,12 @@ function TrackWindow({groupId}) {
     }
 
     function unitLookup(track_id) {
-        if (tracks.find(track => track.id === track_id).unit) {
-        return tracks.find(track => track.id === track_id).unit
-        } else {
-            return "unit"
-        }
+        if (tracks.find(track => track.id === track_id)) {
+            if (tracks.find(track => track.id === track_id).unit) { 
+            return tracks.find(track => track.id === track_id).unit
+            } 
+        } 
+        return "unit"
     }
 
     console.log(tracks)

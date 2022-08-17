@@ -39,11 +39,8 @@ const ChatColumn = styled.div`
 	margin: 20px 0px 0px 20px;
 `
 const BackButton = styled(Button)`
-  float: right;
-  //margin-left: auto;
-  //margin-right: 0;
-  //display: block;
-  background-color: rgba(255, 255, 255, 1);
+  	float: right;
+	background-color: rgba(255, 255, 255, 1);
 `
 const FriendArea = styled.div`
 	display: flex;
