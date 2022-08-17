@@ -6,10 +6,10 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Stack from "react-bootstrap/Stack"
 import Image from 'react-bootstrap/Image'
-import {Background, Page, Card} from "../style/styled"
+import {Background, Page, Card, EditButton} from "../style/styled"
 import {getRelationshipsForUser, createRelationship, deleteRelationship } from "../slices/relationshipsSlice"
 
-import accountLogo from "../assets/account_icon.png"
+import accountLogo from "../assets/profile_icon.png"
 
 const BackButton = styled(Button)`
     float: right;
@@ -23,8 +23,9 @@ const NewFriendArea = styled(Stack)`
 `
 const Img = styled.img`
   object-fit: cover;
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
+  border: 1px solid hsl(0, 0%, 80%);
   border-radius: 15px;
 `
 
@@ -59,7 +60,7 @@ function FriendPage() {
                 <BackButton variant="outline-secondary" size="sm" onClick={() => navigate(`/`) } >Back</BackButton>
                 <h1 className="display-1" ><strong>Friends</strong></h1>
                 <hr/>
-                
+                <p>Friends can help you stay on track with your goals.  In this context, friends act as "accountability buddies."</p>
                 <NewFriendArea direction="horizontal" gap={3}>
                     <Form.Control className="me-auto" placeholder="Add a friend by username (must be an exact match)" 
                         value={username} onChange={e => setUsername(e.target.value)} />
@@ -69,13 +70,14 @@ function FriendPage() {
                 </NewFriendArea>
 
                 {relationships.map(rela =>(
-                    <Card key={rela.id}>
+                    <Card style={{position: 'relative'}} key={rela.id}>
                         {rela.friend_profile_image ? <Img src={rela.friend_profile_image} /> : <Img src={accountLogo} /> }
                         &emsp;
                         <div style={{display: "inline-block"}}>
-                            <span>username:</span>
-                            <h5 >{rela.friend_username}</h5>
+                            <em><small> username:</small></em>
+                            <h5 >{rela.friend_username}</h5>  
                         </div>
+                        <EditButton variant="outline-danger" size="sm" onClick={()=>dispatch(deleteRelationship(rela.id))} >Remove</EditButton>
                     </Card>
                 ))}
                 
