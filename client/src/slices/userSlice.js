@@ -8,9 +8,7 @@ export const userSlice = createSlice({
     },
 
     reducers: {
-        loadUser: (state, action) => {
-            state.value = action.payload
-        }
+        loadUser: (state, action) => { state.value = action.payload }
     },
 })
 
@@ -56,4 +54,17 @@ export const userLogOut = () => (dispatch) => {
         headers: {'content-type': 'application/json'}
     })
     .then( dispatch(loadUser({})) )
+}
+
+export const userEdit = ( userId, email, profileImage, city, state, country ) => (dispatch) => {
+    fetch(`/users/${userId}`, {
+        method: "post",
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({ email: email, profile_image: profileImage, 
+          city: city, state: state, country: country })
+    })
+    .then(resp => resp.json())
+    .then(data => console.log(data)
+        //dispatch(loadUser(data)) 
+    )
 }

@@ -4,7 +4,7 @@ import {  } from '../slices/userSlice'
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import {Background, Page, Card, EditButton} from "../style/styled"
+import {Background, Page} from "../style/styled"
 import { useState, useEffect} from "react";
 import accountLogo from "../assets/profile_icon.png"
 
@@ -16,15 +16,19 @@ const Profile = styled.div`
 	width: 300px;
 	display: flex;
 	align-items: center;
-	flex-direction: column;
+	flex-direction: row;
 `
-
-const FormArea = styled(Form)`
-	/* width: 600px; */
-    border: 1px solid #6c757d;
+const EditArea = styled.div`
+	border: 1px solid #6c757d;
     border-radius: 8px;
     padding: 15px;
     background-color: hsl(0, 0%, 98%);
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+`
+const FormArea = styled(Form)`
+	width: 600px;
 `
 const Img = styled.img`
   object-fit: cover;
@@ -33,16 +37,30 @@ const Img = styled.img`
   border: 1px solid hsl(0, 0%, 80%);
   border-radius: 15px;
 `
+const Preview = styled(Img)`
+  width: 200px;
+  height: 200px;
+`
 
 function UserEdit() {
 	const user = useSelector((state)=>state.user.value)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
+
     const [email, setEmail] = useState("")
     const [profileImage, setProfileImage] = useState("")
     const [city, setCity] = useState("")
     const [state, setState] = useState("")
     const [country, setCountry] = useState("")
+
+	useEffect(()=>{
+		setEmail( user.email ? user.email : "" )
+		setProfileImage(user.profile_image ? user.profile_image : "" )
+		setCity(user.city ? user.city : "" )
+		setState(user.state ? user.state : null )
+		setCountry(user.country ? user.country : "")
+
+	},[user])
 
 	function handleSubmit(event) {
         event.preventDefault()
@@ -57,116 +75,108 @@ function UserEdit() {
 				<hr/>
 				<Profile>
 					{user.profile_image ? <Img src={user.profile_image} /> : <Img src={accountLogo} /> }
-					<h4>{user.username}</h4>
+					&emsp;
+					<div>
+					<br/>
+					<h5>{user.username}</h5>
+					<p>{user.email}</p>
+					<p>{user.city}, {user.state}, {user.country}</p>
+					</div>
 				</Profile>
 
-
-				<FormArea className="row gx-2 gy-6 align-items-center" onSubmit={handleSubmit} >
+				<EditArea>
+					<FormArea className="row gx-2 gy-6 align-items-center" onSubmit={handleSubmit} >
 					
-					
+						<Form.Label><h5>Edit my profile</h5></Form.Label>
 
-					<Form.Label>Edit my profile</Form.Label>
+						<Form.Group className="mb-3" >
+							<Form.Control type="input" placeholder="email"
+							value={email} onChange={e=> setEmail(e.target.value)} />
+						</Form.Group>
 
-					{/* <Form.Group className="col-5 mb-3" >
-						<Form.Control type="input" placeholder="Username"
-						value={username} onChange={e=> setUsername(e.target.value)} />
-					</Form.Group> */}
+						<Form.Group className="mb-3 col-9" >
+							<Form.Control type="input" placeholder="city"
+							value={city} onChange={e=> setCity(e.target.value)} />
+						</Form.Group>
 
-					<Form.Group className="mb-3" >
-						<Form.Control type="input" placeholder="email"
-						value={email} onChange={e=> setEmail(e.target.value)} />
-					</Form.Group>
+						<Form.Group className="mb-3 col-3" >
+							<Form.Select type="input" placeholder="state" value={state} onChange={e=>setState(e.target.value)}> 
+								<option value=""> </option>
+								<option value="AK">AK</option>
+								<option value="AL">AL</option>
+								<option value="AR">AR</option>
+								<option value="AZ">AZ</option>
+								<option value="CA">CA</option>
+								<option value="CO">CO</option>
+								<option value="CT">CT</option>
+								<option value="DC">DC</option>
+								<option value="DE">DE</option>
+								<option value="FL">FL</option>
+								<option value="GA">GA</option>
+								<option value="HI">HI</option>
+								<option value="IA">IA</option>
+								<option value="ID">ID</option>
+								<option value="IL">IL</option>
+								<option value="IN">IN</option>
+								<option value="KS">KS</option>
+								<option value="KY">KY</option>
+								<option value="LA">LA</option>
+								<option value="MA">MA</option>
+								<option value="MD">MD</option>
+								<option value="ME">ME</option>
+								<option value="MI">MI</option>
+								<option value="MN">MN</option>
+								<option value="MO">MO</option>
+								<option value="MS">MS</option>
+								<option value="MT">MT</option>
+								<option value="NC">NC</option>
+								<option value="ND">ND</option>
+								<option value="NE">NE</option>
+								<option value="NH">NH</option>
+								<option value="NJ">NJ</option>
+								<option value="NM">NM</option>
+								<option value="NV">NV</option>
+								<option value="NY">NY</option>
+								<option value="OH">OH</option>
+								<option value="OK">OK</option>
+								<option value="OR">OR</option>
+								<option value="PA">PA</option>
+								<option value="RI">RI</option>
+								<option value="SC">SC</option>
+								<option value="SD">SD</option>
+								<option value="TN">TN</option>
+								<option value="TX">TX</option>
+								<option value="UT">UT</option>
+								<option value="VA">VA</option>
+								<option value="VT">VT</option>
+								<option value="WA">WA</option>
+								<option value="WI">WI</option>
+								<option value="WV">WV</option>
+								<option value="WY">WY</option>
+							</Form.Select>
+						</Form.Group>
 
-					{/* <Form.Group className="col-6 mb-3" >
-						<Form.Control type="password" placeholder="password"
-						value={password} onChange={e=> setPassword(e.target.value)} />
-					</Form.Group>    
+						<Form.Group className="mb-3" >
+							<Form.Control type="input" placeholder="country"
+							value={country} onChange={e=> setCountry(e.target.value)} />
+						</Form.Group>
 
-					<Form.Group className="col-6 mb-3" >
-						<Form.Control type="password" placeholder="confirm password"
-						value={passwordConfirm} onChange={e=> setPasswordConfirm(e.target.value)} />
-					</Form.Group> */}
+						<Form.Group className="mb-3" >
+							<Form.Control type="input" placeholder="profile image link"
+							value={profileImage} onChange={e=> setProfileImage(e.target.value)} />
+						</Form.Group>
 
-					<Form.Group className="mb-3 col-9" >
-						<Form.Control type="input" placeholder="city"
-						value={city} onChange={e=> setCity(e.target.value)} />
-					</Form.Group>
+						<Button className="col-2" variant="primary" type="submit">Save info</Button>
+						&emsp;
 
-					<Form.Group className="mb-3 col-3" >
-						<Form.Select type="input" placeholder="state" value={state} onChange={e=>setState(e.target.value)}>
-							<option value=""> </option>
-							<option value="AK">AK</option>                      
-							<option value="AL">AL</option>
-							<option value="AR">AR</option>
-							<option value="AZ">AZ</option>
-							<option value="CA">CA</option>
-							<option value="CO">CO</option>
-							<option value="CT">CT</option>
-							<option value="DC">DC</option>
-							<option value="DE">DE</option>
-							<option value="FL">FL</option>
-							<option value="GA">GA</option>
-							<option value="HI">HI</option>
-							<option value="IA">IA</option>
-							<option value="ID">ID</option>
-							<option value="IL">IL</option>
-							<option value="IN">IN</option>
-							<option value="KS">KS</option>
-							<option value="KY">KY</option>
-							<option value="LA">LA</option>
-							<option value="MA">MA</option>
-							<option value="MD">MD</option>
-							<option value="ME">ME</option>
-							<option value="MI">MI</option>
-							<option value="MN">MN</option>
-							<option value="MO">MO</option>
-							<option value="MS">MS</option>
-							<option value="MT">MT</option>
-							<option value="NC">NC</option>
-							<option value="ND">ND</option>
-							<option value="NE">NE</option>
-							<option value="NH">NH</option>
-							<option value="NJ">NJ</option>
-							<option value="NM">NM</option>
-							<option value="NV">NV</option>
-							<option value="NY">NY</option>
-							<option value="OH">OH</option>
-							<option value="OK">OK</option>
-							<option value="OR">OR</option>
-							<option value="PA">PA</option>
-							<option value="RI">RI</option>
-							<option value="SC">SC</option>
-							<option value="SD">SD</option>
-							<option value="TN">TN</option>
-							<option value="TX">TX</option>
-							<option value="UT">UT</option>
-							<option value="VA">VA</option>
-							<option value="VT">VT</option>
-							<option value="WA">WA</option>
-							<option value="WI">WI</option>
-							<option value="WV">WV</option>
-							<option value="WY">WY</option>
-						</Form.Select>
-					</Form.Group>
-
-					<Form.Group className="mb-3" >
-						<Form.Control type="input" placeholder="country"
-						value={country} onChange={e=> setCountry(e.target.value)} />
-					</Form.Group>
-
-					<Form.Group className="mb-3" >
-						<Form.Control type="input" placeholder="profile image link"
-						value={profileImage} onChange={e=> setProfileImage(e.target.value)} />
-					</Form.Group>
-
-					<Button className="col-2" variant="primary" type="submit">Save info</Button>
-					&emsp;
-
-					<Button className="col-1" variant="outline-secondary" onClick={()=> navigate(`/`)} type="input" >
-						Cancel
-					</Button>
-				</FormArea>
-
+						<Button className="col-2" variant="outline-secondary" onClick={()=> navigate(`/`)} type="input" >
+							Cancel
+						</Button>
+					</FormArea>
+					<div>
+						{profileImage ? <Preview src={profileImage} /> : <Preview src={accountLogo} /> }
+					</div>
+				</EditArea>
 			</Page>
 		</Background>
 	)

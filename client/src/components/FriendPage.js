@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Stack from "react-bootstrap/Stack"
-import Image from 'react-bootstrap/Image'
+//import Image from 'react-bootstrap/Image'
 import {Background, Page, Card, EditButton} from "../style/styled"
 import {getRelationshipsForUser, createRelationship, deleteRelationship } from "../slices/relationshipsSlice"
 
