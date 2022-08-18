@@ -58,13 +58,14 @@ export const userLogOut = () => (dispatch) => {
 
 export const userEdit = ( userId, email, profileImage, city, state, country ) => (dispatch) => {
     fetch(`/users/${userId}`, {
-        method: "post",
+        method: 'put',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify({ email: email, profile_image: profileImage, 
           city: city, state: state, country: country })
     })
     .then(resp => resp.json())
-    .then(data => console.log(data)
-        //dispatch(loadUser(data)) 
-    )
+    .then(data => {
+        console.log(data)
+        dispatch(loadUser(data)) 
+    })
 }

@@ -40,7 +40,7 @@ class UsersController < ApplicationController
         render json: User.find_by!(id: params[:id]), status: :ok
     end
 
-    # patch "/users/:id"
+    # put "/users/:id"
     def update
         user = User.find_by!(id: params[:id])
         user.update!(edit_params)

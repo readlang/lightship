@@ -1,6 +1,6 @@
 import {useSelector, useDispatch} from "react-redux"
 import {useNavigate} from "react-router-dom";
-import {  } from '../slices/userSlice'
+import { userEdit } from '../slices/userSlice'
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -64,7 +64,7 @@ function UserEdit() {
 
 	function handleSubmit(event) {
         event.preventDefault()
-        dispatch( (email, profileImage, city, state, country))
+        dispatch( userEdit(user.id, email, profileImage, city, state, country))
     }
 
 	return(
