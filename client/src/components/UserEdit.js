@@ -89,17 +89,21 @@ function UserEdit() {
 					
 						<Form.Label><h5>Edit my profile</h5></Form.Label>
 
+						
 						<Form.Group className="mb-3" >
+							<Form.Label>Email</Form.Label>
 							<Form.Control type="input" placeholder="email"
 							value={email} onChange={e=> setEmail(e.target.value)} />
 						</Form.Group>
 
-						<Form.Group className="mb-3 col-9" >
+						<Form.Group className="mb-3 col-5" >
+							<Form.Label>City</Form.Label>
 							<Form.Control type="input" placeholder="city"
 							value={city} onChange={e=> setCity(e.target.value)} />
 						</Form.Group>
 
-						<Form.Group className="mb-3 col-3" >
+						<Form.Group className="mb-3 col-2" >
+							<Form.Label>State</Form.Label>
 							<Form.Select type="input" placeholder="state" value={state} onChange={e=>setState(e.target.value)}> 
 								<option value=""> </option>
 								<option value="AK">AK</option>
@@ -156,12 +160,14 @@ function UserEdit() {
 							</Form.Select>
 						</Form.Group>
 
-						<Form.Group className="mb-3" >
+						<Form.Group className="mb-3 col-5">
+						<Form.Label>Country</Form.Label>
 							<Form.Control type="input" placeholder="country"
 							value={country} onChange={e=> setCountry(e.target.value)} />
 						</Form.Group>
 
 						<Form.Group className="mb-3" >
+						<Form.Label>Profile Image Link</Form.Label>
 							<Form.Control type="input" placeholder="profile image link"
 							value={profileImage} onChange={e=> setProfileImage(e.target.value)} />
 						</Form.Group>
@@ -174,6 +180,7 @@ function UserEdit() {
 						</Button>
 					</FormArea>
 					<div>
+						<p>&emsp; &emsp; Image Preview</p> 
 						{profileImage ? <Preview src={profileImage} /> : <Preview src={accountLogo} /> }
 					</div>
 				</EditArea>
