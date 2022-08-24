@@ -9,7 +9,7 @@ class ApplicationController < ActionController::API
   private
 
   def authorize
-    render json: {error: "not authorized"}, status: :unauthorized unless session.include? :user_id
+    render json: {errors: ["not authorized"]}, status: :unauthorized unless session.include? :user_id
   end
 
   def render_unprocessable_entity_response(exception)
