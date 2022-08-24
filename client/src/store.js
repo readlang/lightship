@@ -9,6 +9,7 @@ import messagesReducer from "./slices/messagesSlice"
 import membersReducer from "./slices/membersSlice"
 import goalsReducer from "./slices/goalsSlice"
 import relationshipsReducer from "./slices/relationshipsSlice"
+import errorsReducer from "./slices/errorsSlice"
 
 
 export default configureStore({
@@ -22,5 +23,6 @@ export default configureStore({
         members: membersReducer,
         goals: goalsReducer,
         relationships: relationshipsReducer,
+        errors: errorsReducer,
     },
 })
