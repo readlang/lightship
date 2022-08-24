@@ -1,6 +1,5 @@
 import {useSelector, useDispatch} from "react-redux"
 import styled from "styled-components";
-import Button from "react-bootstrap/Button";
 import { useEffect } from "react";
 import { getTracksForGroup } from "../slices/tracksSlice";
 import { getActionsForGroup } from "../slices/actionsSlice"
@@ -20,9 +19,6 @@ const TrackList = styled.div`
 `
 const TrackItem = styled.div`
     background-color: hsl(0, 0%, 100%);
-    /* height: 50px; */
-    /* width: 140px;  // send a prop to this component that has tracks.length */
-    // 748 / tracks.length - 8 
     width: ${props => props.colWidth}px;
     border: 1px solid #6c757d;
     border-radius: 8px;
@@ -43,7 +39,6 @@ const ActionList = styled.div`
 
 function TrackWindow({groupId}) {
     const dispatch = useDispatch()
-    const user = useSelector((state)=>state.user.value)
     const members = useSelector((state)=>state.members.groupMembers)
     const tracks = useSelector((state)=>state.tracks.groupTracks)
     const actions = useSelector((state)=>state.actions.groupActions)

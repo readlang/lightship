@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
+import { loadErrors } from './errorsSlice'
 
 export const userSlice = createSlice({
     name: "user",
@@ -23,15 +24,15 @@ export const userLogIn = (username, password) => (dispatch) => {
         body: JSON.stringify({username: username, password: password})
     })
     .then(resp =>resp.json())
-    .then(data => dispatch(loadUser(data)), 
-        // error => dispatch({ type: 'LOAD_DATA_FAILURE', error }) // this is for if rejected...
+    .then(data => data.errors ? dispatch(loadErrors(data.errors)) : dispatch(loadUser(data)), 
+        //error => dispatch({ type: 'LOAD_DATA_FAILURE', error }) // this is for if rejected... not sure if it works
     )
 }
 
 export const userSessionLogIn = () => (dispatch) => {
     fetch("/me")
     .then(resp => resp.json())
-    .then(data => dispatch(loadUser(data)) )
+    .then(data => data.errors ? dispatch(loadErrors(data.errors)) : dispatch(loadUser(data)) ) // REMOVE THIS LATER
 }
 
 export const userSignUp = (
@@ -45,7 +46,7 @@ export const userSignUp = (
           city: city, state: state, country: country})
     })
     .then(resp => resp.json())
-    .then(data => dispatch(loadUser(data)) )
+    .then(data => data.errors ? dispatch(loadErrors(data.errors)) : dispatch(loadUser(data)) )
 }
 
 export const userLogOut = () => (dispatch) => {
@@ -64,8 +65,5 @@ export const userEdit = ( userId, email, profileImage, city, state, country ) =>
           city: city, state: state, country: country })
     })
     .then(resp => resp.json())
-    .then(data => {
-        console.log(data)
-        dispatch(loadUser(data)) 
-    })
+    .then(data => data.errors ? dispatch(loadErrors(data.errors)) : dispatch(loadUser(data)) )
 }

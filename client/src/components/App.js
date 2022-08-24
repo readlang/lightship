@@ -3,6 +3,7 @@ import {useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {userSessionLogIn} from '../slices/userSlice'
 
+import Error from "./Error"
 import UserPage from "./UserPage"
 import NavBar from "./NavBar"
 import UserEdit from "./UserEdit"
@@ -20,17 +21,13 @@ function App() {
   
   useEffect(() => {
     dispatch(userSessionLogIn())
-    
   }, [dispatch])
 
-  // useEffect(() => {
-  //   dispatch(getTracksForUser(user))
-  // }, [dispatch, user])
-
-  if ( !user.id ) { return <UserPage/>} 
+  if ( !user.id ) { return <> <UserPage/> <Error /> </>} 
   else { return (
     <>
       <NavBar/>
+      <Error />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="goals" element={<GoalPage />} />
