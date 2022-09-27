@@ -27,9 +27,9 @@ function Error() {
     if ( errors.length ) {
         return(
             <Container onClick={handleClose} style={{zIndex: "9999"}} position="top-center" containerPosition="absolute" > {/* "absolute or relative" */}
-                <Toast bg="info" onClose={handleClose} show={show} delay={10000} autohide >
+                <Toast bg="light" onClose={handleClose} show={show} delay={10000} autohide >
                     <Toast.Header>
-                        <strong className="me-auto">⚠️ Error</strong>
+                        <strong className="me-auto">⚠️ There was an Error</strong>
                     </Toast.Header>
                     <Toast.Body>
                         {errors.map(message => <p key={message}> &bull; {message} </p> )}
