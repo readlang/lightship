@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
+import { loadErrors } from './errorsSlice'
 
 export const tracksSlice = createSlice({
     name: "tracks",
@@ -25,13 +26,13 @@ export default tracksSlice.reducer
 export const getTracksForUser = (user) => (dispatch) => {
     fetch(`/users/${user.id}/tracks`)
     .then(resp => resp.json())
-    .then(data => dispatch(loadUserTracks(data)) )
+    .then(data => data.errors ? dispatch(loadErrors(data.errors)) : dispatch(loadUserTracks(data)) )
 }
 
 export const getTracksForGroup = (groupId) => (dispatch) => {
     fetch(`/groups/${groupId}/tracks`)
     .then(resp => resp.json())
-    .then(data => dispatch(loadGroupTracks(data)))
+    .then(data => data.errors ? dispatch(loadErrors(data.errors)) : dispatch(loadGroupTracks(data)))
 }
 
 export const createTrack = (
@@ -44,7 +45,7 @@ export const createTrack = (
         number: number, unit: unit, interval: interval, notes: notes }) 
     })
     .then(resp => resp.json())
-    .then(data => dispatch(addUserTrack(data)) ) 
+    .then(data => data.errors ? dispatch(loadErrors(data.errors)) : dispatch(addUserTrack(data)) ) 
 }
 
 export const addTrackToGroup = ( trackId, groupId ) => (dispatch) => {
@@ -54,7 +55,7 @@ export const addTrackToGroup = ( trackId, groupId ) => (dispatch) => {
         body: JSON.stringify({ group_id: groupId })
     })
     .then(resp => resp.json())
-    .then(data => console.log(data))
+    .then(data => data.errors ? dispatch(loadErrors(data.errors)) : console.log(data))  // <----------- seems like error
 }
 
 export const editTrack = (
@@ -68,7 +69,7 @@ export const editTrack = (
             number: number, unit: unit, interval: interval, notes: notes }) // group id?
     })
     .then(resp => resp.json())
-    .then(data => dispatch(editUserTrack(data)) )
+    .then(data => data.errors ? dispatch(loadErrors(data.errors)) : dispatch(editUserTrack(data)) )
 } 
  
 export const deleteTrack = (trackId) => (dispatch) => {
@@ -77,6 +78,7 @@ export const deleteTrack = (trackId) => (dispatch) => {
         method: 'delete',
         headers: {'content-type': 'application/json'}
     })
-    .then( dispatch(deleteUserTrack(trackId)) ) 
+    .then(resp => resp.json())
+    .then(data => data.errors ? dispatch(loadErrors(data.errors)) : dispatch(deleteUserTrack(trackId)) ) 
 }
 

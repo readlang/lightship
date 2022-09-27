@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
+import { loadErrors } from './errorsSlice'
 
 export const goalsSlice = createSlice({
     name: "goals",
@@ -25,7 +26,7 @@ export const getGoalsForUser = (userId) => (dispatch) => {
     .then(resp => resp.json())
     .then(data => {
         //console.log(data)
-        dispatch(loadGoals(data))
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(loadGoals(data))
     })
 }
 
@@ -37,8 +38,8 @@ export const createGoal = ( userId, title, description, why ) => (dispatch) => {
     })
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
-        dispatch(addGoal(data))
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(addGoal(data))
     })
 }
 
@@ -50,8 +51,8 @@ export const editGoal = ( goalId, title, description, why ) => (dispatch) => {
     })
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
-        dispatch(editGoalRx(data))
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(editGoalRx(data))
     })
 }
 
@@ -62,7 +63,7 @@ export const deleteGoal = ( goalId ) => (dispatch) => {
     })
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
-        dispatch(deleteGoalRx(goalId))
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(deleteGoalRx(goalId))
     })
 }

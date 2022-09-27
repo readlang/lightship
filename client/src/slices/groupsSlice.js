@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
+import { loadErrors } from './errorsSlice'
 
 export const groupsSlice = createSlice({
     name: "groups",
@@ -24,8 +25,8 @@ export const getMemberGroupsForUser = (userId) => (dispatch) => {
     fetch(`/users/${userId}/groups`) // NOTE: /owned_groups OR /groups (membership-groups)?
     .then(resp => resp.json())
     .then(data => { 
-        console.log(data)
-        dispatch(loadGroups(data)) 
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(loadGroups(data)) 
     })
 }
 
@@ -37,8 +38,8 @@ export const createGroup = (group_name, description, userId) => (dispatch) => {
     })
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
-        dispatch(addGroup(data))
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(addGroup(data))
     })
 }
 
@@ -50,8 +51,8 @@ export const editGroup = (groupId, group_name, description) => (dispatch) => {
     })
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
-        dispatch(editGroupRx(data))
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(editGroupRx(data))
     })
 }
 
@@ -62,7 +63,7 @@ export const deleteGroup = (groupId) => (dispatch) => {
     })
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
-        dispatch(deleteGroupRx(groupId))
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(deleteGroupRx(groupId))
     })
 }

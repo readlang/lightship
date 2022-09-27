@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
+import { loadErrors } from './errorsSlice'
 
 export const membersSlice = createSlice({
     name: "members",
@@ -23,8 +24,8 @@ export const getMembershipsForGroup = (groupId) => (dispatch) => { //this return
     fetch(`/groups/${groupId}/memberships`)
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
-        dispatch(loadMemberships(data))
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(loadMemberships(data))
     })
 }
 
@@ -36,8 +37,8 @@ export const addMember = ( groupId, userId ) => (dispatch) => { //this returns a
     })
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
-        dispatch(addMembershipRx(data))
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(addMembershipRx(data))
     })
 }
 
@@ -50,7 +51,7 @@ export const deleteMember = ( membershipId ) => (dispatch) => { // this returns 
     })
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
-        dispatch(deleteMembershipRx(membershipId)) // how does this work?
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(deleteMembershipRx(membershipId)) // how does this work?
     })
 }

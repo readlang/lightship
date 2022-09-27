@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
+import { loadErrors } from './errorsSlice'
 
 export const messagesSlice = createSlice({
     name: "messages",
@@ -24,8 +25,8 @@ export const getMessagesForGroup = (groupId) => (dispatch) => {
     fetch(`/groups/${groupId}/messages`)
     .then(resp => resp.json())
     .then(data => {
-        //console.log(data)
-        dispatch(loadMessages(data))
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(loadMessages(data))
     })
 }
 
@@ -37,8 +38,8 @@ export const createMessage = ( groupId, userId, text ) => (dispatch) => {
     })
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
-        dispatch(addMessage(data))
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(addMessage(data))
     })
 }
 
@@ -50,8 +51,8 @@ export const editMessage = ( messageId, text ) => (dispatch) => {
     })
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
-        dispatch(editMessageRx(data))
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(editMessageRx(data))
     })
 }
 
@@ -62,7 +63,7 @@ export const deleteMessage = ( messageId ) => (dispatch) => {
     })
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
-        dispatch(deleteMessageRx(messageId))
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(deleteMessageRx(messageId))
     })
 }

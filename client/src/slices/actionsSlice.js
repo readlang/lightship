@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
+import { loadErrors } from './errorsSlice'
 
 export const actionsSlice = createSlice({
     name: "actions",
@@ -26,8 +27,8 @@ export const getActionsForTrack = (trackId) => (dispatch) => {
     fetch(`/tracks/${trackId}/actions`)
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
-        dispatch(loadTrackActions(data))
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(loadTrackActions(data))
     })
 }
 
@@ -35,8 +36,8 @@ export const getActionsForGroup = (groupId) => (dispatch) => {
     fetch(`/groups/${groupId}/actions`)
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
-        dispatch(loadGroupActions(data))
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(loadGroupActions(data))
     })
 }
 
@@ -51,8 +52,9 @@ export const createAction = (
     })
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
-        dispatch(addTrackAction(data))} ) 
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(addTrackAction(data))
+    }) 
 }
 
 export const editAction = (
@@ -66,8 +68,9 @@ export const editAction = (
     })
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
-        dispatch(editTrackAction(data))} )
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(editTrackAction(data))
+    })
 } 
  
 export const deleteAction = (action_id) => (dispatch) => {
@@ -78,8 +81,8 @@ export const deleteAction = (action_id) => (dispatch) => {
     })
     .then(resp => resp.json())
     .then((data)=> {
-        console.log("delete actionslice:", data)
-        dispatch(deleteTrackAction(action_id))
+        // console.log("delete actionslice:", data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(deleteTrackAction(action_id))
     } ) 
 }
 

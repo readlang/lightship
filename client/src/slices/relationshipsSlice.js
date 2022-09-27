@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
+import {loadErrors} from './errorsSlice'
 
 export const relationshipsSlice = createSlice({
     name: "relationships",
@@ -25,7 +26,7 @@ export const getRelationshipsForUser = (userId) => (dispatch) => { // this retur
     .then(resp => resp.json())
     .then(data => {
         //console.log(data)
-        dispatch(loadRelationships(data))
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(loadRelationships(data))
     })
 }
 
@@ -37,8 +38,8 @@ export const createRelationship = ( userId, friendId ) => (dispatch) => {
     })
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
-        dispatch(addRelationship(data))
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(addRelationship(data))
     })
 }
 /*
@@ -62,7 +63,7 @@ export const deleteRelationship = ( relaId ) => (dispatch) => {
     })
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
-        dispatch(deleteRelationshipRx(relaId))
+        // console.log(data)
+        data.errors ? dispatch(loadErrors(data.errors)) : dispatch(deleteRelationshipRx(relaId))
     })
 }
