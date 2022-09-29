@@ -8,8 +8,13 @@ const Title = styled.div`
 
 const Img = styled.img`
   object-fit: fill;
-  width: 940px;
-  border-radius: 6px;
+  width: 600px;
+  border-radius: 4px;
+  margin: 0 20px 0 0;
+`
+const SplitDiv = styled.div`
+    display: flex;
+    width: 940px;
 `
 
 function Home(){
@@ -21,10 +26,17 @@ function Home(){
                 <h1 className="display-1" ><strong>Welcome to LightShip</strong></h1>
                 </Title>
 
-                <hr/>
-                <Img src={ship} /> <br/> <br/> 
+                <hr/><br/>
+                <SplitDiv>
+                    <Img src={ship} /> 
 
-                <p> <b>LightShip</b> helps you stay on track with what's important to you.  You need trusty waypoints to navigate in stormy seas. <br/> </p>
+                    <p> LightShip helps you stay on track with what's important to you.  It's helpful to have trusty waypoints to navigate in stormy seas. <br/> <br/>
+                    Why LightShip?  A lightship is essentially a lighthouse mounted to a ship, anchored out at sea in a particularly treacherous spot.  It helps other ships to navigate around and past the danger, keeping on their intended course. <br/> <br/>
+                    LightShip is intended to assist in keeping people on course, moving towards their goals, through the chaos of life.
+                    </p>
+                </SplitDiv>
+                <br/><br/>
+                <h5> How to LightShip?</h5>
                 <ul>
                     <li> Start by defining a few <em>goals</em>.  A goal is target to shoot for in a given amount of time. </li><br/>
                     <li> Next, connect to a few <em>friends</em> on the platform.  They will help you stay accountable.  The aim is not to add a lot of friends, 

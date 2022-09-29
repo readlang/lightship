@@ -7,4 +7,7 @@ class Track < ApplicationRecord
         self.actions.sort_by{|x| x.date_time }
     end
 
+    validates :title, :activity, presence: true, length: { in: 3..30 } 
+    validates :number, :unit, presence: true 
+
 end
