@@ -11,4 +11,6 @@ class Group < ApplicationRecord
         self.actions.sort_by{|x| x.date_time }
     end
 
+    validates :group_name, :description, presence: true, length: { in: 3..35 }
+
 end
