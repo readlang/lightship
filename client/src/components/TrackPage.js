@@ -5,28 +5,15 @@ import { getTracksForUser } from '../slices/tracksSlice'
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import TrackForm from "./TrackForm"
+import {Background, Page} from "../style/styled"
 
-const CenteredTwoColumns = styled.div`
-  background-color: hsl(0, 0%, 97%);
-  min-height: ${window.innerHeight - 76}px;
-  padding: 40px 0 0 0;
+const TwoColumn = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-`
-const Column = styled.div`
-  width: 520px;
-`
-const AddButton = styled(Button)`
-  width: 500px;
-  margin: 30px 10px 10px;
-  background-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
-  border-radius: 30px;
+  justify-content: space-between;
 `
 const CardButton = styled(Button)`
-  width: 500px;
-  margin: 5px 10px;
+  width: 450px;
+  margin: 5px 0px;
   padding: 20px 40px;
   color: hsl(0, 0%, 25%);
   text-align: left;
@@ -36,12 +23,12 @@ const CardButton = styled(Button)`
 const EditButton = styled(Button)`
   position: absolute;
   top: 20px;
-  right: 20px;
+  left: 380px;
 `
 const EditCard = styled.div`
-  width: 500px;
+  width: 450px;
   height: auto;
-  margin: 10px 10px;
+  margin: 10px 0px;
   padding: 20px 40px;
   color: hsl(0, 0%, 25%);
   background-color: rgba(255, 255, 255, 1);
@@ -62,28 +49,33 @@ function TrackPage() {
   }, [dispatch, user])
 
 	return(
-    <CenteredTwoColumns>
-      <Column>
+    <Background>
+      <Page>
         <h1 className="display-1" ><strong>Tracks+Actions</strong></h1>
-        <AddButton variant="outline-primary" onClick={() =>setFormType(true)} ><h4>&emsp; Add New Track &emsp;</h4></AddButton>
+        <hr/>
+        <TwoColumn>
+          <div>
+            <Button variant="outline-primary" onClick={() =>setFormType(true)} >&emsp; Add New Track &emsp;</Button>
+            <br/> <br/>
+            {userTracks.map(track=>( 
+              <div style={{position: 'relative'}} key={track.id} >
+                <CardButton variant="outline-secondary"  onClick={() => navigate(`/tracks/${track.id}/actions`) }  > 
+                  <h4 style={{display: "inline"}}>{track.title}</h4>
+                  <h6>{`${track.activity} ${track.minmax} ${track.number} ${track.unit} ${track.interval}`}</h6>
+                  <p>{track.notes}</p>
+                </CardButton> 
 
-        {userTracks.map(track=>( 
-          <div style={{position: 'relative'}} key={track.id} >
-            <CardButton variant="outline-secondary"  onClick={() => navigate(`/tracks/${track.id}/actions`) }  > 
-              <h4 style={{display: "inline"}}>{track.title}</h4>
-              <h6>{`${track.activity} ${track.minmax} ${track.number} ${track.unit} ${track.interval}`}</h6>
-              <p>{track.notes}</p>
-            </CardButton> 
-
-            <EditButton variant="outline-danger" onClick={()=>setFormType(track) }>Edit</EditButton>
+                <EditButton variant="outline-danger" onClick={()=>setFormType(track) }>Edit</EditButton>
+              </div>
+            ))}
           </div>
-        ))}
-      </Column>
-          
-      <Column>
-        {formType ? <EditCard> <TrackForm track={formType} setFormType={setFormType}/> </EditCard> : null }   
-      </Column>
-    </CenteredTwoColumns>
+              
+          <div>
+            {formType ? <EditCard> <TrackForm track={formType} setFormType={setFormType}/> </EditCard> : null }   
+          </div>
+        </TwoColumn>
+      </Page>
+    </Background>
 	)
 }
 
