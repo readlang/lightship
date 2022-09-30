@@ -20,7 +20,8 @@ function GroupAddTrackModal({groupId}) {
   const handleShow = () => setShow(true);
 
   function handleSubmit(trackId) {
-    dispatch(addTrackToGroup(trackId, groupId))    
+    dispatch(addTrackToGroup(trackId, groupId))   
+    handleClose()
   }
 
   return (
@@ -31,7 +32,7 @@ function GroupAddTrackModal({groupId}) {
 
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Share your track to the group</Modal.Title>
+          <Modal.Title>Select a track to share with the group</Modal.Title>
         </Modal.Header>
         <Modal.Body>
             {tracks.map(track => (

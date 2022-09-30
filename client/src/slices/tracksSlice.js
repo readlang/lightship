@@ -55,7 +55,7 @@ export const addTrackToGroup = ( trackId, groupId ) => (dispatch) => {
         body: JSON.stringify({ group_id: groupId })
     })
     .then(resp => resp.json())
-    .then(data => data.errors ? dispatch(loadErrors(data.errors)) : console.log(data))  // <----------- seems like error
+    .then(data => data.errors ? dispatch(loadErrors(data.errors)) : dispatch(addGroupTrack(data)) )  
 }
 
 export const editTrack = (
