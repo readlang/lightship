@@ -8,6 +8,7 @@ import Stack from "react-bootstrap/Stack"
 //import Image from 'react-bootstrap/Image'
 import {Background, Page, Card, EditButton} from "../style/styled"
 import {getRelationshipsForUser, createRelationship, deleteRelationship } from "../slices/relationshipsSlice"
+import {loadErrors} from "../slices/errorsSlice"
 
 import accountLogo from "../assets/profile_icon.png"
 
@@ -41,11 +42,11 @@ function FriendPage() {
     },[dispatch, user.id])
 
     function handleSubmit() {
-        if (username !== "") {
-            fetch(`/users/search/${username}`)
+        if (username.trim() !== "") {
+            fetch(`/users/search/${username.trim()}`)
             .then(resp => resp.json())
             .then(data=>{
-                dispatch(createRelationship(user.id, data.id)) // this is expecting a userID, not a username
+                data ? dispatch(createRelationship(user.id, data.id)) : dispatch(loadErrors(["The friend search didn't find anyone. Try again."]))
             })
         }
         console.log(username)

@@ -29,7 +29,7 @@ function Error() {
             <Container onClick={handleClose} style={{zIndex: "9999"}} position="top-center" containerPosition="absolute" > {/* "absolute or relative" */}
                 <Toast bg="light" onClose={handleClose} show={show} delay={10000} autohide >
                     <Toast.Header>
-                        <strong className="me-auto">⚠️ There was an Error</strong>
+                        <strong className="me-auto">⚠️ LightShip Error Notice </strong>
                     </Toast.Header>
                     <Toast.Body>
                         {errors.map(message => <p key={message}> &bull; {message} </p> )}

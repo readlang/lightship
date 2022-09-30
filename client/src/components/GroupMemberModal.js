@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addMember } from "../slices/membersSlice";
+import { loadErrors } from '../slices/errorsSlice'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
@@ -13,11 +14,11 @@ function GroupMemberModal({groupId}) {
   const handleShow = () => setShow(true);
 
   function handleSubmit() {
-    if (username !== "") {
-    fetch(`/users/search/${username}`)
+    if (username.trim() !== "") {
+    fetch(`/users/search/${username.trim()}`)
     .then(resp => resp.json())
     .then(data=>{
-        dispatch(addMember(groupId, data.id))
+        data ? dispatch(addMember(groupId, data.id)) : dispatch(loadErrors(["The friend search didn't find anyone. Try again."]))
     })
     setUsername("")
     setShow(false)
@@ -37,7 +38,7 @@ function GroupMemberModal({groupId}) {
         <Modal.Body>
             <Form>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Enter their Username - must be an exact match</Form.Label>
+                    <Form.Label>Enter their Username</Form.Label>
                     <Form.Control
                         type="input"
                         placeholder="UsernameExample"
