@@ -76,7 +76,7 @@ function GroupChatWindow({groupId}) {
 
   function handleSubmit(event) {
     event.preventDefault()
-    dispatch(createMessage(groupId, user.id, newMessage))
+    if ( newMessage.trim().length > 0 ) dispatch(createMessage(groupId, user.id, newMessage))
     setNewMessage("")
   }
 
