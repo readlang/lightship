@@ -5,29 +5,8 @@ import { getActionsForTrack } from '../slices/actionsSlice'
 import { getTracksForUser } from '../slices/tracksSlice'
 import styled from "styled-components";
 import Calendar from "./Calendar"
-import Button from "react-bootstrap/Button";
 import ActionForm from "./ActionForm"
-import {Card} from "../style/styled.js"
-
-const CenteredTwoColumns = styled.div`
-  background-color: hsl(0, 0%, 97%);
-  min-height: ${window.innerHeight - 76}px;
-  padding: 40px 0 0 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-`
-const Column = styled.div`
-  width: 520px;
-`
-const BackButton = styled(Button)`
-  margin: 10px 10px 0 0; 
-  float: right;
-  
-  background-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
-  border-radius: 30px;
-`
+import {Background, Page, TwoColumn, Card, BackButton} from "../style/styled.js"
 
 const ListItem = styled.div`
   padding: 17px 0 5px;
@@ -48,7 +27,6 @@ function ActionPage() {
   useEffect(()=>{
     dispatch(getActionsForTrack(trackId))
   },[dispatch, trackId])
-	// this is fragile bc if it is reloaded the redux state is lost, which will make this crash - UPDATE: added conditional below...
 
   if (! track) { 
     dispatch(getTracksForUser(user))
@@ -56,35 +34,38 @@ function ActionPage() {
     }
   else
 	return(
-		<CenteredTwoColumns>
-			<Column>
-      <BackButton variant="outline-secondary" size="sm" onClick={() => navigate(`/tracks`) } >Back to all tracks</BackButton> &emsp;
+    <Background>
+      <Page>
+        <BackButton variant="outline-secondary" size="sm" onClick={() => navigate(`/tracks`) } >Back to all tracks</BackButton> 
         <h1 className="display-1" ><strong>Actions</strong></h1>
-        <br/>
-        
-        
-        <Card>
-          <h4>{track.title}</h4>
-          <h6>{`${track.activity} ${track.minmax} ${track.number} ${track.unit} ${track.interval}`}</h6>
-          <p>{track.notes}</p>
-        </Card>
-				<Calendar track={track}/>
-			</Column>
+        <hr/>
+        <p>Try to log your actions everyday.</p>
+        <TwoColumn>
+          <div>
+            <Card>
+              <h4>{track.title}</h4>
+              <h6>{`${track.activity} ${track.minmax} ${track.number} ${track.unit} ${track.interval}`}</h6>
+              <p>{track.notes}</p>
+            </Card>
+            <Calendar track={track}/>
+          </div>
 
-			<Column>
-        <Card>
-          <ActionForm track={track} action={selectedAction} setSelectedAction={setSelectedAction} /> 
-        </Card>
-				<Card>
-          <h4>Logged Events</h4>
-          {actions.length === 0 ? <p><i>Log a few actions and they will show up here...</i></p> : null }
-          {actions.map(action => <ListItem onClick={() => setSelectedAction(action) } key={action.id}> 
-            <h6>{ action.date_time.split('T')[0].slice(5,10).replace("-", "/") } &emsp; &emsp; {action.number} {track.unit} &emsp; &emsp; difficulty: {action.difficulty ? action.difficulty : null}  </h6>
-            <p>comments: {action.comment} &emsp; &emsp; action id: {action.id}</p>
-          </ListItem> )}
-        </Card>
-			</Column>
-		</CenteredTwoColumns>
+          <div>
+            <Card>
+              <ActionForm track={track} action={selectedAction} setSelectedAction={setSelectedAction} /> 
+            </Card>
+            <Card>
+              <h4>Logged Events</h4>
+              {actions.length === 0 ? <p><i>Log a few actions and they will show up here...</i></p> : null }
+              {actions.map(action => <ListItem onClick={() => setSelectedAction(action) } key={action.id}> 
+                <h6>{ action.date_time.split('T')[0].slice(5,10).replace("-", "/") } &emsp; &emsp; {action.number} {track.unit} &emsp; &emsp; difficulty: {action.difficulty ? action.difficulty : null}  </h6>
+                <p>comments: {action.comment} &emsp; &emsp; action id: {action.id}</p>
+              </ListItem> )}
+            </Card>
+          </div>
+        </TwoColumn>
+      </Page>
+    </Background>
 	)
 }
 export default ActionPage;

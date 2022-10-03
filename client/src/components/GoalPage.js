@@ -2,23 +2,17 @@ import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import {Background, Page, Card, EditButton} from "../style/styled"
+import {Background, Page, Card, EditButton, BackButton} from "../style/styled"
 import { useState, useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux"
 import { createGoal, getGoalsForUser, editGoal, deleteGoal } from "../slices/goalsSlice";
 
-const BackButton = styled(Button)`
-    float: right;
-    /* border-radius: 30px; */
-`
 const FormArea = styled(Form)`
     border: 1px solid #6c757d;
     border-radius: 8px;
     padding: 15px;
     background-color: hsl(0, 0%, 98%);
 `
-
-
 
 function GoalPage() {
     const user = useSelector((state)=>state.user.value)

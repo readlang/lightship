@@ -5,16 +5,11 @@ import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Stack from "react-bootstrap/Stack"
-//import Image from 'react-bootstrap/Image'
-import {Background, Page, Card, EditButton} from "../style/styled"
+import {Background, Page, Card, EditButton, BackButton} from "../style/styled"
 import {getRelationshipsForUser, createRelationship, deleteRelationship } from "../slices/relationshipsSlice"
 import {loadErrors} from "../slices/errorsSlice"
 
 import accountLogo from "../assets/profile_icon.png"
-
-const BackButton = styled(Button)`
-    float: right;
-`
 
 const NewFriendArea = styled(Stack)`
     border: 1px solid #6c757d;

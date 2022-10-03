@@ -1,16 +1,8 @@
 import {useSelector} from "react-redux"
-
+import {CalCard} from "../style/styled"
 import styled from "styled-components";
 import CalDay from "./CalDay"
 
-const Card = styled.div`
-	border: 1px solid #6c757d;
-	border-radius: 5px;
-	margin: 10px;
-	padding: 10px;
-	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
-	background-color: white;
-`
 const Grid = styled.div`
 	height: 300px;
 	background-color: hsl(0, 0%, 80%);
@@ -59,11 +51,11 @@ function Calendar({track}) {
 	//console.log(calArray.map(x=> x))
 
 	return(
-		<Card>
+		<CalCard>
 			<Grid>
 				{calArray.map(day => ( <CalDay key={day.date.toISOString()} day={day} /> ))}
 			</Grid>
-		</Card>
+		</CalCard>
 	)
 }
 export default Calendar;

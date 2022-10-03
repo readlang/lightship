@@ -5,36 +5,12 @@ import { getTracksForUser } from '../slices/tracksSlice'
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import TrackForm from "./TrackForm"
-import {Background, Page} from "../style/styled"
+import {Background, Page, TwoColumn, CardButton, Card} from "../style/styled"
 
-const TwoColumn = styled.div`
-  display: flex;
-  justify-content: space-between;
-`
-const CardButton = styled(Button)`
-  width: 450px;
-  margin: 5px 0px;
-  padding: 20px 40px;
-  color: hsl(0, 0%, 25%);
-  text-align: left;
-  background-color: rgba(255, 255, 255, 1);
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
-`
 const EditButton = styled(Button)`
   position: absolute;
   top: 20px;
   left: 380px;
-`
-const EditCard = styled.div`
-  width: 450px;
-  height: auto;
-  margin: 10px 0px;
-  padding: 20px 40px;
-  color: hsl(0, 0%, 25%);
-  background-color: rgba(255, 255, 255, 1);
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
-  border-radius: .25rem;
-  border: 1px solid #6c757d;
 `
 
 function TrackPage() {
@@ -71,7 +47,7 @@ function TrackPage() {
           </div>
               
           <div>
-            {formType ? <EditCard> <TrackForm track={formType} setFormType={setFormType}/> </EditCard> : null }   
+            {formType ? <Card> <TrackForm track={formType} setFormType={setFormType}/> </Card> : null }   
           </div>
         </TwoColumn>
       </Page>
