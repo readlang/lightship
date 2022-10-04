@@ -1,5 +1,4 @@
 # LightShip - Flatiron School Project
-<br/>
 
 ## Description
 This app is a goal-tracking and social accountability platform.  With this app, users can set goals, chart a path to reach those goals, and have friends provide feedback, encouragement and accountability.  The goal of the app is to help users stay the course and reach their goals. 
@@ -21,8 +20,6 @@ The first visit to the deployed page may take several seconds to load on Heroku 
 
 ## Walkthrough
 Upon visiting the site, a user is prompted to log in for sign up.  Once logged in, the app displays a welcome screen with instructions.  A user can define goals, add other users as friends, and create tracks which are the daily or weekly tasks to move towards hitting the goal.  Once these are created, the user can create a group and add friends.  Each of the members of the group will be able to see the other member's track and their progress on this track.  The group members can also chat to offer encouragement or comments to keep everyone moving towards their goals.
-
-<br />  
 
 ## Setup
 If you would like to play with this project on your machine, start by **cloning** the project template repository and removing the remote:
