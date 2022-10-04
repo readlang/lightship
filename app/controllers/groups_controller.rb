@@ -13,7 +13,7 @@ class GroupsController < ApplicationController
 
     # get /users/:id/groups - returns groups the user is a MEMBER of (not owner)
     def show_for_user
-        render json: User.find_by!(id: params[:id]).groups, status: :ok
+        render json: current_user.groups, status: :ok
     end
 
     # get /users/:id/owned_groups - returns groups the user is a ONWER of

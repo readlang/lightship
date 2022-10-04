@@ -8,11 +8,11 @@ class UsersController < ApplicationController
         render json: new_user, status: :created
     end
 
-    # get "/me"
+    # get "/me" - login using previously saved session cookie
     def show_me
-        new_user = User.find_by(id: session[:user_id])
-        if new_user
-            render json: new_user
+        # current_user found in application_controller helper_method
+        if current_user
+            render json: current_user
         else
             render json: {errors: ["Not logged in"]}, status: :unauthorized
         end

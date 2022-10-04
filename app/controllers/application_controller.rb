@@ -1,8 +1,14 @@
 class ApplicationController < ActionController::API
   include ActionController::Cookies
+  include AbstractController::Helpers # required to use helper_method below
+  helper_method :current_user
 
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id])
+  end
 
   before_action :authorize # check if session cookie includes user_id on every action (except where skipped)
 
