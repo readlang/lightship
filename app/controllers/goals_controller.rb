@@ -12,7 +12,7 @@ class GoalsController < ApplicationController
     end
 
     def show_for_user
-        render json: User.find_by!(id: params[:id]).goals, status: :ok
+        render json: current_user.goals, status: :ok
     end
 
     # post /goals

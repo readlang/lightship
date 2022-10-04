@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
         end
     end
 
-    # delete "/logout", to: "sessions#destroy" # log out
+    # delete "/logout", to: "sessions#destroy" # log out and delete session cookie
     def destroy
         session.delete :user_id
         head :no_content

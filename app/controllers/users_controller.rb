@@ -25,7 +25,6 @@ class UsersController < ApplicationController
 
     # get /users/search/:searchterm
     def search_by_username
-        # user = User.find_by(username: params[:searchterm]) # this must be an exact match including Case
         user = User.search( params[:searchterm] )
         render json: user, status: :ok
     end
@@ -37,19 +36,19 @@ class UsersController < ApplicationController
 
     # get "/users/:id"
     def show
-        render json: User.find_by!(id: params[:id]), status: :ok
+        render json: current_user, status: :ok
     end
 
     # put "/users/:id"
     def update
-        user = User.find_by!(id: params[:id])
+        user = current_user
         user.update!(edit_params)
         render json: user, status: :ok
     end
 
     # delete "/users/:id" - NOT SURE this should be allowed...
     def destroy
-        user = User.find_by!(id: params[:id])
+        user = current_user
         user.destroy
         render json: {deleted: user}, status: :ok
     end

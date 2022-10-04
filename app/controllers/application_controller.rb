@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
   include ActionController::Cookies
-  include AbstractController::Helpers # required to use helper_method below
-  helper_method :current_user
+  # include AbstractController::Helpers # required to use helper_method below
+  # helper_method :current_user # this only needed if using view rather than API mode
 
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response

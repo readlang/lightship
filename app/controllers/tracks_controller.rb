@@ -13,10 +13,10 @@ class TracksController < ApplicationController
 
     # get /users/:id/tracks
     def show_for_user
-        render json: User.find_by!(id: params[:id]).tracks, status: :ok
+        render json: current_user.tracks, status: :ok
     end
 
-    # get /users/:id/tracks
+    # get /groups/:id/tracks
     def show_for_group
         render json: Group.find_by!(id: params[:id]).tracks, status: :ok
     end

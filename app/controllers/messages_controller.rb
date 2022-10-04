@@ -1,12 +1,12 @@
 class MessagesController < ApplicationController
     skip_before_action :authorize # delete before deploying!
 
-    # get /things
+    # get /messages
     def index
         render json: Message.all, status: :ok
     end
 
-    # get /things/:id
+    # get /messages/:id
     def show
         render json: Message.find_by!(id: params[:id]), status: :ok
     end
@@ -15,19 +15,19 @@ class MessagesController < ApplicationController
         render json: Group.find_by!(id: params[:id]).messages, status: :ok
     end
 
-    # post /things
+    # post /messages
     def create
         render json: Message.create!(create_params), status: :created
     end
 
-    # patch or put /things/:id
+    # patch or put /messages/:id
     def update
         message = Message.find_by!(id: params[:id])
         message.update!(edit_params)
         render json: message, status: :ok
     end
 
-    # delete /things/:id
+    # delete /messages/:id
     def destroy
         message = Message.find_by!(id: params[:id])
         message.destroy

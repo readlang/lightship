@@ -18,7 +18,7 @@ class GroupsController < ApplicationController
 
     # get /users/:id/owned_groups - returns groups the user is a ONWER of
     def show_for_owner
-        render json: User.find_by!(id: params[:id]).owned_groups, status: :ok
+        render json: current_user.owned_groups, status: :ok
     end
 
     # post /groups

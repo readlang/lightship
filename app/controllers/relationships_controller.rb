@@ -13,12 +13,12 @@ class RelationshipsController < ApplicationController
 
     # get "/users/:id/relationships"
     def show_for_user
-        render json: User.find_by!(id: params[:id]).relationships, status: :ok # returns rela's (not users)
+        render json: current_user.relationships, status: :ok # returns rela's (not users)
     end
 
     # get "/users/:id/friends"
     def show_friends_for_user
-        render json: User.find_by!(id: params[:id]).friends, status: :ok  # returns users (people)
+        render json: current_user.friends, status: :ok  # returns users (people)
     end
 
     # post /relationships
