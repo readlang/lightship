@@ -15,7 +15,7 @@ This app is a goal-tracking and social accountability platform.  With this app, 
 
 The App is deployed on Heroku and available here: https://lightship.herokuapp.com/
 
-The first visit to the deployed page may take several seconds to load on Heroku due to "cold-start" on free tier server.  This is a function of it being hosted from a free-tier server, not the app itself.
+Note: The first visit to the deployed page on Heroku may take several seconds to load due to the "cold-start" on free-tier server.  Up to ~20 seconds is normal.  This is a function of it being hosted from a free-tier server on Heroku, not the app itself.  Load time is less than 1 second on "warm server."  Thank you for your patience!
 <br />
 
 ## Walkthrough
