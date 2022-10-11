@@ -58,7 +58,7 @@ function FriendPage() {
                 <hr/>
                 <p>Friends can help you stay on track with your goals.  In this context, friends act as "accountability buddies."</p>
                 <NewFriendArea direction="horizontal" gap={3}>
-                    <Form.Control className="me-auto" placeholder="Add a friend by username (must be an exact match)" 
+                    <Form.Control className="me-auto" placeholder="Add a friend by username" 
                         value={username} onChange={e => setUsername(e.target.value)} />
                     <Button variant="secondary" onClick={handleSubmit}>Submit</Button>
                     <div className="vr" />
